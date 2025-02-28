@@ -35,6 +35,7 @@ import org.openapitools.client.model.CreateChatCompletionRequestModel;
 import org.openapitools.client.model.CreateChatCompletionRequestPrediction;
 import org.openapitools.client.model.CreateChatCompletionRequestResponseFormat;
 import org.openapitools.client.model.CreateChatCompletionRequestStop;
+import org.openapitools.client.model.ReasoningEffort;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;

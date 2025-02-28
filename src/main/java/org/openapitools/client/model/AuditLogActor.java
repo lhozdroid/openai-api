@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   AuditLogActor.JSON_PROPERTY_SESSION,
   AuditLogActor.JSON_PROPERTY_API_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class AuditLogActor {
   /**
    * The type of actor. Is either &#x60;session&#x60; or &#x60;api_key&#x60;.
@@ -248,22 +248,12 @@ public class AuditLogActor {
 
     // add `session` to the URL query string
     if (getSession() != null) {
-      try {
-        joiner.add(String.format("%ssession%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSession()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
+      joiner.add(getSession().toUrlQueryString(prefix + "session" + suffix));
     }
 
     // add `api_key` to the URL query string
     if (getApiKey() != null) {
-      try {
-        joiner.add(String.format("%sapi_key%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getApiKey()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
-      }
+      joiner.add(getApiKey().toUrlQueryString(prefix + "api_key" + suffix));
     }
 
     return joiner.toString();

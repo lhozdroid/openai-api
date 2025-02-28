@@ -27,14 +27,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Send this event to append audio bytes to the input audio buffer. The audio  buffer is temporary storage you can write to and later commit. In Server VAD  mode, the audio buffer is used to detect speech and the server will decide  when to commit. When Server VAD is disabled, you must commit the audio buffer manually.  The client may choose how much audio to place in each event up to a maximum  of 15 MiB, for example streaming smaller chunks from the client may allow the  VAD to be more responsive. Unlike made other client events, the server will  not send a confirmation response to this event. 
+ * Send this event to append audio bytes to the input audio buffer. The audio buffer is temporary storage you can write to and later commit. In Server VAD mode, the audio buffer is used to detect speech and the server will decide when to commit. When Server VAD is disabled, you must commit the audio buffer manually.  The client may choose how much audio to place in each event up to a maximum of 15 MiB, for example streaming smaller chunks from the client may allow the VAD to be more responsive. Unlike made other client events, the server will not send a confirmation response to this event. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventInputAudioBufferAppend.JSON_PROPERTY_EVENT_ID,
   RealtimeClientEventInputAudioBufferAppend.JSON_PROPERTY_TYPE,
   RealtimeClientEventInputAudioBufferAppend.JSON_PROPERTY_AUDIO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventInputAudioBufferAppend {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable
@@ -141,7 +141,7 @@ public class RealtimeClientEventInputAudioBufferAppend {
   }
 
   /**
-   * Base64-encoded audio bytes. This must be in the format specified by the  &#x60;input_audio_format&#x60; field in the session configuration. 
+   * Base64-encoded audio bytes. This must be in the format specified by the &#x60;input_audio_format&#x60; field in the session configuration. 
    * @return audio
    */
   @javax.annotation.Nonnull

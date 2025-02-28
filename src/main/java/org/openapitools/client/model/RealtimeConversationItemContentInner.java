@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   RealtimeConversationItemContentInner.JSON_PROPERTY_TRANSCRIPT
 })
 @JsonTypeName("RealtimeConversationItem_content_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeConversationItemContentInner {
   /**
    * The content type (&#x60;input_text&#x60;, &#x60;input_audio&#x60;, &#x60;item_reference&#x60;, &#x60;text&#x60;). 

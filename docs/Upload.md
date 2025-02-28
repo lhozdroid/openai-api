@@ -16,7 +16,7 @@ The Upload object can accept byte chunks in the form of Parts.
 |**status** | [**StatusEnum**](#StatusEnum) | The status of the Upload. |  |
 |**expiresAt** | **Integer** | The Unix timestamp (in seconds) for when the Upload was created. |  |
 |**_object** | [**ObjectEnum**](#ObjectEnum) | The object type, which is always \&quot;upload\&quot;. |  [optional] |
-|**_file** | [**OpenAIFile**](OpenAIFile.md) |  |  [optional] |
+|**_file** | [**UploadFile**](UploadFile.md) |  |  [optional] |
 
 
 

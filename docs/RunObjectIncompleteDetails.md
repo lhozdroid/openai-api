@@ -16,8 +16,8 @@ Details on why the run is incomplete. Will be `null` if the run is not incomplet
 
 | Name | Value |
 |---- | -----|
-| COMPLETION_TOKENS | &quot;max_completion_tokens&quot; |
-| PROMPT_TOKENS | &quot;max_prompt_tokens&quot; |
+| MAX_COMPLETION_TOKENS | &quot;max_completion_tokens&quot; |
+| MAX_PROMPT_TOKENS | &quot;max_prompt_tokens&quot; |
 
 
 

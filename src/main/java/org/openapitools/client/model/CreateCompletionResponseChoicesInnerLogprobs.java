@@ -41,7 +41,7 @@ import java.util.StringJoiner;
   CreateCompletionResponseChoicesInnerLogprobs.JSON_PROPERTY_TOP_LOGPROBS
 })
 @JsonTypeName("CreateCompletionResponse_choices_inner_logprobs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateCompletionResponseChoicesInnerLogprobs {
   public static final String JSON_PROPERTY_TEXT_OFFSET = "text_offset";
   @javax.annotation.Nullable

@@ -195,11 +195,11 @@ class UsageTimeBucketResultInnerTest {
     }
 
     /**
-     * Test the property 'sessions'
+     * Test the property 'numSessions'
      */
     @Test
-    void sessionsTest() {
-        // TODO: test sessions
+    void numSessionsTest() {
+        // TODO: test numSessions
     }
 
     /**

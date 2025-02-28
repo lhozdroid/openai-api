@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when an input audio buffer is committed, either by the client or  automatically in server VAD mode. The &#x60;item_id&#x60; property is the ID of the user message item that will be created, thus a &#x60;conversation.item.created&#x60; event  will also be sent to the client. 
+ * Returned when an input audio buffer is committed, either by the client or automatically in server VAD mode. The &#x60;item_id&#x60; property is the ID of the user message item that will be created, thus a &#x60;conversation.item.created&#x60; event will also be sent to the client. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventInputAudioBufferCommitted.JSON_PROPERTY_EVENT_ID,
@@ -35,7 +35,7 @@ import java.util.StringJoiner;
   RealtimeServerEventInputAudioBufferCommitted.JSON_PROPERTY_PREVIOUS_ITEM_ID,
   RealtimeServerEventInputAudioBufferCommitted.JSON_PROPERTY_ITEM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventInputAudioBufferCommitted {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

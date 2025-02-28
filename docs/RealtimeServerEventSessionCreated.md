@@ -2,7 +2,7 @@
 
 # RealtimeServerEventSessionCreated
 
-Returned when a Session is created. Emitted automatically when a new  connection is established as the first server event. This event will contain  the default Session configuration. 
+Returned when a Session is created. Emitted automatically when a new connection is established as the first server event. This event will contain the default Session configuration. 
 
 ## Properties
 

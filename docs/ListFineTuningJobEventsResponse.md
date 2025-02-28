@@ -9,6 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**data** | [**List&lt;FineTuningJobEvent&gt;**](FineTuningJobEvent.md) |  |  |
 |**_object** | [**ObjectEnum**](#ObjectEnum) |  |  |
+|**hasMore** | **Boolean** |  |  |
 
 
 

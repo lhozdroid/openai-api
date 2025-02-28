@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,7 @@ import java.util.StringJoiner;
   CreateTranscription200Response.JSON_PROPERTY_SEGMENTS
 })
 @JsonTypeName("createTranscription_200_response")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateTranscription200Response {
   public static final String JSON_PROPERTY_TEXT = "text";
   @javax.annotation.Nonnull
@@ -56,7 +57,7 @@ public class CreateTranscription200Response {
 
   public static final String JSON_PROPERTY_DURATION = "duration";
   @javax.annotation.Nonnull
-  private String duration;
+  private BigDecimal duration;
 
   public static final String JSON_PROPERTY_WORDS = "words";
   @javax.annotation.Nullable
@@ -119,7 +120,7 @@ public class CreateTranscription200Response {
     this.language = language;
   }
 
-  public CreateTranscription200Response duration(@javax.annotation.Nonnull String duration) {
+  public CreateTranscription200Response duration(@javax.annotation.Nonnull BigDecimal duration) {
     
     this.duration = duration;
     return this;
@@ -133,14 +134,14 @@ public class CreateTranscription200Response {
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getDuration() {
+  public BigDecimal getDuration() {
     return duration;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDuration(@javax.annotation.Nonnull String duration) {
+  public void setDuration(@javax.annotation.Nonnull BigDecimal duration) {
     this.duration = duration;
   }
 

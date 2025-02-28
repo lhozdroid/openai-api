@@ -31,14 +31,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Emitted at the beginning of a Response to indicate the updated rate limits.  When a Response is created some tokens will be \&quot;reserved\&quot; for the output  tokens, the rate limits shown here reflect that reservation, which is then  adjusted accordingly once the Response is completed. 
+ * Emitted at the beginning of a Response to indicate the updated rate limits. When a Response is created some tokens will be \&quot;reserved\&quot; for the output tokens, the rate limits shown here reflect that reservation, which is then adjusted accordingly once the Response is completed. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventRateLimitsUpdated.JSON_PROPERTY_EVENT_ID,
   RealtimeServerEventRateLimitsUpdated.JSON_PROPERTY_TYPE,
   RealtimeServerEventRateLimitsUpdated.JSON_PROPERTY_RATE_LIMITS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventRateLimitsUpdated {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

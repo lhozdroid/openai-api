@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   CreateSpeechRequest.JSON_PROPERTY_RESPONSE_FORMAT,
   CreateSpeechRequest.JSON_PROPERTY_SPEED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateSpeechRequest {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nonnull
@@ -49,10 +49,14 @@ public class CreateSpeechRequest {
   private String input;
 
   /**
-   * The voice to use when generating the audio. Supported voices are &#x60;alloy&#x60;, &#x60;echo&#x60;, &#x60;fable&#x60;, &#x60;onyx&#x60;, &#x60;nova&#x60;, and &#x60;shimmer&#x60;. Previews of the voices are available in the [Text to speech guide](/docs/guides/text-to-speech#voice-options).
+   * The voice to use when generating the audio. Supported voices are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60;, &#x60;fable&#x60;, &#x60;onyx&#x60;, &#x60;nova&#x60;, &#x60;sage&#x60; and &#x60;shimmer&#x60;. Previews of the voices are available in the [Text to speech guide](/docs/guides/text-to-speech#voice-options).
    */
   public enum VoiceEnum {
     ALLOY(String.valueOf("alloy")),
+    
+    ASH(String.valueOf("ash")),
+    
+    CORAL(String.valueOf("coral")),
     
     ECHO(String.valueOf("echo")),
     
@@ -61,6 +65,8 @@ public class CreateSpeechRequest {
     ONYX(String.valueOf("onyx")),
     
     NOVA(String.valueOf("nova")),
+    
+    SAGE(String.valueOf("sage")),
     
     SHIMMER(String.valueOf("shimmer"));
 
@@ -206,7 +212,7 @@ public class CreateSpeechRequest {
   }
 
   /**
-   * The voice to use when generating the audio. Supported voices are &#x60;alloy&#x60;, &#x60;echo&#x60;, &#x60;fable&#x60;, &#x60;onyx&#x60;, &#x60;nova&#x60;, and &#x60;shimmer&#x60;. Previews of the voices are available in the [Text to speech guide](/docs/guides/text-to-speech#voice-options).
+   * The voice to use when generating the audio. Supported voices are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60;, &#x60;fable&#x60;, &#x60;onyx&#x60;, &#x60;nova&#x60;, &#x60;sage&#x60; and &#x60;shimmer&#x60;. Previews of the voices are available in the [Text to speech guide](/docs/guides/text-to-speech#voice-options).
    * @return voice
    */
   @javax.annotation.Nonnull

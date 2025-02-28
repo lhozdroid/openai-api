@@ -27,14 +27,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Send this event to cancel an in-progress response. The server will respond  with a &#x60;response.cancelled&#x60; event or an error if there is no response to  cancel. 
+ * Send this event to cancel an in-progress response. The server will respond with a &#x60;response.cancelled&#x60; event or an error if there is no response to cancel. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventResponseCancel.JSON_PROPERTY_EVENT_ID,
   RealtimeClientEventResponseCancel.JSON_PROPERTY_TYPE,
   RealtimeClientEventResponseCancel.JSON_PROPERTY_RESPONSE_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventResponseCancel {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable
@@ -141,7 +141,7 @@ public class RealtimeClientEventResponseCancel {
   }
 
   /**
-   * A specific response ID to cancel - if not provided, will cancel an  in-progress response in the default conversation. 
+   * A specific response ID to cancel - if not provided, will cancel an in-progress response in the default conversation. 
    * @return responseId
    */
   @javax.annotation.Nullable

@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * This event is the output of audio transcription for user audio written to the  user audio buffer. Transcription begins when the input audio buffer is  committed by the client or server (in &#x60;server_vad&#x60; mode). Transcription runs  asynchronously with Response creation, so this event may come before or after  the Response events.  Realtime API models accept audio natively, and thus input transcription is a  separate process run on a separate ASR (Automatic Speech Recognition) model,  currently always &#x60;whisper-1&#x60;. Thus the transcript may diverge somewhat from  the model&#39;s interpretation, and should be treated as a rough guide. 
+ * This event is the output of audio transcription for user audio written to the user audio buffer. Transcription begins when the input audio buffer is committed by the client or server (in &#x60;server_vad&#x60; mode). Transcription runs asynchronously with Response creation, so this event may come before or after the Response events.  Realtime API models accept audio natively, and thus input transcription is a separate process run on a separate ASR (Automatic Speech Recognition) model, currently always &#x60;whisper-1&#x60;. Thus the transcript may diverge somewhat from the model&#39;s interpretation, and should be treated as a rough guide. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventConversationItemInputAudioTranscriptionCompleted.JSON_PROPERTY_EVENT_ID,
@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   RealtimeServerEventConversationItemInputAudioTranscriptionCompleted.JSON_PROPERTY_CONTENT_INDEX,
   RealtimeServerEventConversationItemInputAudioTranscriptionCompleted.JSON_PROPERTY_TRANSCRIPT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

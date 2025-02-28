@@ -33,7 +33,7 @@ import java.util.StringJoiner;
   RunStepDetailsToolCallsCodeOutputImageObjectImage.JSON_PROPERTY_FILE_ID
 })
 @JsonTypeName("RunStepDetailsToolCallsCodeOutputImageObject_image")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RunStepDetailsToolCallsCodeOutputImageObjectImage {
   public static final String JSON_PROPERTY_FILE_ID = "file_id";
   @javax.annotation.Nonnull

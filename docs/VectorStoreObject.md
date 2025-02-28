@@ -18,7 +18,7 @@ A vector store is a collection of processed files can be used by the `file_searc
 |**expiresAfter** | [**VectorStoreExpirationAfter**](VectorStoreExpirationAfter.md) |  |  [optional] |
 |**expiresAt** | **Integer** | The Unix timestamp (in seconds) for when the vector store will expire. |  [optional] |
 |**lastActiveAt** | **Integer** | The Unix timestamp (in seconds) for when the vector store was last active. |  |
-|**metadata** | **Object** | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.  |  |
+|**metadata** | **Map&lt;String, String&gt;** | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  |  |
 
 
 

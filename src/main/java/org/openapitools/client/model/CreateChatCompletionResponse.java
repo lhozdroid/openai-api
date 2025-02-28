@@ -48,7 +48,7 @@ import java.util.StringJoiner;
   CreateChatCompletionResponse.JSON_PROPERTY_OBJECT,
   CreateChatCompletionResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateChatCompletionResponse {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -67,7 +67,7 @@ public class CreateChatCompletionResponse {
   private String model;
 
   /**
-   * The service tier used for processing the request. This field is only included if the &#x60;service_tier&#x60; parameter is specified in the request.
+   * The service tier used for processing the request.
    */
   public enum ServiceTierEnum {
     SCALE(String.valueOf("scale")),
@@ -268,7 +268,7 @@ public class CreateChatCompletionResponse {
   }
 
   /**
-   * The service tier used for processing the request. This field is only included if the &#x60;service_tier&#x60; parameter is specified in the request.
+   * The service tier used for processing the request.
    * @return serviceTier
    */
   @javax.annotation.Nullable

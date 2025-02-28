@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   Embedding.JSON_PROPERTY_EMBEDDING,
   Embedding.JSON_PROPERTY_OBJECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class Embedding {
   public static final String JSON_PROPERTY_INDEX = "index";
   @javax.annotation.Nonnull

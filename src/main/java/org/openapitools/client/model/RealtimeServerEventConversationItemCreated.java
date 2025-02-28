@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when a conversation item is created. There are several scenarios that  produce this event:   - The server is generating a Response, which if successful will produce      either one or two Items, which will be of type &#x60;message&#x60;      (role &#x60;assistant&#x60;) or type &#x60;function_call&#x60;.   - The input audio buffer has been committed, either by the client or the      server (in &#x60;server_vad&#x60; mode). The server will take the content of the      input audio buffer and add it to a new user message Item.   - The client has sent a &#x60;conversation.item.create&#x60; event to add a new Item      to the Conversation. 
+ * Returned when a conversation item is created. There are several scenarios that produce this event:   - The server is generating a Response, which if successful will produce     either one or two Items, which will be of type &#x60;message&#x60;     (role &#x60;assistant&#x60;) or type &#x60;function_call&#x60;.   - The input audio buffer has been committed, either by the client or the     server (in &#x60;server_vad&#x60; mode). The server will take the content of the     input audio buffer and add it to a new user message Item.   - The client has sent a &#x60;conversation.item.create&#x60; event to add a new Item     to the Conversation. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventConversationItemCreated.JSON_PROPERTY_EVENT_ID,
@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   RealtimeServerEventConversationItemCreated.JSON_PROPERTY_PREVIOUS_ITEM_ID,
   RealtimeServerEventConversationItemCreated.JSON_PROPERTY_ITEM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventConversationItemCreated {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull
@@ -147,7 +147,7 @@ public class RealtimeServerEventConversationItemCreated {
   }
 
   /**
-   * The ID of the preceding item in the Conversation context, allows the  client to understand the order of the conversation. 
+   * The ID of the preceding item in the Conversation context, allows the client to understand the order of the conversation. 
    * @return previousItemId
    */
   @javax.annotation.Nonnull

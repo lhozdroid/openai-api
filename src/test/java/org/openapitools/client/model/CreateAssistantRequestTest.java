@@ -21,11 +21,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.openapitools.client.model.AssistantObjectResponseFormat;
 import org.openapitools.client.model.AssistantObjectToolsInner;
-import org.openapitools.client.model.AssistantsApiResponseFormatOption;
 import org.openapitools.client.model.CreateAssistantRequestModel;
 import org.openapitools.client.model.CreateAssistantRequestToolResources;
+import org.openapitools.client.model.ReasoningEffort;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -78,6 +81,14 @@ class CreateAssistantRequestTest {
     @Test
     void instructionsTest() {
         // TODO: test instructions
+    }
+
+    /**
+     * Test the property 'reasoningEffort'
+     */
+    @Test
+    void reasoningEffortTest() {
+        // TODO: test reasoningEffort
     }
 
     /**

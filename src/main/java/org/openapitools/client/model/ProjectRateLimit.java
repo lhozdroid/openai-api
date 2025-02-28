@@ -40,7 +40,7 @@ import java.util.StringJoiner;
   ProjectRateLimit.JSON_PROPERTY_MAX_REQUESTS_PER1_DAY,
   ProjectRateLimit.JSON_PROPERTY_BATCH1_DAY_MAX_INPUT_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ProjectRateLimit {
   /**
    * The object type, which is always &#x60;project.rate_limit&#x60;

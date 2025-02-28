@@ -27,13 +27,13 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Configuration for input audio transcription, defaults to off and can be  set to &#x60;null&#x60; to turn off once on. Input audio transcription is not native  to the model, since the model consumes audio directly. Transcription runs  asynchronously through Whisper and should be treated as rough guidance  rather than the representation understood by the model. 
+ * Configuration for input audio transcription, defaults to off and can be set to &#x60;null&#x60; to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through Whisper and should be treated as rough guidance rather than the representation understood by the model. 
  */
 @JsonPropertyOrder({
   RealtimeSessionInputAudioTranscription.JSON_PROPERTY_MODEL
 })
 @JsonTypeName("RealtimeSession_input_audio_transcription")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeSessionInputAudioTranscription {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nullable
@@ -49,7 +49,7 @@ public class RealtimeSessionInputAudioTranscription {
   }
 
   /**
-   * The model to use for transcription, &#x60;whisper-1&#x60; is the only currently  supported model. 
+   * The model to use for transcription, &#x60;whisper-1&#x60; is the only currently supported model. 
    * @return model
    */
   @javax.annotation.Nullable

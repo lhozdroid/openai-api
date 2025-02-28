@@ -22,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.client.model.CreateMessageRequest;
 import org.openapitools.client.model.CreateThreadRequestToolResources;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -36,14 +38,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * CreateThreadRequest
+ * Options to create a new thread. If no thread is provided when running a request, an empty thread will be created. 
  */
 @JsonPropertyOrder({
   CreateThreadRequest.JSON_PROPERTY_MESSAGES,
   CreateThreadRequest.JSON_PROPERTY_TOOL_RESOURCES,
   CreateThreadRequest.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateThreadRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   @javax.annotation.Nullable
@@ -55,7 +57,7 @@ public class CreateThreadRequest {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public CreateThreadRequest() {
   }
@@ -126,37 +128,49 @@ public class CreateThreadRequest {
     this.toolResources = JsonNullable.<CreateThreadRequestToolResources>of(toolResources);
   }
 
-  public CreateThreadRequest metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public CreateThreadRequest metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public CreateThreadRequest putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   @Override
@@ -260,11 +274,15 @@ public class CreateThreadRequest {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

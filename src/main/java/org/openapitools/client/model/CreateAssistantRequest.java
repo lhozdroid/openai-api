@@ -23,11 +23,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.openapitools.client.model.AssistantObjectResponseFormat;
 import org.openapitools.client.model.AssistantObjectToolsInner;
-import org.openapitools.client.model.AssistantsApiResponseFormatOption;
 import org.openapitools.client.model.CreateAssistantRequestModel;
 import org.openapitools.client.model.CreateAssistantRequestToolResources;
+import org.openapitools.client.model.ReasoningEffort;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -46,6 +49,7 @@ import java.util.StringJoiner;
   CreateAssistantRequest.JSON_PROPERTY_NAME,
   CreateAssistantRequest.JSON_PROPERTY_DESCRIPTION,
   CreateAssistantRequest.JSON_PROPERTY_INSTRUCTIONS,
+  CreateAssistantRequest.JSON_PROPERTY_REASONING_EFFORT,
   CreateAssistantRequest.JSON_PROPERTY_TOOLS,
   CreateAssistantRequest.JSON_PROPERTY_TOOL_RESOURCES,
   CreateAssistantRequest.JSON_PROPERTY_METADATA,
@@ -53,7 +57,7 @@ import java.util.StringJoiner;
   CreateAssistantRequest.JSON_PROPERTY_TOP_P,
   CreateAssistantRequest.JSON_PROPERTY_RESPONSE_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateAssistantRequest {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nonnull
@@ -71,6 +75,10 @@ public class CreateAssistantRequest {
   @javax.annotation.Nullable
   private JsonNullable<String> instructions = JsonNullable.<String>undefined();
 
+  public static final String JSON_PROPERTY_REASONING_EFFORT = "reasoning_effort";
+  @javax.annotation.Nullable
+  private JsonNullable<ReasoningEffort> reasoningEffort = JsonNullable.<ReasoningEffort>of(ReasoningEffort.MEDIUM);
+
   public static final String JSON_PROPERTY_TOOLS = "tools";
   @javax.annotation.Nullable
   private List<AssistantObjectToolsInner> tools = new ArrayList<>();
@@ -81,7 +89,7 @@ public class CreateAssistantRequest {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
   @javax.annotation.Nullable
@@ -93,7 +101,7 @@ public class CreateAssistantRequest {
 
   public static final String JSON_PROPERTY_RESPONSE_FORMAT = "response_format";
   @javax.annotation.Nullable
-  private AssistantsApiResponseFormatOption responseFormat;
+  private AssistantObjectResponseFormat responseFormat;
 
   public CreateAssistantRequest() {
   }
@@ -222,6 +230,39 @@ public class CreateAssistantRequest {
     this.instructions = JsonNullable.<String>of(instructions);
   }
 
+  public CreateAssistantRequest reasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
+    
+    return this;
+  }
+
+  /**
+   * Get reasoningEffort
+   * @return reasoningEffort
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+
+  public ReasoningEffort getReasoningEffort() {
+        return reasoningEffort.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<ReasoningEffort> getReasoningEffort_JsonNullable() {
+    return reasoningEffort;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
+  public void setReasoningEffort_JsonNullable(JsonNullable<ReasoningEffort> reasoningEffort) {
+    this.reasoningEffort = reasoningEffort;
+  }
+
+  public void setReasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
+  }
+
   public CreateAssistantRequest tools(@javax.annotation.Nullable List<AssistantObjectToolsInner> tools) {
     
     this.tools = tools;
@@ -288,37 +329,49 @@ public class CreateAssistantRequest {
     this.toolResources = JsonNullable.<CreateAssistantRequestToolResources>of(toolResources);
   }
 
-  public CreateAssistantRequest metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public CreateAssistantRequest metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public CreateAssistantRequest putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   public CreateAssistantRequest temperature(@javax.annotation.Nullable BigDecimal temperature) {
@@ -391,7 +444,7 @@ public class CreateAssistantRequest {
     this.topP = JsonNullable.<BigDecimal>of(topP);
   }
 
-  public CreateAssistantRequest responseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public CreateAssistantRequest responseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     
     this.responseFormat = responseFormat;
     return this;
@@ -405,14 +458,14 @@ public class CreateAssistantRequest {
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AssistantsApiResponseFormatOption getResponseFormat() {
+  public AssistantObjectResponseFormat getResponseFormat() {
     return responseFormat;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResponseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public void setResponseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     this.responseFormat = responseFormat;
   }
 
@@ -429,6 +482,7 @@ public class CreateAssistantRequest {
         equalsNullable(this.name, createAssistantRequest.name) &&
         equalsNullable(this.description, createAssistantRequest.description) &&
         equalsNullable(this.instructions, createAssistantRequest.instructions) &&
+        equalsNullable(this.reasoningEffort, createAssistantRequest.reasoningEffort) &&
         Objects.equals(this.tools, createAssistantRequest.tools) &&
         equalsNullable(this.toolResources, createAssistantRequest.toolResources) &&
         equalsNullable(this.metadata, createAssistantRequest.metadata) &&
@@ -443,7 +497,7 @@ public class CreateAssistantRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(model, hashCodeNullable(name), hashCodeNullable(description), hashCodeNullable(instructions), tools, hashCodeNullable(toolResources), hashCodeNullable(metadata), hashCodeNullable(temperature), hashCodeNullable(topP), responseFormat);
+    return Objects.hash(model, hashCodeNullable(name), hashCodeNullable(description), hashCodeNullable(instructions), hashCodeNullable(reasoningEffort), tools, hashCodeNullable(toolResources), hashCodeNullable(metadata), hashCodeNullable(temperature), hashCodeNullable(topP), responseFormat);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -461,6 +515,7 @@ public class CreateAssistantRequest {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    instructions: ").append(toIndentedString(instructions)).append("\n");
+    sb.append("    reasoningEffort: ").append(toIndentedString(reasoningEffort)).append("\n");
     sb.append("    tools: ").append(toIndentedString(tools)).append("\n");
     sb.append("    toolResources: ").append(toIndentedString(toolResources)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
@@ -549,6 +604,16 @@ public class CreateAssistantRequest {
       }
     }
 
+    // add `reasoning_effort` to the URL query string
+    if (getReasoningEffort() != null) {
+      try {
+        joiner.add(String.format("%sreasoning_effort%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getReasoningEffort()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
     // add `tools` to the URL query string
     if (getTools() != null) {
       for (int i = 0; i < getTools().size(); i++) {
@@ -566,11 +631,15 @@ public class CreateAssistantRequest {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   MessageDeltaObjectDelta.JSON_PROPERTY_CONTENT
 })
 @JsonTypeName("MessageDeltaObject_delta")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class MessageDeltaObjectDelta {
   /**
    * The entity that produced the message. One of &#x60;user&#x60; or &#x60;assistant&#x60;.

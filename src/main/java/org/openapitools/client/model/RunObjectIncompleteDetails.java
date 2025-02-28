@@ -33,15 +33,15 @@ import java.util.StringJoiner;
   RunObjectIncompleteDetails.JSON_PROPERTY_REASON
 })
 @JsonTypeName("RunObject_incomplete_details")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RunObjectIncompleteDetails {
   /**
    * The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
    */
   public enum ReasonEnum {
-    COMPLETION_TOKENS(String.valueOf("max_completion_tokens")),
+    MAX_COMPLETION_TOKENS(String.valueOf("max_completion_tokens")),
     
-    PROMPT_TOKENS(String.valueOf("max_prompt_tokens"));
+    MAX_PROMPT_TOKENS(String.valueOf("max_prompt_tokens"));
 
     private String value;
 

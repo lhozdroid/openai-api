@@ -9,7 +9,7 @@ The aggregated code interpreter sessions usage details of the specific time buck
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**_object** | [**ObjectEnum**](#ObjectEnum) |  |  |
-|**sessions** | **Integer** | The number of code interpreter sessions. |  |
+|**numSessions** | **Integer** | The number of code interpreter sessions. |  [optional] |
 |**projectId** | **String** | When &#x60;group_by&#x3D;project_id&#x60;, this field provides the project ID of the grouped usage result. |  [optional] |
 
 

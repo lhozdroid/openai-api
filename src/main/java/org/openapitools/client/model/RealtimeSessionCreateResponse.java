@@ -52,10 +52,10 @@ import java.util.StringJoiner;
   RealtimeSessionCreateResponse.JSON_PROPERTY_TEMPERATURE,
   RealtimeSessionCreateResponse.JSON_PROPERTY_MAX_RESPONSE_OUTPUT_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeSessionCreateResponse {
   public static final String JSON_PROPERTY_CLIENT_SECRET = "client_secret";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private RealtimeSessionCreateResponseClientSecret clientSecret;
 
   /**
@@ -102,7 +102,7 @@ public class RealtimeSessionCreateResponse {
   private String instructions;
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    */
   public enum VoiceEnum {
     ALLOY(String.valueOf("alloy")),
@@ -187,7 +187,7 @@ public class RealtimeSessionCreateResponse {
   public RealtimeSessionCreateResponse() {
   }
 
-  public RealtimeSessionCreateResponse clientSecret(@javax.annotation.Nullable RealtimeSessionCreateResponseClientSecret clientSecret) {
+  public RealtimeSessionCreateResponse clientSecret(@javax.annotation.Nonnull RealtimeSessionCreateResponseClientSecret clientSecret) {
     
     this.clientSecret = clientSecret;
     return this;
@@ -197,9 +197,9 @@ public class RealtimeSessionCreateResponse {
    * Get clientSecret
    * @return clientSecret
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CLIENT_SECRET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public RealtimeSessionCreateResponseClientSecret getClientSecret() {
     return clientSecret;
@@ -207,8 +207,8 @@ public class RealtimeSessionCreateResponse {
 
 
   @JsonProperty(JSON_PROPERTY_CLIENT_SECRET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClientSecret(@javax.annotation.Nullable RealtimeSessionCreateResponseClientSecret clientSecret) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setClientSecret(@javax.annotation.Nonnull RealtimeSessionCreateResponseClientSecret clientSecret) {
     this.clientSecret = clientSecret;
   }
 
@@ -252,7 +252,7 @@ public class RealtimeSessionCreateResponse {
   }
 
   /**
-   * The default system instructions (i.e. system message) prepended to model  calls. This field allows the client to guide the model on desired  responses. The model can be instructed on response content and format,  (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good  responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion  into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed  to be followed by the model, but they provide guidance to the model on the  desired behavior.  Note that the server sets default instructions which will be used if this  field is not set and are visible in the &#x60;session.created&#x60; event at the  start of the session. 
+   * The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the &#x60;session.created&#x60; event at the start of the session. 
    * @return instructions
    */
   @javax.annotation.Nullable
@@ -277,7 +277,7 @@ public class RealtimeSessionCreateResponse {
   }
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    * @return voice
    */
   @javax.annotation.Nullable
@@ -435,7 +435,7 @@ public class RealtimeSessionCreateResponse {
   }
 
   /**
-   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or  specify a function. 
+   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or specify a function. 
    * @return toolChoice
    */
   @javax.annotation.Nullable

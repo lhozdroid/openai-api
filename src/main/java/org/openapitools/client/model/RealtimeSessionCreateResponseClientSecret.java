@@ -34,20 +34,20 @@ import java.util.StringJoiner;
   RealtimeSessionCreateResponseClientSecret.JSON_PROPERTY_EXPIRES_AT
 })
 @JsonTypeName("RealtimeSessionCreateResponse_client_secret")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeSessionCreateResponseClientSecret {
   public static final String JSON_PROPERTY_VALUE = "value";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String value;
 
   public static final String JSON_PROPERTY_EXPIRES_AT = "expires_at";
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Integer expiresAt;
 
   public RealtimeSessionCreateResponseClientSecret() {
   }
 
-  public RealtimeSessionCreateResponseClientSecret value(@javax.annotation.Nullable String value) {
+  public RealtimeSessionCreateResponseClientSecret value(@javax.annotation.Nonnull String value) {
     
     this.value = value;
     return this;
@@ -57,9 +57,9 @@ public class RealtimeSessionCreateResponseClientSecret {
    * Ephemeral key usable in client environments to authenticate connections to the Realtime API. Use this in client-side environments rather than a standard API token, which should only be used server-side. 
    * @return value
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getValue() {
     return value;
@@ -67,12 +67,12 @@ public class RealtimeSessionCreateResponseClientSecret {
 
 
   @JsonProperty(JSON_PROPERTY_VALUE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValue(@javax.annotation.Nullable String value) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setValue(@javax.annotation.Nonnull String value) {
     this.value = value;
   }
 
-  public RealtimeSessionCreateResponseClientSecret expiresAt(@javax.annotation.Nullable Integer expiresAt) {
+  public RealtimeSessionCreateResponseClientSecret expiresAt(@javax.annotation.Nonnull Integer expiresAt) {
     
     this.expiresAt = expiresAt;
     return this;
@@ -82,9 +82,9 @@ public class RealtimeSessionCreateResponseClientSecret {
    * Timestamp for when the token expires. Currently, all tokens expire after one minute. 
    * @return expiresAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getExpiresAt() {
     return expiresAt;
@@ -92,8 +92,8 @@ public class RealtimeSessionCreateResponseClientSecret {
 
 
   @JsonProperty(JSON_PROPERTY_EXPIRES_AT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpiresAt(@javax.annotation.Nullable Integer expiresAt) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setExpiresAt(@javax.annotation.Nonnull Integer expiresAt) {
     this.expiresAt = expiresAt;
   }
 

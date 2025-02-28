@@ -27,14 +27,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * A description of the error that caused the response to fail,  populated when the &#x60;status&#x60; is &#x60;failed&#x60;. 
+ * A description of the error that caused the response to fail, populated when the &#x60;status&#x60; is &#x60;failed&#x60;. 
  */
 @JsonPropertyOrder({
   RealtimeResponseStatusDetailsError.JSON_PROPERTY_TYPE,
   RealtimeResponseStatusDetailsError.JSON_PROPERTY_CODE
 })
 @JsonTypeName("RealtimeResponse_status_details_error")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeResponseStatusDetailsError {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nullable

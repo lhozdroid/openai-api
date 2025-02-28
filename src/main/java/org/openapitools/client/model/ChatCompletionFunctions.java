@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   ChatCompletionFunctions.JSON_PROPERTY_NAME,
   ChatCompletionFunctions.JSON_PROPERTY_PARAMETERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ChatCompletionFunctions {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @javax.annotation.Nullable
@@ -120,7 +120,7 @@ public class ChatCompletionFunctions {
   }
 
   /**
-   * The parameters the functions accepts, described as a JSON Schema object. See the [guide](/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.   Omitting &#x60;parameters&#x60; defines a function with an empty parameter list.
+   * The parameters the functions accepts, described as a JSON Schema object. See the [guide](/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.  Omitting &#x60;parameters&#x60; defines a function with an empty parameter list.
    * @return parameters
    */
   @javax.annotation.Nullable

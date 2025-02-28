@@ -38,19 +38,19 @@ import java.util.StringJoiner;
   CompletionUsage.JSON_PROPERTY_COMPLETION_TOKENS_DETAILS,
   CompletionUsage.JSON_PROPERTY_PROMPT_TOKENS_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CompletionUsage {
   public static final String JSON_PROPERTY_COMPLETION_TOKENS = "completion_tokens";
   @javax.annotation.Nonnull
-  private Integer completionTokens;
+  private Integer completionTokens = 0;
 
   public static final String JSON_PROPERTY_PROMPT_TOKENS = "prompt_tokens";
   @javax.annotation.Nonnull
-  private Integer promptTokens;
+  private Integer promptTokens = 0;
 
   public static final String JSON_PROPERTY_TOTAL_TOKENS = "total_tokens";
   @javax.annotation.Nonnull
-  private Integer totalTokens;
+  private Integer totalTokens = 0;
 
   public static final String JSON_PROPERTY_COMPLETION_TOKENS_DETAILS = "completion_tokens_details";
   @javax.annotation.Nullable

@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   RealtimeServerEventRateLimitsUpdatedRateLimitsInner.JSON_PROPERTY_RESET_SECONDS
 })
 @JsonTypeName("RealtimeServerEventRateLimitsUpdated_rate_limits_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventRateLimitsUpdatedRateLimitsInner {
   /**
    * The name of the rate limit (&#x60;requests&#x60;, &#x60;tokens&#x60;). 

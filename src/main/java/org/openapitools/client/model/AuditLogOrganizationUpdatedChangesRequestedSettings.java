@@ -34,7 +34,7 @@ import java.util.StringJoiner;
   AuditLogOrganizationUpdatedChangesRequestedSettings.JSON_PROPERTY_USAGE_DASHBOARD_VISIBILITY
 })
 @JsonTypeName("AuditLog_organization_updated_changes_requested_settings")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class AuditLogOrganizationUpdatedChangesRequestedSettings {
   public static final String JSON_PROPERTY_THREADS_UI_VISIBILITY = "threads_ui_visibility";
   @javax.annotation.Nullable

@@ -2,7 +2,7 @@
 
 # RealtimeServerEventSessionUpdated
 
-Returned when a session is updated with a `session.update` event, unless  there is an error. 
+Returned when a session is updated with a `session.update` event, unless there is an error. 
 
 ## Properties
 

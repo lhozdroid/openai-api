@@ -5,6 +5,8 @@
 ## Enum
 
 
+* `DEVELOPER` (value: `"developer"`)
+
 * `SYSTEM` (value: `"system"`)
 
 * `USER` (value: `"user"`)

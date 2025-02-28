@@ -34,7 +34,7 @@ import java.util.StringJoiner;
   PredictionContent.JSON_PROPERTY_TYPE,
   PredictionContent.JSON_PROPERTY_CONTENT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class PredictionContent {
   /**
    * The type of the predicted content you want to provide. This type is currently always &#x60;content&#x60;. 

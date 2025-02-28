@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.RealtimeResponseCreateParamsMaxResponseOutputTokens;
 import org.openapitools.client.model.RealtimeResponseCreateParamsToolsInner;
+import org.openapitools.client.model.RealtimeSessionCreateRequestInputAudioTranscription;
 import org.openapitools.client.model.RealtimeSessionCreateRequestTurnDetection;
-import org.openapitools.client.model.RealtimeSessionInputAudioTranscription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -51,7 +51,7 @@ import java.util.StringJoiner;
   RealtimeSessionCreateRequest.JSON_PROPERTY_TEMPERATURE,
   RealtimeSessionCreateRequest.JSON_PROPERTY_MAX_RESPONSE_OUTPUT_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeSessionCreateRequest {
   /**
    * Gets or Sets modalities
@@ -96,15 +96,15 @@ public class RealtimeSessionCreateRequest {
    * The Realtime model used for this session. 
    */
   public enum ModelEnum {
-    REALTIME_PREVIEW(String.valueOf("gpt-4o-realtime-preview")),
+    GPT_4O_REALTIME_PREVIEW(String.valueOf("gpt-4o-realtime-preview")),
     
-    REALTIME_PREVIEW_2024_10_01(String.valueOf("gpt-4o-realtime-preview-2024-10-01")),
+    GPT_4O_REALTIME_PREVIEW_2024_10_01(String.valueOf("gpt-4o-realtime-preview-2024-10-01")),
     
-    REALTIME_PREVIEW_2024_12_17(String.valueOf("gpt-4o-realtime-preview-2024-12-17")),
+    GPT_4O_REALTIME_PREVIEW_2024_12_17(String.valueOf("gpt-4o-realtime-preview-2024-12-17")),
     
-    MINI_REALTIME_PREVIEW(String.valueOf("gpt-4o-mini-realtime-preview")),
+    GPT_4O_MINI_REALTIME_PREVIEW(String.valueOf("gpt-4o-mini-realtime-preview")),
     
-    MINI_REALTIME_PREVIEW_2024_12_17(String.valueOf("gpt-4o-mini-realtime-preview-2024-12-17"));
+    GPT_4O_MINI_REALTIME_PREVIEW_2024_12_17(String.valueOf("gpt-4o-mini-realtime-preview-2024-12-17"));
 
     private String value;
 
@@ -134,7 +134,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   public static final String JSON_PROPERTY_MODEL = "model";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private ModelEnum model;
 
   public static final String JSON_PROPERTY_INSTRUCTIONS = "instructions";
@@ -142,7 +142,7 @@ public class RealtimeSessionCreateRequest {
   private String instructions;
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    */
   public enum VoiceEnum {
     ALLOY(String.valueOf("alloy")),
@@ -193,7 +193,7 @@ public class RealtimeSessionCreateRequest {
   private VoiceEnum voice;
 
   /**
-   * The format of input audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   * The format of input audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. For &#x60;pcm16&#x60;, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order. 
    */
   public enum InputAudioFormatEnum {
     PCM16(String.valueOf("pcm16")),
@@ -234,7 +234,7 @@ public class RealtimeSessionCreateRequest {
   private InputAudioFormatEnum inputAudioFormat;
 
   /**
-   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. For &#x60;pcm16&#x60;, output audio is sampled at a rate of 24kHz. 
    */
   public enum OutputAudioFormatEnum {
     PCM16(String.valueOf("pcm16")),
@@ -276,7 +276,7 @@ public class RealtimeSessionCreateRequest {
 
   public static final String JSON_PROPERTY_INPUT_AUDIO_TRANSCRIPTION = "input_audio_transcription";
   @javax.annotation.Nullable
-  private RealtimeSessionInputAudioTranscription inputAudioTranscription;
+  private RealtimeSessionCreateRequestInputAudioTranscription inputAudioTranscription;
 
   public static final String JSON_PROPERTY_TURN_DETECTION = "turn_detection";
   @javax.annotation.Nullable
@@ -334,7 +334,7 @@ public class RealtimeSessionCreateRequest {
     this.modalities = modalities;
   }
 
-  public RealtimeSessionCreateRequest model(@javax.annotation.Nonnull ModelEnum model) {
+  public RealtimeSessionCreateRequest model(@javax.annotation.Nullable ModelEnum model) {
     
     this.model = model;
     return this;
@@ -344,9 +344,9 @@ public class RealtimeSessionCreateRequest {
    * The Realtime model used for this session. 
    * @return model
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ModelEnum getModel() {
     return model;
@@ -354,8 +354,8 @@ public class RealtimeSessionCreateRequest {
 
 
   @JsonProperty(JSON_PROPERTY_MODEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setModel(@javax.annotation.Nonnull ModelEnum model) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setModel(@javax.annotation.Nullable ModelEnum model) {
     this.model = model;
   }
 
@@ -366,7 +366,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   /**
-   * The default system instructions (i.e. system message) prepended to model  calls. This field allows the client to guide the model on desired  responses. The model can be instructed on response content and format,  (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good  responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion  into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed  to be followed by the model, but they provide guidance to the model on the  desired behavior.  Note that the server sets default instructions which will be used if this  field is not set and are visible in the &#x60;session.created&#x60; event at the  start of the session. 
+   * The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the &#x60;session.created&#x60; event at the start of the session. 
    * @return instructions
    */
   @javax.annotation.Nullable
@@ -391,7 +391,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    * @return voice
    */
   @javax.annotation.Nullable
@@ -416,7 +416,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   /**
-   * The format of input audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   * The format of input audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. For &#x60;pcm16&#x60;, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order. 
    * @return inputAudioFormat
    */
   @javax.annotation.Nullable
@@ -441,7 +441,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   /**
-   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. For &#x60;pcm16&#x60;, output audio is sampled at a rate of 24kHz. 
    * @return outputAudioFormat
    */
   @javax.annotation.Nullable
@@ -459,7 +459,7 @@ public class RealtimeSessionCreateRequest {
     this.outputAudioFormat = outputAudioFormat;
   }
 
-  public RealtimeSessionCreateRequest inputAudioTranscription(@javax.annotation.Nullable RealtimeSessionInputAudioTranscription inputAudioTranscription) {
+  public RealtimeSessionCreateRequest inputAudioTranscription(@javax.annotation.Nullable RealtimeSessionCreateRequestInputAudioTranscription inputAudioTranscription) {
     
     this.inputAudioTranscription = inputAudioTranscription;
     return this;
@@ -473,14 +473,14 @@ public class RealtimeSessionCreateRequest {
   @JsonProperty(JSON_PROPERTY_INPUT_AUDIO_TRANSCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public RealtimeSessionInputAudioTranscription getInputAudioTranscription() {
+  public RealtimeSessionCreateRequestInputAudioTranscription getInputAudioTranscription() {
     return inputAudioTranscription;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INPUT_AUDIO_TRANSCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputAudioTranscription(@javax.annotation.Nullable RealtimeSessionInputAudioTranscription inputAudioTranscription) {
+  public void setInputAudioTranscription(@javax.annotation.Nullable RealtimeSessionCreateRequestInputAudioTranscription inputAudioTranscription) {
     this.inputAudioTranscription = inputAudioTranscription;
   }
 
@@ -549,7 +549,7 @@ public class RealtimeSessionCreateRequest {
   }
 
   /**
-   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or  specify a function. 
+   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or specify a function. 
    * @return toolChoice
    */
   @javax.annotation.Nullable

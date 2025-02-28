@@ -2,7 +2,7 @@
 
 # RealtimeResponseStatusDetailsError
 
-A description of the error that caused the response to fail,  populated when the `status` is `failed`. 
+A description of the error that caused the response to fail, populated when the `status` is `failed`. 
 
 ## Properties
 

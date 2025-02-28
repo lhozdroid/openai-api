@@ -28,14 +28,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when an error occurs, which could be a client problem or a server  problem. Most errors are recoverable and the session will stay open, we  recommend to implementors to monitor and log error messages by default. 
+ * Returned when an error occurs, which could be a client problem or a server problem. Most errors are recoverable and the session will stay open, we recommend to implementors to monitor and log error messages by default. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventError.JSON_PROPERTY_EVENT_ID,
   RealtimeServerEventError.JSON_PROPERTY_TYPE,
   RealtimeServerEventError.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventError {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

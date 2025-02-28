@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.openapitools.client.model.OpenAIFile;
+import org.openapitools.client.model.UploadFile;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -41,7 +41,7 @@ import java.util.StringJoiner;
   Upload.JSON_PROPERTY_OBJECT,
   Upload.JSON_PROPERTY_FILE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class Upload {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -149,7 +149,7 @@ public class Upload {
 
   public static final String JSON_PROPERTY_FILE = "file";
   @javax.annotation.Nullable
-  private OpenAIFile _file;
+  private UploadFile _file;
 
   public Upload() {
   }
@@ -354,7 +354,7 @@ public class Upload {
     this._object = _object;
   }
 
-  public Upload _file(@javax.annotation.Nullable OpenAIFile _file) {
+  public Upload _file(@javax.annotation.Nullable UploadFile _file) {
     
     this._file = _file;
     return this;
@@ -368,14 +368,14 @@ public class Upload {
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public OpenAIFile getFile() {
+  public UploadFile getFile() {
     return _file;
   }
 
 
   @JsonProperty(JSON_PROPERTY_FILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFile(@javax.annotation.Nullable OpenAIFile _file) {
+  public void setFile(@javax.annotation.Nullable UploadFile _file) {
     this._file = _file;
   }
 

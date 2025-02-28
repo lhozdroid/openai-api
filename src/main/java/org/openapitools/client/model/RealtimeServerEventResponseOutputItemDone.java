@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when an Item is done streaming. Also emitted when a Response is  interrupted, incomplete, or cancelled. 
+ * Returned when an Item is done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventResponseOutputItemDone.JSON_PROPERTY_EVENT_ID,
@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   RealtimeServerEventResponseOutputItemDone.JSON_PROPERTY_OUTPUT_INDEX,
   RealtimeServerEventResponseOutputItemDone.JSON_PROPERTY_ITEM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventResponseOutputItemDone {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

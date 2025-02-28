@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Add a new Item to the Conversation&#39;s context, including messages, function  calls, and function call responses. This event can be used both to populate a  \&quot;history\&quot; of the conversation and to add new items mid-stream, but has the  current limitation that it cannot populate assistant audio messages.  If successful, the server will respond with a &#x60;conversation.item.created&#x60;  event, otherwise an &#x60;error&#x60; event will be sent. 
+ * Add a new Item to the Conversation&#39;s context, including messages, function calls, and function call responses. This event can be used both to populate a \&quot;history\&quot; of the conversation and to add new items mid-stream, but has the current limitation that it cannot populate assistant audio messages.  If successful, the server will respond with a &#x60;conversation.item.created&#x60; event, otherwise an &#x60;error&#x60; event will be sent. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventConversationItemCreate.JSON_PROPERTY_EVENT_ID,
@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   RealtimeClientEventConversationItemCreate.JSON_PROPERTY_PREVIOUS_ITEM_ID,
   RealtimeClientEventConversationItemCreate.JSON_PROPERTY_ITEM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventConversationItemCreate {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable
@@ -147,7 +147,7 @@ public class RealtimeClientEventConversationItemCreate {
   }
 
   /**
-   * The ID of the preceding item after which the new item will be inserted.  If not set, the new item will be appended to the end of the conversation.  If set, it allows an item to be inserted mid-conversation. If the ID  cannot be found, an error will be returned and the item will not be added. 
+   * The ID of the preceding item after which the new item will be inserted. If not set, the new item will be appended to the end of the conversation. If set to &#x60;root&#x60;, the new item will be added to the beginning of the conversation. If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be found, an error will be returned and the item will not be added. 
    * @return previousItemId
    */
   @javax.annotation.Nullable

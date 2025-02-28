@@ -36,10 +36,10 @@ import java.util.StringJoiner;
   RealtimeResponseStatusDetails.JSON_PROPERTY_ERROR
 })
 @JsonTypeName("RealtimeResponse_status_details")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeResponseStatusDetails {
   /**
-   * The type of error that caused the response to fail, corresponding  with the &#x60;status&#x60; field (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;incomplete&#x60;,  &#x60;failed&#x60;). 
+   * The type of error that caused the response to fail, corresponding with the &#x60;status&#x60; field (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;incomplete&#x60;, &#x60;failed&#x60;). 
    */
   public enum TypeEnum {
     COMPLETED(String.valueOf("completed")),
@@ -82,7 +82,7 @@ public class RealtimeResponseStatusDetails {
   private TypeEnum type;
 
   /**
-   * The reason the Response did not complete. For a &#x60;cancelled&#x60; Response,  one of &#x60;turn_detected&#x60; (the server VAD detected a new start of speech)  or &#x60;client_cancelled&#x60; (the client sent a cancel event). For an  &#x60;incomplete&#x60; Response, one of &#x60;max_output_tokens&#x60; or &#x60;content_filter&#x60;  (the server-side safety filter activated and cut off the response). 
+   * The reason the Response did not complete. For a &#x60;cancelled&#x60; Response, one of &#x60;turn_detected&#x60; (the server VAD detected a new start of speech) or &#x60;client_cancelled&#x60; (the client sent a cancel event). For an &#x60;incomplete&#x60; Response, one of &#x60;max_output_tokens&#x60; or &#x60;content_filter&#x60; (the server-side safety filter activated and cut off the response). 
    */
   public enum ReasonEnum {
     TURN_DETECTED(String.valueOf("turn_detected")),
@@ -138,7 +138,7 @@ public class RealtimeResponseStatusDetails {
   }
 
   /**
-   * The type of error that caused the response to fail, corresponding  with the &#x60;status&#x60; field (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;incomplete&#x60;,  &#x60;failed&#x60;). 
+   * The type of error that caused the response to fail, corresponding with the &#x60;status&#x60; field (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;incomplete&#x60;, &#x60;failed&#x60;). 
    * @return type
    */
   @javax.annotation.Nullable
@@ -163,7 +163,7 @@ public class RealtimeResponseStatusDetails {
   }
 
   /**
-   * The reason the Response did not complete. For a &#x60;cancelled&#x60; Response,  one of &#x60;turn_detected&#x60; (the server VAD detected a new start of speech)  or &#x60;client_cancelled&#x60; (the client sent a cancel event). For an  &#x60;incomplete&#x60; Response, one of &#x60;max_output_tokens&#x60; or &#x60;content_filter&#x60;  (the server-side safety filter activated and cut off the response). 
+   * The reason the Response did not complete. For a &#x60;cancelled&#x60; Response, one of &#x60;turn_detected&#x60; (the server VAD detected a new start of speech) or &#x60;client_cancelled&#x60; (the client sent a cancel event). For an &#x60;incomplete&#x60; Response, one of &#x60;max_output_tokens&#x60; or &#x60;content_filter&#x60; (the server-side safety filter activated and cut off the response). 
    * @return reason
    */
   @javax.annotation.Nullable

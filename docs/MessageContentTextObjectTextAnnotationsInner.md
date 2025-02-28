@@ -20,8 +20,8 @@
 
 | Name | Value |
 |---- | -----|
-| CITATION | &quot;file_citation&quot; |
-| PATH | &quot;file_path&quot; |
+| FILE_CITATION | &quot;file_citation&quot; |
+| FILE_PATH | &quot;file_path&quot; |
 
 
 

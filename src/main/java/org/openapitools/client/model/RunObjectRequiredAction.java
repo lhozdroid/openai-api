@@ -35,7 +35,7 @@ import java.util.StringJoiner;
   RunObjectRequiredAction.JSON_PROPERTY_SUBMIT_TOOL_OUTPUTS
 })
 @JsonTypeName("RunObject_required_action")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RunObjectRequiredAction {
   /**
    * For now, this is always &#x60;submit_tool_outputs&#x60;.

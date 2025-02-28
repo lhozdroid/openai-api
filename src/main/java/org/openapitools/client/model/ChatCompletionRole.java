@@ -29,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum ChatCompletionRole {
   
+  DEVELOPER("developer"),
+  
   SYSTEM("system"),
   
   USER("user"),

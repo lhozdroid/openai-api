@@ -34,15 +34,15 @@ import java.util.StringJoiner;
   CompletionUsagePromptTokensDetails.JSON_PROPERTY_CACHED_TOKENS
 })
 @JsonTypeName("CompletionUsage_prompt_tokens_details")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CompletionUsagePromptTokensDetails {
   public static final String JSON_PROPERTY_AUDIO_TOKENS = "audio_tokens";
   @javax.annotation.Nullable
-  private Integer audioTokens;
+  private Integer audioTokens = 0;
 
   public static final String JSON_PROPERTY_CACHED_TOKENS = "cached_tokens";
   @javax.annotation.Nullable
-  private Integer cachedTokens;
+  private Integer cachedTokens = 0;
 
   public CompletionUsagePromptTokensDetails() {
   }

@@ -2,7 +2,7 @@
 
 # ChatCompletionRequestAssistantMessageAudio
 
-Data about a previous audio response from the model.  [Learn more](/docs/guides/audio). 
+Data about a previous audio response from the model. [Learn more](/docs/guides/audio). 
 
 ## Properties
 

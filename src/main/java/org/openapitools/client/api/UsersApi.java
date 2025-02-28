@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class UsersApi extends BaseApi {
 
   public UsersApi() {
@@ -124,11 +124,12 @@ public class UsersApi extends BaseApi {
    * 
    * @param limit A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  (optional, default to 20)
    * @param after A cursor for use in pagination. &#x60;after&#x60; is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after&#x3D;obj_foo in order to fetch the next page of the list.  (optional)
+   * @param emails Filter by the email address of users. (optional)
    * @return UserListResponse
    * @throws ApiException if fails to make API call
    */
-  public UserListResponse listUsers(Integer limit, String after) throws ApiException {
-    return this.listUsers(limit, after, Collections.emptyMap());
+  public UserListResponse listUsers(Integer limit, String after, List<String> emails) throws ApiException {
+    return this.listUsers(limit, after, emails, Collections.emptyMap());
   }
 
 
@@ -137,11 +138,12 @@ public class UsersApi extends BaseApi {
    * 
    * @param limit A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  (optional, default to 20)
    * @param after A cursor for use in pagination. &#x60;after&#x60; is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after&#x3D;obj_foo in order to fetch the next page of the list.  (optional)
+   * @param emails Filter by the email address of users. (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return UserListResponse
    * @throws ApiException if fails to make API call
    */
-  public UserListResponse listUsers(Integer limit, String after, Map<String, String> additionalHeaders) throws ApiException {
+  public UserListResponse listUsers(Integer limit, String after, List<String> emails, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
     
     // create path and map variables
@@ -157,6 +159,7 @@ public class UsersApi extends BaseApi {
 
     localVarQueryParams.addAll(apiClient.parameterToPair("limit", limit));
     localVarQueryParams.addAll(apiClient.parameterToPair("after", after));
+    localVarCollectionQueryParams.addAll(apiClient.parameterToPairs("multi", "emails", emails));
     
     localVarHeaderParams.putAll(additionalHeaders);
 

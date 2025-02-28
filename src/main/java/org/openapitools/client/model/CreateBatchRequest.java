@@ -42,7 +42,7 @@ import java.util.StringJoiner;
   CreateBatchRequest.JSON_PROPERTY_METADATA
 })
 @JsonTypeName("createBatch_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateBatchRequest {
   public static final String JSON_PROPERTY_INPUT_FILE_ID = "input_file_id";
   @javax.annotation.Nonnull
@@ -52,11 +52,11 @@ public class CreateBatchRequest {
    * The endpoint to be used for all requests in the batch. Currently &#x60;/v1/chat/completions&#x60;, &#x60;/v1/embeddings&#x60;, and &#x60;/v1/completions&#x60; are supported. Note that &#x60;/v1/embeddings&#x60; batches are also restricted to a maximum of 50,000 embedding inputs across all requests in the batch.
    */
   public enum EndpointEnum {
-    CHAT_COMPLETIONS(String.valueOf("/v1/chat/completions")),
+    _V1_CHAT_COMPLETIONS(String.valueOf("/v1/chat/completions")),
     
-    EMBEDDINGS(String.valueOf("/v1/embeddings")),
+    _V1_EMBEDDINGS(String.valueOf("/v1/embeddings")),
     
-    COMPLETIONS(String.valueOf("/v1/completions"));
+    _V1_COMPLETIONS(String.valueOf("/v1/completions"));
 
     private String value;
 
@@ -227,7 +227,7 @@ public class CreateBatchRequest {
   }
 
   /**
-   * Optional custom metadata for the batch.
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable

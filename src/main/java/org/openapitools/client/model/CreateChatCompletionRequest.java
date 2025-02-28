@@ -37,6 +37,7 @@ import org.openapitools.client.model.CreateChatCompletionRequestModel;
 import org.openapitools.client.model.CreateChatCompletionRequestPrediction;
 import org.openapitools.client.model.CreateChatCompletionRequestResponseFormat;
 import org.openapitools.client.model.CreateChatCompletionRequestStop;
+import org.openapitools.client.model.ReasoningEffort;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -82,7 +83,7 @@ import java.util.StringJoiner;
   CreateChatCompletionRequest.JSON_PROPERTY_FUNCTION_CALL,
   CreateChatCompletionRequest.JSON_PROPERTY_FUNCTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   @javax.annotation.Nonnull
@@ -96,46 +97,9 @@ public class CreateChatCompletionRequest {
   @javax.annotation.Nullable
   private JsonNullable<Boolean> store = JsonNullable.<Boolean>of(false);
 
-  /**
-   * **o1 models only**   Constrains effort on reasoning for  [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are &#x60;low&#x60;, &#x60;medium&#x60;, and &#x60;high&#x60;. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response. 
-   */
-  public enum ReasoningEffortEnum {
-    LOW(String.valueOf("low")),
-    
-    MEDIUM(String.valueOf("medium")),
-    
-    HIGH(String.valueOf("high"));
-
-    private String value;
-
-    ReasoningEffortEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ReasoningEffortEnum fromValue(String value) {
-      for (ReasoningEffortEnum b : ReasoningEffortEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
   public static final String JSON_PROPERTY_REASONING_EFFORT = "reasoning_effort";
   @javax.annotation.Nullable
-  private ReasoningEffortEnum reasoningEffort = ReasoningEffortEnum.MEDIUM;
+  private JsonNullable<ReasoningEffort> reasoningEffort = JsonNullable.<ReasoningEffort>of(ReasoningEffort.MEDIUM);
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
@@ -226,10 +190,10 @@ public class CreateChatCompletionRequest {
 
   public static final String JSON_PROPERTY_SEED = "seed";
   @javax.annotation.Nullable
-  private JsonNullable<Integer> seed = JsonNullable.<Integer>undefined();
+  private JsonNullable<Long> seed = JsonNullable.<Long>undefined();
 
   /**
-   * Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:   - If set to &#39;auto&#39;, and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.   - If set to &#39;auto&#39;, and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.   - If set to &#39;default&#39;, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.   - When not set, the default behavior is &#39;auto&#39;.    When this parameter is set, the response body will include the &#x60;service_tier&#x60; utilized. 
+   * Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:   - If set to &#39;auto&#39;, and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.   - If set to &#39;auto&#39;, and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.   - If set to &#39;default&#39;, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.   - When not set, the default behavior is &#39;auto&#39;. 
    */
   public enum ServiceTierEnum {
     AUTO(String.valueOf("auto")),
@@ -379,7 +343,7 @@ public class CreateChatCompletionRequest {
   }
 
   /**
-   * Whether or not to store the output of this chat completion request for  use in our [model distillation](/docs/guides/distillation) or [evals](/docs/guides/evals) products. 
+   * Whether or not to store the output of this chat completion request for use in our [model distillation](/docs/guides/distillation) or [evals](/docs/guides/evals) products. 
    * @return store
    */
   @javax.annotation.Nullable
@@ -405,29 +369,37 @@ public class CreateChatCompletionRequest {
     this.store = JsonNullable.<Boolean>of(store);
   }
 
-  public CreateChatCompletionRequest reasoningEffort(@javax.annotation.Nullable ReasoningEffortEnum reasoningEffort) {
+  public CreateChatCompletionRequest reasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
     
-    this.reasoningEffort = reasoningEffort;
     return this;
   }
 
   /**
-   * **o1 models only**   Constrains effort on reasoning for  [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are &#x60;low&#x60;, &#x60;medium&#x60;, and &#x60;high&#x60;. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response. 
+   * Get reasoningEffort
    * @return reasoningEffort
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
-  public ReasoningEffortEnum getReasoningEffort() {
-    return reasoningEffort;
+  public ReasoningEffort getReasoningEffort() {
+        return reasoningEffort.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setReasoningEffort(@javax.annotation.Nullable ReasoningEffortEnum reasoningEffort) {
+
+  public JsonNullable<ReasoningEffort> getReasoningEffort_JsonNullable() {
+    return reasoningEffort;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
+  public void setReasoningEffort_JsonNullable(JsonNullable<ReasoningEffort> reasoningEffort) {
     this.reasoningEffort = reasoningEffort;
+  }
+
+  public void setReasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
   }
 
   public CreateChatCompletionRequest metadata(@javax.annotation.Nullable Map<String, String> metadata) {
@@ -449,7 +421,7 @@ public class CreateChatCompletionRequest {
   }
 
   /**
-   * Developer-defined tags and values used for filtering completions in the [dashboard](https://platform.openai.com/chat-completions). 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
@@ -897,39 +869,37 @@ public class CreateChatCompletionRequest {
     this.responseFormat = responseFormat;
   }
 
-  public CreateChatCompletionRequest seed(@javax.annotation.Nullable Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
+  public CreateChatCompletionRequest seed(@javax.annotation.Nullable Long seed) {
+    this.seed = JsonNullable.<Long>of(seed);
     
     return this;
   }
 
   /**
    * This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same &#x60;seed&#x60; and parameters should return the same result. Determinism is not guaranteed, and you should refer to the &#x60;system_fingerprint&#x60; response parameter to monitor changes in the backend. 
-   * minimum: 9223372036854775616
-   * maximum: -9223372036854775616
    * @return seed
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Integer getSeed() {
+  public Long getSeed() {
         return seed.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_SEED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Integer> getSeed_JsonNullable() {
+  public JsonNullable<Long> getSeed_JsonNullable() {
     return seed;
   }
   
   @JsonProperty(JSON_PROPERTY_SEED)
-  public void setSeed_JsonNullable(JsonNullable<Integer> seed) {
+  public void setSeed_JsonNullable(JsonNullable<Long> seed) {
     this.seed = seed;
   }
 
-  public void setSeed(@javax.annotation.Nullable Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
+  public void setSeed(@javax.annotation.Nullable Long seed) {
+    this.seed = JsonNullable.<Long>of(seed);
   }
 
   public CreateChatCompletionRequest serviceTier(@javax.annotation.Nullable ServiceTierEnum serviceTier) {
@@ -939,7 +909,7 @@ public class CreateChatCompletionRequest {
   }
 
   /**
-   * Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:   - If set to &#39;auto&#39;, and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.   - If set to &#39;auto&#39;, and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.   - If set to &#39;default&#39;, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.   - When not set, the default behavior is &#39;auto&#39;.    When this parameter is set, the response body will include the &#x60;service_tier&#x60; utilized. 
+   * Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:   - If set to &#39;auto&#39;, and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.   - If set to &#39;auto&#39;, and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.   - If set to &#39;default&#39;, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.   - When not set, the default behavior is &#39;auto&#39;. 
    * @return serviceTier
    */
   @javax.annotation.Nullable
@@ -1308,7 +1278,7 @@ public class CreateChatCompletionRequest {
     return Objects.equals(this.messages, createChatCompletionRequest.messages) &&
         Objects.equals(this.model, createChatCompletionRequest.model) &&
         equalsNullable(this.store, createChatCompletionRequest.store) &&
-        Objects.equals(this.reasoningEffort, createChatCompletionRequest.reasoningEffort) &&
+        equalsNullable(this.reasoningEffort, createChatCompletionRequest.reasoningEffort) &&
         equalsNullable(this.metadata, createChatCompletionRequest.metadata) &&
         equalsNullable(this.frequencyPenalty, createChatCompletionRequest.frequencyPenalty) &&
         equalsNullable(this.logitBias, createChatCompletionRequest.logitBias) &&
@@ -1343,7 +1313,7 @@ public class CreateChatCompletionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(messages, model, hashCodeNullable(store), reasoningEffort, hashCodeNullable(metadata), hashCodeNullable(frequencyPenalty), hashCodeNullable(logitBias), hashCodeNullable(logprobs), hashCodeNullable(topLogprobs), hashCodeNullable(maxTokens), hashCodeNullable(maxCompletionTokens), hashCodeNullable(n), hashCodeNullable(modalities), hashCodeNullable(prediction), hashCodeNullable(audio), hashCodeNullable(presencePenalty), responseFormat, hashCodeNullable(seed), hashCodeNullable(serviceTier), stop, hashCodeNullable(stream), hashCodeNullable(streamOptions), hashCodeNullable(temperature), hashCodeNullable(topP), tools, toolChoice, parallelToolCalls, user, functionCall, functions);
+    return Objects.hash(messages, model, hashCodeNullable(store), hashCodeNullable(reasoningEffort), hashCodeNullable(metadata), hashCodeNullable(frequencyPenalty), hashCodeNullable(logitBias), hashCodeNullable(logprobs), hashCodeNullable(topLogprobs), hashCodeNullable(maxTokens), hashCodeNullable(maxCompletionTokens), hashCodeNullable(n), hashCodeNullable(modalities), hashCodeNullable(prediction), hashCodeNullable(audio), hashCodeNullable(presencePenalty), responseFormat, hashCodeNullable(seed), hashCodeNullable(serviceTier), stop, hashCodeNullable(stream), hashCodeNullable(streamOptions), hashCodeNullable(temperature), hashCodeNullable(topP), tools, toolChoice, parallelToolCalls, user, functionCall, functions);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {

@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Send this event to truncate a previous assistant message’s audio. The server  will produce audio faster than realtime, so this event is useful when the user  interrupts to truncate audio that has already been sent to the client but not  yet played. This will synchronize the server&#39;s understanding of the audio with  the client&#39;s playback.  Truncating audio will delete the server-side text transcript to ensure there  is not text in the context that hasn&#39;t been heard by the user.  If successful, the server will respond with a &#x60;conversation.item.truncated&#x60;  event.  
+ * Send this event to truncate a previous assistant message’s audio. The server will produce audio faster than realtime, so this event is useful when the user interrupts to truncate audio that has already been sent to the client but not yet played. This will synchronize the server&#39;s understanding of the audio with the client&#39;s playback.  Truncating audio will delete the server-side text transcript to ensure there is not text in the context that hasn&#39;t been heard by the user.  If successful, the server will respond with a &#x60;conversation.item.truncated&#x60; event. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventConversationItemTruncate.JSON_PROPERTY_EVENT_ID,
@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   RealtimeClientEventConversationItemTruncate.JSON_PROPERTY_CONTENT_INDEX,
   RealtimeClientEventConversationItemTruncate.JSON_PROPERTY_AUDIO_END_MS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventConversationItemTruncate {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable
@@ -151,7 +151,7 @@ public class RealtimeClientEventConversationItemTruncate {
   }
 
   /**
-   * The ID of the assistant message item to truncate. Only assistant message  items can be truncated. 
+   * The ID of the assistant message item to truncate. Only assistant message items can be truncated. 
    * @return itemId
    */
   @javax.annotation.Nonnull
@@ -201,7 +201,7 @@ public class RealtimeClientEventConversationItemTruncate {
   }
 
   /**
-   * Inclusive duration up to which audio is truncated, in milliseconds. If  the audio_end_ms is greater than the actual audio duration, the server  will respond with an error. 
+   * Inclusive duration up to which audio is truncated, in milliseconds. If the audio_end_ms is greater than the actual audio duration, the server will respond with an error. 
    * @return audioEndMs
    */
   @javax.annotation.Nonnull

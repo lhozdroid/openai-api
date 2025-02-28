@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when input audio transcription is configured, and a transcription  request for a user message failed. These events are separate from other  &#x60;error&#x60; events so that the client can identify the related Item. 
+ * Returned when input audio transcription is configured, and a transcription request for a user message failed. These events are separate from other &#x60;error&#x60; events so that the client can identify the related Item. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventConversationItemInputAudioTranscriptionFailed.JSON_PROPERTY_EVENT_ID,
@@ -37,7 +37,7 @@ import java.util.StringJoiner;
   RealtimeServerEventConversationItemInputAudioTranscriptionFailed.JSON_PROPERTY_CONTENT_INDEX,
   RealtimeServerEventConversationItemInputAudioTranscriptionFailed.JSON_PROPERTY_ERROR
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

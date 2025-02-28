@@ -28,14 +28,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Send this event to update the session’s default configuration. The client may  send this event at any time to update the session configuration, and any  field may be updated at any time, except for \&quot;voice\&quot;. The server will respond  with a &#x60;session.updated&#x60; event that shows the full effective configuration.  Only fields that are present are updated, thus the correct way to clear a  field like \&quot;instructions\&quot; is to pass an empty string. 
+ * Send this event to update the session’s default configuration. The client may send this event at any time to update the session configuration, and any field may be updated at any time, except for \&quot;voice\&quot;. The server will respond with a &#x60;session.updated&#x60; event that shows the full effective configuration. Only fields that are present are updated, thus the correct way to clear a field like \&quot;instructions\&quot; is to pass an empty string. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventSessionUpdate.JSON_PROPERTY_EVENT_ID,
   RealtimeClientEventSessionUpdate.JSON_PROPERTY_TYPE,
   RealtimeClientEventSessionUpdate.JSON_PROPERTY_SESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventSessionUpdate {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable

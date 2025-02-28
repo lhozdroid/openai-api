@@ -18,10 +18,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.client.model.RealtimeConversationItem;
+import org.openapitools.client.model.RealtimeResponseMaxOutputTokens;
 import org.openapitools.client.model.RealtimeResponseStatusDetails;
 import org.openapitools.client.model.RealtimeResponseUsage;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -100,6 +104,54 @@ class RealtimeResponseTest {
     @Test
     void usageTest() {
         // TODO: test usage
+    }
+
+    /**
+     * Test the property 'conversationId'
+     */
+    @Test
+    void conversationIdTest() {
+        // TODO: test conversationId
+    }
+
+    /**
+     * Test the property 'voice'
+     */
+    @Test
+    void voiceTest() {
+        // TODO: test voice
+    }
+
+    /**
+     * Test the property 'modalities'
+     */
+    @Test
+    void modalitiesTest() {
+        // TODO: test modalities
+    }
+
+    /**
+     * Test the property 'outputAudioFormat'
+     */
+    @Test
+    void outputAudioFormatTest() {
+        // TODO: test outputAudioFormat
+    }
+
+    /**
+     * Test the property 'temperature'
+     */
+    @Test
+    void temperatureTest() {
+        // TODO: test temperature
+    }
+
+    /**
+     * Test the property 'maxOutputTokens'
+     */
+    @Test
+    void maxOutputTokensTest() {
+        // TODO: test maxOutputTokens
     }
 
 }

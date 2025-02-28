@@ -43,7 +43,7 @@ import java.util.StringJoiner;
   MessageDeltaContentTextObjectTextAnnotationsInner.JSON_PROPERTY_FILE_PATH
 })
 @JsonTypeName("MessageDeltaContentTextObject_text_annotations_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class MessageDeltaContentTextObjectTextAnnotationsInner {
   public static final String JSON_PROPERTY_INDEX = "index";
   @javax.annotation.Nonnull
@@ -53,9 +53,9 @@ public class MessageDeltaContentTextObjectTextAnnotationsInner {
    * Always &#x60;file_citation&#x60;.
    */
   public enum TypeEnum {
-    CITATION(String.valueOf("file_citation")),
+    FILE_CITATION(String.valueOf("file_citation")),
     
-    PATH(String.valueOf("file_path"));
+    FILE_PATH(String.valueOf("file_path"));
 
     private String value;
 

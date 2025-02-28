@@ -22,8 +22,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.client.model.CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy;
+import org.openapitools.jackson.nullable.JsonNullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -39,7 +45,7 @@ import java.util.StringJoiner;
   CreateThreadRequestToolResourcesFileSearchVectorStoresInner.JSON_PROPERTY_METADATA
 })
 @JsonTypeName("CreateThreadRequest_tool_resources_file_search_vector_stores_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
   public static final String JSON_PROPERTY_FILE_IDS = "file_ids";
   @javax.annotation.Nullable
@@ -51,7 +57,7 @@ public class CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private Object metadata;
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public CreateThreadRequestToolResourcesFileSearchVectorStoresInner() {
   }
@@ -114,29 +120,49 @@ public class CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
     this.chunkingStrategy = chunkingStrategy;
   }
 
-  public CreateThreadRequestToolResourcesFileSearchVectorStoresInner metadata(@javax.annotation.Nullable Object metadata) {
+  public CreateThreadRequestToolResourcesFileSearchVectorStoresInner metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
-    this.metadata = metadata;
+    return this;
+  }
+
+  public CreateThreadRequestToolResourcesFileSearchVectorStoresInner putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
     return this;
   }
 
   /**
-   * Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
 
-  public Object getMetadata() {
-    return metadata;
+  public Map<String, String> getMetadata() {
+        return metadata.orElse(null);
   }
 
-
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
+
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
+    return metadata;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
+  }
+
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   @Override
@@ -150,12 +176,23 @@ public class CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
     CreateThreadRequestToolResourcesFileSearchVectorStoresInner createThreadRequestToolResourcesFileSearchVectorStoresInner = (CreateThreadRequestToolResourcesFileSearchVectorStoresInner) o;
     return Objects.equals(this.fileIds, createThreadRequestToolResourcesFileSearchVectorStoresInner.fileIds) &&
         Objects.equals(this.chunkingStrategy, createThreadRequestToolResourcesFileSearchVectorStoresInner.chunkingStrategy) &&
-        Objects.equals(this.metadata, createThreadRequestToolResourcesFileSearchVectorStoresInner.metadata);
+        equalsNullable(this.metadata, createThreadRequestToolResourcesFileSearchVectorStoresInner.metadata);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileIds, chunkingStrategy, metadata);
+    return Objects.hash(fileIds, chunkingStrategy, hashCodeNullable(metadata));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -233,11 +270,15 @@ public class CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

@@ -33,7 +33,7 @@ import java.util.StringJoiner;
   AdminApiKeysCreateRequest.JSON_PROPERTY_NAME
 })
 @JsonTypeName("admin_api_keys_create_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class AdminApiKeysCreateRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull

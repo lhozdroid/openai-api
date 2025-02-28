@@ -82,7 +82,7 @@ public class Example {
 
 ## listUsers
 
-> UserListResponse listUsers(limit, after)
+> UserListResponse listUsers(limit, after, emails)
 
 Lists all of the users in the organization.
 
@@ -109,8 +109,9 @@ public class Example {
         UsersApi apiInstance = new UsersApi(defaultClient);
         Integer limit = 20; // Integer | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20. 
         String after = "after_example"; // String | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. 
+        List<String> emails = Arrays.asList(); // List<String> | Filter by the email address of users.
         try {
-            UserListResponse result = apiInstance.listUsers(limit, after);
+            UserListResponse result = apiInstance.listUsers(limit, after, emails);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsersApi#listUsers");
@@ -130,6 +131,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **limit** | **Integer**| A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  | [optional] [default to 20] |
 | **after** | **String**| A cursor for use in pagination. &#x60;after&#x60; is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after&#x3D;obj_foo in order to fetch the next page of the list.  | [optional] |
+| **emails** | [**List&lt;String&gt;**](String.md)| Filter by the email address of users. | [optional] |
 
 ### Return type
 

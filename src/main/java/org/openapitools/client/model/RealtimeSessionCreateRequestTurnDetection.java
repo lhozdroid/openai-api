@@ -28,7 +28,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Configuration for turn detection. Can be set to &#x60;null&#x60; to turn off. Server  VAD means that the model will detect the start and end of speech based on  audio volume and respond at the end of user speech. 
+ * Configuration for turn detection. Can be set to &#x60;null&#x60; to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech. 
  */
 @JsonPropertyOrder({
   RealtimeSessionCreateRequestTurnDetection.JSON_PROPERTY_TYPE,
@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   RealtimeSessionCreateRequestTurnDetection.JSON_PROPERTY_CREATE_RESPONSE
 })
 @JsonTypeName("RealtimeSessionCreateRequest_turn_detection")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeSessionCreateRequestTurnDetection {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nullable
@@ -95,7 +95,7 @@ public class RealtimeSessionCreateRequestTurnDetection {
   }
 
   /**
-   * Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A  higher threshold will require louder audio to activate the model, and  thus might perform better in noisy environments. 
+   * Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments. 
    * @return threshold
    */
   @javax.annotation.Nullable
@@ -120,7 +120,7 @@ public class RealtimeSessionCreateRequestTurnDetection {
   }
 
   /**
-   * Amount of audio to include before the VAD detected speech (in  milliseconds). Defaults to 300ms. 
+   * Amount of audio to include before the VAD detected speech (in milliseconds). Defaults to 300ms. 
    * @return prefixPaddingMs
    */
   @javax.annotation.Nullable
@@ -145,7 +145,7 @@ public class RealtimeSessionCreateRequestTurnDetection {
   }
 
   /**
-   * Duration of silence to detect speech stop (in milliseconds). Defaults  to 500ms. With shorter values the model will respond more quickly,  but may jump in on short pauses from the user. 
+   * Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user. 
    * @return silenceDurationMs
    */
   @javax.annotation.Nullable

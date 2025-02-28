@@ -36,23 +36,23 @@ import java.util.StringJoiner;
   CompletionUsageCompletionTokensDetails.JSON_PROPERTY_REJECTED_PREDICTION_TOKENS
 })
 @JsonTypeName("CompletionUsage_completion_tokens_details")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CompletionUsageCompletionTokensDetails {
   public static final String JSON_PROPERTY_ACCEPTED_PREDICTION_TOKENS = "accepted_prediction_tokens";
   @javax.annotation.Nullable
-  private Integer acceptedPredictionTokens;
+  private Integer acceptedPredictionTokens = 0;
 
   public static final String JSON_PROPERTY_AUDIO_TOKENS = "audio_tokens";
   @javax.annotation.Nullable
-  private Integer audioTokens;
+  private Integer audioTokens = 0;
 
   public static final String JSON_PROPERTY_REASONING_TOKENS = "reasoning_tokens";
   @javax.annotation.Nullable
-  private Integer reasoningTokens;
+  private Integer reasoningTokens = 0;
 
   public static final String JSON_PROPERTY_REJECTED_PREDICTION_TOKENS = "rejected_prediction_tokens";
   @javax.annotation.Nullable
-  private Integer rejectedPredictionTokens;
+  private Integer rejectedPredictionTokens = 0;
 
   public CompletionUsageCompletionTokensDetails() {
   }

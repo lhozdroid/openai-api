@@ -60,7 +60,7 @@ import java.util.StringJoiner;
   CreateCompletionRequest.JSON_PROPERTY_TOP_P,
   CreateCompletionRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateCompletionRequest {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nonnull
@@ -104,7 +104,7 @@ public class CreateCompletionRequest {
 
   public static final String JSON_PROPERTY_SEED = "seed";
   @javax.annotation.Nullable
-  private JsonNullable<Integer> seed = JsonNullable.<Integer>undefined();
+  private JsonNullable<Long> seed = JsonNullable.<Long>undefined();
 
   public static final String JSON_PROPERTY_STOP = "stop";
   @javax.annotation.Nullable
@@ -474,39 +474,37 @@ public class CreateCompletionRequest {
     this.presencePenalty = JsonNullable.<BigDecimal>of(presencePenalty);
   }
 
-  public CreateCompletionRequest seed(@javax.annotation.Nullable Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
+  public CreateCompletionRequest seed(@javax.annotation.Nullable Long seed) {
+    this.seed = JsonNullable.<Long>of(seed);
     
     return this;
   }
 
   /**
    * If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same &#x60;seed&#x60; and parameters should return the same result.  Determinism is not guaranteed, and you should refer to the &#x60;system_fingerprint&#x60; response parameter to monitor changes in the backend. 
-   * minimum: 9223372036854775616
-   * maximum: -9223372036854775616
    * @return seed
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Integer getSeed() {
+  public Long getSeed() {
         return seed.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_SEED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Integer> getSeed_JsonNullable() {
+  public JsonNullable<Long> getSeed_JsonNullable() {
     return seed;
   }
   
   @JsonProperty(JSON_PROPERTY_SEED)
-  public void setSeed_JsonNullable(JsonNullable<Integer> seed) {
+  public void setSeed_JsonNullable(JsonNullable<Long> seed) {
     this.seed = seed;
   }
 
-  public void setSeed(@javax.annotation.Nullable Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
+  public void setSeed(@javax.annotation.Nullable Long seed) {
+    this.seed = JsonNullable.<Long>of(seed);
   }
 
   public CreateCompletionRequest stop(@javax.annotation.Nullable CreateCompletionRequestStop stop) {

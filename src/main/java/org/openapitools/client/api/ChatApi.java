@@ -22,6 +22,7 @@ import org.openapitools.client.Pair;
 
 import org.openapitools.client.model.CreateChatCompletionRequest;
 import org.openapitools.client.model.CreateChatCompletionResponse;
+import org.openapitools.client.model.CreateChatCompletionStreamResponse;
 
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ChatApi extends BaseApi {
 
   public ChatApi() {
@@ -43,7 +44,7 @@ public class ChatApi extends BaseApi {
   }
 
   /**
-   * Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of  unsupported parameters in reasoning models,  [refer to the reasoning guide](/docs/guides/reasoning). 
+   * Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](/docs/guides/reasoning). 
    * 
    * @param createChatCompletionRequest  (required)
    * @return CreateChatCompletionResponse
@@ -55,7 +56,7 @@ public class ChatApi extends BaseApi {
 
 
   /**
-   * Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of  unsupported parameters in reasoning models,  [refer to the reasoning guide](/docs/guides/reasoning). 
+   * Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](/docs/guides/reasoning). 
    * 
    * @param createChatCompletionRequest  (required)
    * @param additionalHeaders additionalHeaders for this call
@@ -87,7 +88,7 @@ public class ChatApi extends BaseApi {
     
     
     final String[] localVarAccepts = {
-      "application/json"
+      "application/json", "text/event-stream"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -129,7 +130,7 @@ public class ChatApi extends BaseApi {
     localVarHeaderParams.putAll(additionalHeaders);
 
     final String[] localVarAccepts = {
-      "application/json"
+      "application/json", "text/event-stream"
     };
     final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 

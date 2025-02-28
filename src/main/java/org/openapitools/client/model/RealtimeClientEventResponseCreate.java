@@ -28,14 +28,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * This event instructs the server to create a Response, which means triggering  model inference. When in Server VAD mode, the server will create Responses  automatically.  A Response will include at least one Item, and may have two, in which case  the second will be a function call. These Items will be appended to the  conversation history.  The server will respond with a &#x60;response.created&#x60; event, events for Items  and content created, and finally a &#x60;response.done&#x60; event to indicate the  Response is complete.  The &#x60;response.create&#x60; event includes inference configuration like  &#x60;instructions&#x60;, and &#x60;temperature&#x60;. These fields will override the Session&#39;s  configuration for this Response only. 
+ * This event instructs the server to create a Response, which means triggering model inference. When in Server VAD mode, the server will create Responses automatically.  A Response will include at least one Item, and may have two, in which case the second will be a function call. These Items will be appended to the conversation history.  The server will respond with a &#x60;response.created&#x60; event, events for Items and content created, and finally a &#x60;response.done&#x60; event to indicate the Response is complete.  The &#x60;response.create&#x60; event includes inference configuration like &#x60;instructions&#x60;, and &#x60;temperature&#x60;. These fields will override the Session&#39;s configuration for this Response only. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventResponseCreate.JSON_PROPERTY_EVENT_ID,
   RealtimeClientEventResponseCreate.JSON_PROPERTY_TYPE,
   RealtimeClientEventResponseCreate.JSON_PROPERTY_RESPONSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventResponseCreate {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable

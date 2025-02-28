@@ -28,14 +28,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when a Response is done streaming. Always emitted, no matter the  final state. The Response object included in the &#x60;response.done&#x60; event will  include all output Items in the Response but will omit the raw audio data. 
+ * Returned when a Response is done streaming. Always emitted, no matter the final state. The Response object included in the &#x60;response.done&#x60; event will include all output Items in the Response but will omit the raw audio data. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventResponseDone.JSON_PROPERTY_EVENT_ID,
   RealtimeServerEventResponseDone.JSON_PROPERTY_TYPE,
   RealtimeServerEventResponseDone.JSON_PROPERTY_RESPONSE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventResponseDone {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

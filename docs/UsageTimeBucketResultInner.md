@@ -25,7 +25,7 @@
 |**characters** | **Integer** | The number of characters processed. |  |
 |**seconds** | **Integer** | The number of seconds processed. |  |
 |**usageBytes** | **Integer** | The vector stores usage in bytes. |  |
-|**sessions** | **Integer** | The number of code interpreter sessions. |  |
+|**numSessions** | **Integer** | The number of code interpreter sessions. |  [optional] |
 |**amount** | [**CostsResultAmount**](CostsResultAmount.md) |  |  [optional] |
 |**lineItem** | **String** | When &#x60;group_by&#x3D;line_item&#x60;, this field provides the line item of the grouped costs result. |  [optional] |
 

@@ -23,14 +23,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import org.openapitools.client.model.AssistantsApiResponseFormatOption;
-import org.openapitools.client.model.AssistantsApiToolChoiceOption;
-import org.openapitools.client.model.CreateRunRequestModel;
+import java.util.Map;
+import org.openapitools.client.model.AssistantObjectResponseFormat;
+import org.openapitools.client.model.CreateRunRequestToolChoice;
+import org.openapitools.client.model.CreateRunRequestTruncationStrategy;
+import org.openapitools.client.model.CreateThreadAndRunRequestModel;
 import org.openapitools.client.model.CreateThreadAndRunRequestToolResources;
 import org.openapitools.client.model.CreateThreadAndRunRequestToolsInner;
 import org.openapitools.client.model.CreateThreadRequest;
-import org.openapitools.client.model.TruncationObject;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -62,7 +64,7 @@ import java.util.StringJoiner;
   CreateThreadAndRunRequest.JSON_PROPERTY_PARALLEL_TOOL_CALLS,
   CreateThreadAndRunRequest.JSON_PROPERTY_RESPONSE_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateThreadAndRunRequest {
   public static final String JSON_PROPERTY_ASSISTANT_ID = "assistant_id";
   @javax.annotation.Nonnull
@@ -74,7 +76,7 @@ public class CreateThreadAndRunRequest {
 
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nullable
-  private JsonNullable<CreateRunRequestModel> model = JsonNullable.<CreateRunRequestModel>undefined();
+  private JsonNullable<CreateThreadAndRunRequestModel> model = JsonNullable.<CreateThreadAndRunRequestModel>undefined();
 
   public static final String JSON_PROPERTY_INSTRUCTIONS = "instructions";
   @javax.annotation.Nullable
@@ -90,7 +92,7 @@ public class CreateThreadAndRunRequest {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
   @javax.annotation.Nullable
@@ -114,11 +116,11 @@ public class CreateThreadAndRunRequest {
 
   public static final String JSON_PROPERTY_TRUNCATION_STRATEGY = "truncation_strategy";
   @javax.annotation.Nullable
-  private TruncationObject truncationStrategy;
+  private CreateRunRequestTruncationStrategy truncationStrategy;
 
   public static final String JSON_PROPERTY_TOOL_CHOICE = "tool_choice";
   @javax.annotation.Nullable
-  private AssistantsApiToolChoiceOption toolChoice;
+  private CreateRunRequestToolChoice toolChoice;
 
   public static final String JSON_PROPERTY_PARALLEL_TOOL_CALLS = "parallel_tool_calls";
   @javax.annotation.Nullable
@@ -126,7 +128,7 @@ public class CreateThreadAndRunRequest {
 
   public static final String JSON_PROPERTY_RESPONSE_FORMAT = "response_format";
   @javax.annotation.Nullable
-  private AssistantsApiResponseFormatOption responseFormat;
+  private AssistantObjectResponseFormat responseFormat;
 
   public CreateThreadAndRunRequest() {
   }
@@ -181,8 +183,8 @@ public class CreateThreadAndRunRequest {
     this.thread = thread;
   }
 
-  public CreateThreadAndRunRequest model(@javax.annotation.Nullable CreateRunRequestModel model) {
-    this.model = JsonNullable.<CreateRunRequestModel>of(model);
+  public CreateThreadAndRunRequest model(@javax.annotation.Nullable CreateThreadAndRunRequestModel model) {
+    this.model = JsonNullable.<CreateThreadAndRunRequestModel>of(model);
     
     return this;
   }
@@ -194,24 +196,24 @@ public class CreateThreadAndRunRequest {
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public CreateRunRequestModel getModel() {
+  public CreateThreadAndRunRequestModel getModel() {
         return model.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_MODEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<CreateRunRequestModel> getModel_JsonNullable() {
+  public JsonNullable<CreateThreadAndRunRequestModel> getModel_JsonNullable() {
     return model;
   }
   
   @JsonProperty(JSON_PROPERTY_MODEL)
-  public void setModel_JsonNullable(JsonNullable<CreateRunRequestModel> model) {
+  public void setModel_JsonNullable(JsonNullable<CreateThreadAndRunRequestModel> model) {
     this.model = model;
   }
 
-  public void setModel(@javax.annotation.Nullable CreateRunRequestModel model) {
-    this.model = JsonNullable.<CreateRunRequestModel>of(model);
+  public void setModel(@javax.annotation.Nullable CreateThreadAndRunRequestModel model) {
+    this.model = JsonNullable.<CreateThreadAndRunRequestModel>of(model);
   }
 
   public CreateThreadAndRunRequest instructions(@javax.annotation.Nullable String instructions) {
@@ -325,37 +327,49 @@ public class CreateThreadAndRunRequest {
     this.toolResources = JsonNullable.<CreateThreadAndRunRequestToolResources>of(toolResources);
   }
 
-  public CreateThreadAndRunRequest metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public CreateThreadAndRunRequest metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public CreateThreadAndRunRequest putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   public CreateThreadAndRunRequest temperature(@javax.annotation.Nullable BigDecimal temperature) {
@@ -529,7 +543,7 @@ public class CreateThreadAndRunRequest {
     this.maxCompletionTokens = JsonNullable.<Integer>of(maxCompletionTokens);
   }
 
-  public CreateThreadAndRunRequest truncationStrategy(@javax.annotation.Nullable TruncationObject truncationStrategy) {
+  public CreateThreadAndRunRequest truncationStrategy(@javax.annotation.Nullable CreateRunRequestTruncationStrategy truncationStrategy) {
     
     this.truncationStrategy = truncationStrategy;
     return this;
@@ -543,18 +557,18 @@ public class CreateThreadAndRunRequest {
   @JsonProperty(JSON_PROPERTY_TRUNCATION_STRATEGY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public TruncationObject getTruncationStrategy() {
+  public CreateRunRequestTruncationStrategy getTruncationStrategy() {
     return truncationStrategy;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TRUNCATION_STRATEGY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTruncationStrategy(@javax.annotation.Nullable TruncationObject truncationStrategy) {
+  public void setTruncationStrategy(@javax.annotation.Nullable CreateRunRequestTruncationStrategy truncationStrategy) {
     this.truncationStrategy = truncationStrategy;
   }
 
-  public CreateThreadAndRunRequest toolChoice(@javax.annotation.Nullable AssistantsApiToolChoiceOption toolChoice) {
+  public CreateThreadAndRunRequest toolChoice(@javax.annotation.Nullable CreateRunRequestToolChoice toolChoice) {
     
     this.toolChoice = toolChoice;
     return this;
@@ -568,14 +582,14 @@ public class CreateThreadAndRunRequest {
   @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AssistantsApiToolChoiceOption getToolChoice() {
+  public CreateRunRequestToolChoice getToolChoice() {
     return toolChoice;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setToolChoice(@javax.annotation.Nullable AssistantsApiToolChoiceOption toolChoice) {
+  public void setToolChoice(@javax.annotation.Nullable CreateRunRequestToolChoice toolChoice) {
     this.toolChoice = toolChoice;
   }
 
@@ -604,7 +618,7 @@ public class CreateThreadAndRunRequest {
     this.parallelToolCalls = parallelToolCalls;
   }
 
-  public CreateThreadAndRunRequest responseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public CreateThreadAndRunRequest responseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     
     this.responseFormat = responseFormat;
     return this;
@@ -618,14 +632,14 @@ public class CreateThreadAndRunRequest {
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AssistantsApiResponseFormatOption getResponseFormat() {
+  public AssistantObjectResponseFormat getResponseFormat() {
     return responseFormat;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResponseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public void setResponseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     this.responseFormat = responseFormat;
   }
 
@@ -786,11 +800,15 @@ public class CreateThreadAndRunRequest {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

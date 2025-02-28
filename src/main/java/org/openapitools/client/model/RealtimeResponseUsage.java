@@ -29,7 +29,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Usage statistics for the Response, this will correspond to billing. A  Realtime API session will maintain a conversation context and append new  Items to the Conversation, thus output from previous turns (text and  audio tokens) will become the input for later turns. 
+ * Usage statistics for the Response, this will correspond to billing. A Realtime API session will maintain a conversation context and append new Items to the Conversation, thus output from previous turns (text and audio tokens) will become the input for later turns. 
  */
 @JsonPropertyOrder({
   RealtimeResponseUsage.JSON_PROPERTY_TOTAL_TOKENS,
@@ -39,7 +39,7 @@ import java.util.StringJoiner;
   RealtimeResponseUsage.JSON_PROPERTY_OUTPUT_TOKEN_DETAILS
 })
 @JsonTypeName("RealtimeResponse_usage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeResponseUsage {
   public static final String JSON_PROPERTY_TOTAL_TOKENS = "total_tokens";
   @javax.annotation.Nullable
@@ -71,7 +71,7 @@ public class RealtimeResponseUsage {
   }
 
   /**
-   * The total number of tokens in the Response including input and output  text and audio tokens. 
+   * The total number of tokens in the Response including input and output text and audio tokens. 
    * @return totalTokens
    */
   @javax.annotation.Nullable
@@ -96,7 +96,7 @@ public class RealtimeResponseUsage {
   }
 
   /**
-   * The number of input tokens used in the Response, including text and  audio tokens. 
+   * The number of input tokens used in the Response, including text and audio tokens. 
    * @return inputTokens
    */
   @javax.annotation.Nullable
@@ -121,7 +121,7 @@ public class RealtimeResponseUsage {
   }
 
   /**
-   * The number of output tokens sent in the Response, including text and  audio tokens. 
+   * The number of output tokens sent in the Response, including text and audio tokens. 
    * @return outputTokens
    */
   @javax.annotation.Nullable

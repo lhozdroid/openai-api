@@ -22,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.client.model.CreateMessageRequestAttachmentsInner;
 import org.openapitools.client.model.MessageObjectContentInner;
 import org.openapitools.client.model.MessageObjectIncompleteDetails;
@@ -51,7 +53,7 @@ import java.util.StringJoiner;
   MessageObject.JSON_PROPERTY_ATTACHMENTS,
   MessageObject.JSON_PROPERTY_METADATA
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class MessageObject {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull
@@ -212,7 +214,7 @@ public class MessageObject {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private Object metadata;
+  private Map<String, String> metadata;
 
   public MessageObject() {
   }
@@ -558,28 +560,33 @@ public class MessageObject {
     this.attachments = attachments;
   }
 
-  public MessageObject metadata(@javax.annotation.Nullable Object metadata) {
+  public MessageObject metadata(@javax.annotation.Nullable Map<String, String> metadata) {
     
     this.metadata = metadata;
     return this;
   }
 
+  public MessageObject putMetadataItem(String key, String metadataItem) {
+    this.metadata.put(key, metadataItem);
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
     return metadata;
   }
 
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
   }
 
@@ -805,11 +812,15 @@ public class MessageObject {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

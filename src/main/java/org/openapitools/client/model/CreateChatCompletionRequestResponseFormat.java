@@ -38,7 +38,7 @@ import java.util.StringJoiner;
   CreateChatCompletionRequestResponseFormat.JSON_PROPERTY_JSON_SCHEMA
 })
 @JsonTypeName("CreateChatCompletionRequest_response_format")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateChatCompletionRequestResponseFormat {
   /**
    * The type of response format being defined: &#x60;text&#x60;

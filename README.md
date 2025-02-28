@@ -4,9 +4,9 @@ OpenAI API
 
 - API version: 2.3.0
 
-- Build date: 2025-01-14T12:15:51.997600814-05:00[US/Eastern]
+- Build date: 2025-02-28T09:51:07.087747877-05:00[US/Eastern]
 
-- Generator version: 7.10.0
+- Generator version: 7.11.0
 
 The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.
 
@@ -147,7 +147,7 @@ Class | Method | HTTP request | Description
 *BatchApi* | [**createBatch**](docs/BatchApi.md#createBatch) | **POST** /batches | Creates and executes a batch from an uploaded file of requests
 *BatchApi* | [**listBatches**](docs/BatchApi.md#listBatches) | **GET** /batches | List your organization&#39;s batches.
 *BatchApi* | [**retrieveBatch**](docs/BatchApi.md#retrieveBatch) | **GET** /batches/{batch_id} | Retrieves a batch.
-*ChatApi* | [**createChatCompletion**](docs/ChatApi.md#createChatCompletion) | **POST** /chat/completions | Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of  unsupported parameters in reasoning models,  [refer to the reasoning guide](/docs/guides/reasoning). 
+*ChatApi* | [**createChatCompletion**](docs/ChatApi.md#createChatCompletion) | **POST** /chat/completions | Creates a model response for the given chat conversation. Learn more in the [text generation](/docs/guides/text-generation), [vision](/docs/guides/vision), and [audio](/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](/docs/guides/reasoning). 
 *CompletionsApi* | [**createCompletion**](docs/CompletionsApi.md#createCompletion) | **POST** /completions | Creates a completion for the provided prompt and parameters.
 *DefaultApi* | [**adminApiKeysCreate**](docs/DefaultApi.md#adminApiKeysCreate) | **POST** /organization/admin_api_keys | Create an organization admin API key
 *DefaultApi* | [**adminApiKeysDelete**](docs/DefaultApi.md#adminApiKeysDelete) | **DELETE** /organization/admin_api_keys/{key_id} | Delete an organization admin API key
@@ -196,9 +196,9 @@ Class | Method | HTTP request | Description
 *ProjectsApi* | [**retrieveProjectUser**](docs/ProjectsApi.md#retrieveProjectUser) | **GET** /organization/projects/{project_id}/users/{user_id} | Retrieves a user in the project.
 *ProjectsApi* | [**updateProjectRateLimits**](docs/ProjectsApi.md#updateProjectRateLimits) | **POST** /organization/projects/{project_id}/rate_limits/{rate_limit_id} | Updates a project rate limit.
 *RealtimeApi* | [**createRealtimeSession**](docs/RealtimeApi.md#createRealtimeSession) | **POST** /realtime/sessions | Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the &#x60;session.update&#x60; client event.  It responds with a session object, plus a &#x60;client_secret&#x60; key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
-*UploadsApi* | [**addUploadPart**](docs/UploadsApi.md#addUploadPart) | **POST** /uploads/{upload_id}/parts | Adds a [Part](/docs/api-reference/uploads/part-object) to an [Upload](/docs/api-reference/uploads/object) object. A Part represents a chunk of bytes from the file you are trying to upload.   Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.  It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](/docs/api-reference/uploads/complete). 
+*UploadsApi* | [**addUploadPart**](docs/UploadsApi.md#addUploadPart) | **POST** /uploads/{upload_id}/parts | Adds a [Part](/docs/api-reference/uploads/part-object) to an [Upload](/docs/api-reference/uploads/object) object. A Part represents a chunk of bytes from the file you are trying to upload.  Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.  It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](/docs/api-reference/uploads/complete). 
 *UploadsApi* | [**cancelUpload**](docs/UploadsApi.md#cancelUpload) | **POST** /uploads/{upload_id}/cancel | Cancels the Upload. No Parts may be added after an Upload is cancelled. 
-*UploadsApi* | [**completeUpload**](docs/UploadsApi.md#completeUpload) | **POST** /uploads/{upload_id}/complete | Completes the [Upload](/docs/api-reference/uploads/object).   Within the returned Upload object, there is a nested [File](/docs/api-reference/files/object) object that is ready to use in the rest of the platform.  You can specify the order of the Parts by passing in an ordered list of the Part IDs.  The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed. 
+*UploadsApi* | [**completeUpload**](docs/UploadsApi.md#completeUpload) | **POST** /uploads/{upload_id}/complete | Completes the [Upload](/docs/api-reference/uploads/object).  Within the returned Upload object, there is a nested [File](/docs/api-reference/files/object) object that is ready to use in the rest of the platform.  You can specify the order of the Parts by passing in an ordered list of the Part IDs.  The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed. 
 *UploadsApi* | [**createUpload**](docs/UploadsApi.md#createUpload) | **POST** /uploads | Creates an intermediate [Upload](/docs/api-reference/uploads/object) object that you can add [Parts](/docs/api-reference/uploads/part-object) to. Currently, an Upload can accept at most 8 GB in total and expires after an hour after you create it.  Once you complete the Upload, we will create a [File](/docs/api-reference/files/object) object that contains all the parts you uploaded. This File is usable in the rest of our platform as a regular File object.  For certain &#x60;purpose&#x60;s, the correct &#x60;mime_type&#x60; must be specified. Please refer to documentation for the supported MIME types for your use case: - [Assistants](/docs/assistants/tools/file-search#supported-files)  For guidance on the proper filename extensions for each purpose, please follow the documentation on [creating a File](/docs/api-reference/files/create). 
 *UsageApi* | [**usageAudioSpeeches**](docs/UsageApi.md#usageAudioSpeeches) | **GET** /organization/usage/audio_speeches | Get audio speeches usage details for the organization.
 *UsageApi* | [**usageAudioTranscriptions**](docs/UsageApi.md#usageAudioTranscriptions) | **GET** /organization/usage/audio_transcriptions | Get audio transcriptions usage details for the organization.
@@ -237,11 +237,13 @@ Class | Method | HTTP request | Description
  - [ApiKeyList](docs/ApiKeyList.md)
  - [ArrayOfContentPartsInner](docs/ArrayOfContentPartsInner.md)
  - [AssistantObject](docs/AssistantObject.md)
+ - [AssistantObjectResponseFormat](docs/AssistantObjectResponseFormat.md)
  - [AssistantObjectToolResources](docs/AssistantObjectToolResources.md)
  - [AssistantObjectToolResourcesCodeInterpreter](docs/AssistantObjectToolResourcesCodeInterpreter.md)
  - [AssistantObjectToolResourcesFileSearch](docs/AssistantObjectToolResourcesFileSearch.md)
  - [AssistantObjectToolsInner](docs/AssistantObjectToolsInner.md)
  - [AssistantStreamEvent](docs/AssistantStreamEvent.md)
+ - [AssistantSupportedModels](docs/AssistantSupportedModels.md)
  - [AssistantToolsCode](docs/AssistantToolsCode.md)
  - [AssistantToolsFileSearch](docs/AssistantToolsFileSearch.md)
  - [AssistantToolsFileSearchFileSearch](docs/AssistantToolsFileSearchFileSearch.md)
@@ -414,9 +416,12 @@ Class | Method | HTTP request | Description
  - [CreateModerationResponseResultsInnerCategoryScores](docs/CreateModerationResponseResultsInnerCategoryScores.md)
  - [CreateRunRequest](docs/CreateRunRequest.md)
  - [CreateRunRequestModel](docs/CreateRunRequestModel.md)
+ - [CreateRunRequestToolChoice](docs/CreateRunRequestToolChoice.md)
+ - [CreateRunRequestTruncationStrategy](docs/CreateRunRequestTruncationStrategy.md)
  - [CreateSpeechRequest](docs/CreateSpeechRequest.md)
  - [CreateSpeechRequestModel](docs/CreateSpeechRequestModel.md)
  - [CreateThreadAndRunRequest](docs/CreateThreadAndRunRequest.md)
+ - [CreateThreadAndRunRequestModel](docs/CreateThreadAndRunRequestModel.md)
  - [CreateThreadAndRunRequestToolResources](docs/CreateThreadAndRunRequestToolResources.md)
  - [CreateThreadAndRunRequestToolsInner](docs/CreateThreadAndRunRequestToolsInner.md)
  - [CreateThreadRequest](docs/CreateThreadRequest.md)
@@ -536,6 +541,7 @@ Class | Method | HTTP request | Description
  - [MessageStreamEventOneOf4](docs/MessageStreamEventOneOf4.md)
  - [Model](docs/Model.md)
  - [ModifyAssistantRequest](docs/ModifyAssistantRequest.md)
+ - [ModifyAssistantRequestModel](docs/ModifyAssistantRequestModel.md)
  - [ModifyAssistantRequestToolResources](docs/ModifyAssistantRequestToolResources.md)
  - [ModifyAssistantRequestToolResourcesCodeInterpreter](docs/ModifyAssistantRequestToolResourcesCodeInterpreter.md)
  - [ModifyAssistantRequestToolResourcesFileSearch](docs/ModifyAssistantRequestToolResourcesFileSearch.md)
@@ -581,11 +587,13 @@ Class | Method | HTTP request | Description
  - [RealtimeClientEventSessionUpdate](docs/RealtimeClientEventSessionUpdate.md)
  - [RealtimeConversationItem](docs/RealtimeConversationItem.md)
  - [RealtimeConversationItemContentInner](docs/RealtimeConversationItemContentInner.md)
+ - [RealtimeConversationItemWithReference](docs/RealtimeConversationItemWithReference.md)
  - [RealtimeResponse](docs/RealtimeResponse.md)
  - [RealtimeResponseCreateParams](docs/RealtimeResponseCreateParams.md)
  - [RealtimeResponseCreateParamsConversation](docs/RealtimeResponseCreateParamsConversation.md)
  - [RealtimeResponseCreateParamsMaxResponseOutputTokens](docs/RealtimeResponseCreateParamsMaxResponseOutputTokens.md)
  - [RealtimeResponseCreateParamsToolsInner](docs/RealtimeResponseCreateParamsToolsInner.md)
+ - [RealtimeResponseMaxOutputTokens](docs/RealtimeResponseMaxOutputTokens.md)
  - [RealtimeResponseStatusDetails](docs/RealtimeResponseStatusDetails.md)
  - [RealtimeResponseStatusDetailsError](docs/RealtimeResponseStatusDetailsError.md)
  - [RealtimeResponseUsage](docs/RealtimeResponseUsage.md)
@@ -627,6 +635,7 @@ Class | Method | HTTP request | Description
  - [RealtimeServerEventSessionUpdated](docs/RealtimeServerEventSessionUpdated.md)
  - [RealtimeSession](docs/RealtimeSession.md)
  - [RealtimeSessionCreateRequest](docs/RealtimeSessionCreateRequest.md)
+ - [RealtimeSessionCreateRequestInputAudioTranscription](docs/RealtimeSessionCreateRequestInputAudioTranscription.md)
  - [RealtimeSessionCreateRequestTurnDetection](docs/RealtimeSessionCreateRequestTurnDetection.md)
  - [RealtimeSessionCreateResponse](docs/RealtimeSessionCreateResponse.md)
  - [RealtimeSessionCreateResponseClientSecret](docs/RealtimeSessionCreateResponseClientSecret.md)
@@ -634,6 +643,7 @@ Class | Method | HTTP request | Description
  - [RealtimeSessionInputAudioTranscription](docs/RealtimeSessionInputAudioTranscription.md)
  - [RealtimeSessionModel](docs/RealtimeSessionModel.md)
  - [RealtimeSessionTurnDetection](docs/RealtimeSessionTurnDetection.md)
+ - [ReasoningEffort](docs/ReasoningEffort.md)
  - [ResponseFormatJsonObject](docs/ResponseFormatJsonObject.md)
  - [ResponseFormatJsonSchema](docs/ResponseFormatJsonSchema.md)
  - [ResponseFormatJsonSchemaJsonSchema](docs/ResponseFormatJsonSchemaJsonSchema.md)
@@ -715,7 +725,9 @@ Class | Method | HTTP request | Description
  - [TranscriptionWord](docs/TranscriptionWord.md)
  - [TruncationObject](docs/TruncationObject.md)
  - [UpdateVectorStoreRequest](docs/UpdateVectorStoreRequest.md)
+ - [UpdateVectorStoreRequestExpiresAfter](docs/UpdateVectorStoreRequestExpiresAfter.md)
  - [Upload](docs/Upload.md)
+ - [UploadFile](docs/UploadFile.md)
  - [UploadPart](docs/UploadPart.md)
  - [UsageAudioSpeechesResult](docs/UsageAudioSpeechesResult.md)
  - [UsageAudioTranscriptionsResult](docs/UsageAudioTranscriptionsResult.md)

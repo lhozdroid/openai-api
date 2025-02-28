@@ -27,14 +27,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Send this event when you want to remove any item from the conversation  history. The server will respond with a &#x60;conversation.item.deleted&#x60; event,  unless the item does not exist in the conversation history, in which case the  server will respond with an error. 
+ * Send this event when you want to remove any item from the conversation history. The server will respond with a &#x60;conversation.item.deleted&#x60; event, unless the item does not exist in the conversation history, in which case the server will respond with an error. 
  */
 @JsonPropertyOrder({
   RealtimeClientEventConversationItemDelete.JSON_PROPERTY_EVENT_ID,
   RealtimeClientEventConversationItemDelete.JSON_PROPERTY_TYPE,
   RealtimeClientEventConversationItemDelete.JSON_PROPERTY_ITEM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeClientEventConversationItemDelete {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nullable

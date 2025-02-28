@@ -20,10 +20,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.openapitools.client.model.RealtimeConversationItem;
+import org.openapitools.client.model.RealtimeResponseMaxOutputTokens;
 import org.openapitools.client.model.RealtimeResponseStatusDetails;
 import org.openapitools.client.model.RealtimeResponseUsage;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -46,9 +50,15 @@ import java.util.StringJoiner;
   RealtimeResponse.JSON_PROPERTY_STATUS_DETAILS,
   RealtimeResponse.JSON_PROPERTY_OUTPUT,
   RealtimeResponse.JSON_PROPERTY_METADATA,
-  RealtimeResponse.JSON_PROPERTY_USAGE
+  RealtimeResponse.JSON_PROPERTY_USAGE,
+  RealtimeResponse.JSON_PROPERTY_CONVERSATION_ID,
+  RealtimeResponse.JSON_PROPERTY_VOICE,
+  RealtimeResponse.JSON_PROPERTY_MODALITIES,
+  RealtimeResponse.JSON_PROPERTY_OUTPUT_AUDIO_FORMAT,
+  RealtimeResponse.JSON_PROPERTY_TEMPERATURE,
+  RealtimeResponse.JSON_PROPERTY_MAX_OUTPUT_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeResponse {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable
@@ -92,7 +102,7 @@ public class RealtimeResponse {
   private ObjectEnum _object;
 
   /**
-   * The final status of the response (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;failed&#x60;, or  &#x60;incomplete&#x60;). 
+   * The final status of the response (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;failed&#x60;, or &#x60;incomplete&#x60;). 
    */
   public enum StatusEnum {
     COMPLETED(String.valueOf("completed")),
@@ -144,11 +154,154 @@ public class RealtimeResponse {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_USAGE = "usage";
   @javax.annotation.Nullable
   private RealtimeResponseUsage usage;
+
+  public static final String JSON_PROPERTY_CONVERSATION_ID = "conversation_id";
+  @javax.annotation.Nullable
+  private String conversationId;
+
+  /**
+   * The voice the model used to respond. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   */
+  public enum VoiceEnum {
+    ALLOY(String.valueOf("alloy")),
+    
+    ASH(String.valueOf("ash")),
+    
+    BALLAD(String.valueOf("ballad")),
+    
+    CORAL(String.valueOf("coral")),
+    
+    ECHO(String.valueOf("echo")),
+    
+    SAGE(String.valueOf("sage")),
+    
+    SHIMMER(String.valueOf("shimmer")),
+    
+    VERSE(String.valueOf("verse"));
+
+    private String value;
+
+    VoiceEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static VoiceEnum fromValue(String value) {
+      for (VoiceEnum b : VoiceEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_VOICE = "voice";
+  @javax.annotation.Nullable
+  private VoiceEnum voice;
+
+  /**
+   * Gets or Sets modalities
+   */
+  public enum ModalitiesEnum {
+    TEXT(String.valueOf("text")),
+    
+    AUDIO(String.valueOf("audio"));
+
+    private String value;
+
+    ModalitiesEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ModalitiesEnum fromValue(String value) {
+      for (ModalitiesEnum b : ModalitiesEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_MODALITIES = "modalities";
+  @javax.annotation.Nullable
+  private List<ModalitiesEnum> modalities = new ArrayList<>();
+
+  /**
+   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   */
+  public enum OutputAudioFormatEnum {
+    PCM16(String.valueOf("pcm16")),
+    
+    G711_ULAW(String.valueOf("g711_ulaw")),
+    
+    G711_ALAW(String.valueOf("g711_alaw"));
+
+    private String value;
+
+    OutputAudioFormatEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static OutputAudioFormatEnum fromValue(String value) {
+      for (OutputAudioFormatEnum b : OutputAudioFormatEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_OUTPUT_AUDIO_FORMAT = "output_audio_format";
+  @javax.annotation.Nullable
+  private OutputAudioFormatEnum outputAudioFormat;
+
+  public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
+  @javax.annotation.Nullable
+  private BigDecimal temperature;
+
+  public static final String JSON_PROPERTY_MAX_OUTPUT_TOKENS = "max_output_tokens";
+  @javax.annotation.Nullable
+  private RealtimeResponseMaxOutputTokens maxOutputTokens;
 
   public RealtimeResponse() {
   }
@@ -210,7 +363,7 @@ public class RealtimeResponse {
   }
 
   /**
-   * The final status of the response (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;failed&#x60;, or  &#x60;incomplete&#x60;). 
+   * The final status of the response (&#x60;completed&#x60;, &#x60;cancelled&#x60;, &#x60;failed&#x60;, or &#x60;incomplete&#x60;). 
    * @return status
    */
   @javax.annotation.Nullable
@@ -286,37 +439,49 @@ public class RealtimeResponse {
     this.output = output;
   }
 
-  public RealtimeResponse metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public RealtimeResponse metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public RealtimeResponse putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Developer-provided string key-value pairs associated with this response. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   public RealtimeResponse usage(@javax.annotation.Nullable RealtimeResponseUsage usage) {
@@ -344,6 +509,164 @@ public class RealtimeResponse {
     this.usage = usage;
   }
 
+  public RealtimeResponse conversationId(@javax.annotation.Nullable String conversationId) {
+    
+    this.conversationId = conversationId;
+    return this;
+  }
+
+  /**
+   * Which conversation the response is added to, determined by the &#x60;conversation&#x60; field in the &#x60;response.create&#x60; event. If &#x60;auto&#x60;, the response will be added to the default conversation and the value of &#x60;conversation_id&#x60; will be an id like &#x60;conv_1234&#x60;. If &#x60;none&#x60;, the response will not be added to any conversation and the value of &#x60;conversation_id&#x60; will be &#x60;null&#x60;. If responses are being triggered by server VAD, the response will be added to the default conversation, thus the &#x60;conversation_id&#x60; will be an id like &#x60;conv_1234&#x60;. 
+   * @return conversationId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getConversationId() {
+    return conversationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSATION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setConversationId(@javax.annotation.Nullable String conversationId) {
+    this.conversationId = conversationId;
+  }
+
+  public RealtimeResponse voice(@javax.annotation.Nullable VoiceEnum voice) {
+    
+    this.voice = voice;
+    return this;
+  }
+
+  /**
+   * The voice the model used to respond. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * @return voice
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public VoiceEnum getVoice() {
+    return voice;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VOICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVoice(@javax.annotation.Nullable VoiceEnum voice) {
+    this.voice = voice;
+  }
+
+  public RealtimeResponse modalities(@javax.annotation.Nullable List<ModalitiesEnum> modalities) {
+    
+    this.modalities = modalities;
+    return this;
+  }
+
+  public RealtimeResponse addModalitiesItem(ModalitiesEnum modalitiesItem) {
+    if (this.modalities == null) {
+      this.modalities = new ArrayList<>();
+    }
+    this.modalities.add(modalitiesItem);
+    return this;
+  }
+
+  /**
+   * The set of modalities the model used to respond. If there are multiple modalities, the model will pick one, for example if &#x60;modalities&#x60; is &#x60;[\&quot;text\&quot;, \&quot;audio\&quot;]&#x60;, the model could be responding in either text or audio. 
+   * @return modalities
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MODALITIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<ModalitiesEnum> getModalities() {
+    return modalities;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MODALITIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setModalities(@javax.annotation.Nullable List<ModalitiesEnum> modalities) {
+    this.modalities = modalities;
+  }
+
+  public RealtimeResponse outputAudioFormat(@javax.annotation.Nullable OutputAudioFormatEnum outputAudioFormat) {
+    
+    this.outputAudioFormat = outputAudioFormat;
+    return this;
+  }
+
+  /**
+   * The format of output audio. Options are &#x60;pcm16&#x60;, &#x60;g711_ulaw&#x60;, or &#x60;g711_alaw&#x60;. 
+   * @return outputAudioFormat
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OUTPUT_AUDIO_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OutputAudioFormatEnum getOutputAudioFormat() {
+    return outputAudioFormat;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUT_AUDIO_FORMAT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutputAudioFormat(@javax.annotation.Nullable OutputAudioFormatEnum outputAudioFormat) {
+    this.outputAudioFormat = outputAudioFormat;
+  }
+
+  public RealtimeResponse temperature(@javax.annotation.Nullable BigDecimal temperature) {
+    
+    this.temperature = temperature;
+    return this;
+  }
+
+  /**
+   * Sampling temperature for the model, limited to [0.6, 1.2]. Defaults to 0.8. 
+   * @return temperature
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TEMPERATURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getTemperature() {
+    return temperature;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TEMPERATURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTemperature(@javax.annotation.Nullable BigDecimal temperature) {
+    this.temperature = temperature;
+  }
+
+  public RealtimeResponse maxOutputTokens(@javax.annotation.Nullable RealtimeResponseMaxOutputTokens maxOutputTokens) {
+    
+    this.maxOutputTokens = maxOutputTokens;
+    return this;
+  }
+
+  /**
+   * Get maxOutputTokens
+   * @return maxOutputTokens
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAX_OUTPUT_TOKENS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public RealtimeResponseMaxOutputTokens getMaxOutputTokens() {
+    return maxOutputTokens;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MAX_OUTPUT_TOKENS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMaxOutputTokens(@javax.annotation.Nullable RealtimeResponseMaxOutputTokens maxOutputTokens) {
+    this.maxOutputTokens = maxOutputTokens;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -359,7 +682,13 @@ public class RealtimeResponse {
         Objects.equals(this.statusDetails, realtimeResponse.statusDetails) &&
         Objects.equals(this.output, realtimeResponse.output) &&
         equalsNullable(this.metadata, realtimeResponse.metadata) &&
-        Objects.equals(this.usage, realtimeResponse.usage);
+        Objects.equals(this.usage, realtimeResponse.usage) &&
+        Objects.equals(this.conversationId, realtimeResponse.conversationId) &&
+        Objects.equals(this.voice, realtimeResponse.voice) &&
+        Objects.equals(this.modalities, realtimeResponse.modalities) &&
+        Objects.equals(this.outputAudioFormat, realtimeResponse.outputAudioFormat) &&
+        Objects.equals(this.temperature, realtimeResponse.temperature) &&
+        Objects.equals(this.maxOutputTokens, realtimeResponse.maxOutputTokens);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -368,7 +697,7 @@ public class RealtimeResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, _object, status, statusDetails, output, hashCodeNullable(metadata), usage);
+    return Objects.hash(id, _object, status, statusDetails, output, hashCodeNullable(metadata), usage, conversationId, voice, modalities, outputAudioFormat, temperature, maxOutputTokens);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -389,6 +718,12 @@ public class RealtimeResponse {
     sb.append("    output: ").append(toIndentedString(output)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    usage: ").append(toIndentedString(usage)).append("\n");
+    sb.append("    conversationId: ").append(toIndentedString(conversationId)).append("\n");
+    sb.append("    voice: ").append(toIndentedString(voice)).append("\n");
+    sb.append("    modalities: ").append(toIndentedString(modalities)).append("\n");
+    sb.append("    outputAudioFormat: ").append(toIndentedString(outputAudioFormat)).append("\n");
+    sb.append("    temperature: ").append(toIndentedString(temperature)).append("\n");
+    sb.append("    maxOutputTokens: ").append(toIndentedString(maxOutputTokens)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -483,17 +818,80 @@ public class RealtimeResponse {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 
     // add `usage` to the URL query string
     if (getUsage() != null) {
       joiner.add(getUsage().toUrlQueryString(prefix + "usage" + suffix));
+    }
+
+    // add `conversation_id` to the URL query string
+    if (getConversationId() != null) {
+      try {
+        joiner.add(String.format("%sconversation_id%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConversationId()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `voice` to the URL query string
+    if (getVoice() != null) {
+      try {
+        joiner.add(String.format("%svoice%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVoice()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `modalities` to the URL query string
+    if (getModalities() != null) {
+      for (int i = 0; i < getModalities().size(); i++) {
+        try {
+          joiner.add(String.format("%smodalities%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+              URLEncoder.encode(String.valueOf(getModalities().get(i)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    // add `output_audio_format` to the URL query string
+    if (getOutputAudioFormat() != null) {
+      try {
+        joiner.add(String.format("%soutput_audio_format%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOutputAudioFormat()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `temperature` to the URL query string
+    if (getTemperature() != null) {
+      try {
+        joiner.add(String.format("%stemperature%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTemperature()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `max_output_tokens` to the URL query string
+    if (getMaxOutputTokens() != null) {
+      joiner.add(getMaxOutputTokens().toUrlQueryString(prefix + "max_output_tokens" + suffix));
     }
 
     return joiner.toString();

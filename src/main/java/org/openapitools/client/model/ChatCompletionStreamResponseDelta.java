@@ -45,7 +45,7 @@ import java.util.StringJoiner;
   ChatCompletionStreamResponseDelta.JSON_PROPERTY_ROLE,
   ChatCompletionStreamResponseDelta.JSON_PROPERTY_REFUSAL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ChatCompletionStreamResponseDelta {
   public static final String JSON_PROPERTY_CONTENT = "content";
   @javax.annotation.Nullable
@@ -63,6 +63,8 @@ public class ChatCompletionStreamResponseDelta {
    * The role of the author of this message.
    */
   public enum RoleEnum {
+    DEVELOPER(String.valueOf("developer")),
+    
     SYSTEM(String.valueOf("system")),
     
     USER(String.valueOf("user")),

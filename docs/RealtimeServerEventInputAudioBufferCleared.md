@@ -2,7 +2,7 @@
 
 # RealtimeServerEventInputAudioBufferCleared
 
-Returned when the input audio buffer is cleared by the client with a  `input_audio_buffer.clear` event. 
+Returned when the input audio buffer is cleared by the client with a `input_audio_buffer.clear` event. 
 
 ## Properties
 

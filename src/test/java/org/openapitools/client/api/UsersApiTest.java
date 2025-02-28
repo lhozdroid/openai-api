@@ -60,7 +60,8 @@ public class UsersApiTest {
     public void listUsersTest() throws ApiException {
         Integer limit = null;
         String after = null;
-        UserListResponse response = api.listUsers(limit, after);
+        List<String> emails = null;
+        UserListResponse response = api.listUsers(limit, after, emails);
 
         // TODO: test validations
     }

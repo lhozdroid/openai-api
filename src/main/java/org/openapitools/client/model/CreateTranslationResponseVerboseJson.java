@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.StringJoiner;
   CreateTranslationResponseVerboseJson.JSON_PROPERTY_TEXT,
   CreateTranslationResponseVerboseJson.JSON_PROPERTY_SEGMENTS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateTranslationResponseVerboseJson {
   public static final String JSON_PROPERTY_LANGUAGE = "language";
   @javax.annotation.Nonnull
@@ -47,7 +48,7 @@ public class CreateTranslationResponseVerboseJson {
 
   public static final String JSON_PROPERTY_DURATION = "duration";
   @javax.annotation.Nonnull
-  private String duration;
+  private BigDecimal duration;
 
   public static final String JSON_PROPERTY_TEXT = "text";
   @javax.annotation.Nonnull
@@ -85,7 +86,7 @@ public class CreateTranslationResponseVerboseJson {
     this.language = language;
   }
 
-  public CreateTranslationResponseVerboseJson duration(@javax.annotation.Nonnull String duration) {
+  public CreateTranslationResponseVerboseJson duration(@javax.annotation.Nonnull BigDecimal duration) {
     
     this.duration = duration;
     return this;
@@ -99,14 +100,14 @@ public class CreateTranslationResponseVerboseJson {
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getDuration() {
+  public BigDecimal getDuration() {
     return duration;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DURATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDuration(@javax.annotation.Nonnull String duration) {
+  public void setDuration(@javax.annotation.Nonnull BigDecimal duration) {
     this.duration = duration;
   }
 

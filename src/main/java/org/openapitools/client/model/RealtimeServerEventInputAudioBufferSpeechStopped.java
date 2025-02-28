@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned in &#x60;server_vad&#x60; mode when the server detects the end of speech in  the audio buffer. The server will also send an &#x60;conversation.item.created&#x60;  event with the user message item that is created from the audio buffer. 
+ * Returned in &#x60;server_vad&#x60; mode when the server detects the end of speech in the audio buffer. The server will also send an &#x60;conversation.item.created&#x60; event with the user message item that is created from the audio buffer. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventInputAudioBufferSpeechStopped.JSON_PROPERTY_EVENT_ID,
@@ -35,7 +35,7 @@ import java.util.StringJoiner;
   RealtimeServerEventInputAudioBufferSpeechStopped.JSON_PROPERTY_AUDIO_END_MS,
   RealtimeServerEventInputAudioBufferSpeechStopped.JSON_PROPERTY_ITEM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventInputAudioBufferSpeechStopped {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull
@@ -146,7 +146,7 @@ public class RealtimeServerEventInputAudioBufferSpeechStopped {
   }
 
   /**
-   * Milliseconds since the session started when speech stopped. This will  correspond to the end of audio sent to the model, and thus includes the  &#x60;min_silence_duration_ms&#x60; configured in the Session. 
+   * Milliseconds since the session started when speech stopped. This will correspond to the end of audio sent to the model, and thus includes the &#x60;min_silence_duration_ms&#x60; configured in the Session. 
    * @return audioEndMs
    */
   @javax.annotation.Nonnull

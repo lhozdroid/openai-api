@@ -62,12 +62,12 @@ import java.util.StringJoiner;
   UsageTimeBucketResultInner.JSON_PROPERTY_CHARACTERS,
   UsageTimeBucketResultInner.JSON_PROPERTY_SECONDS,
   UsageTimeBucketResultInner.JSON_PROPERTY_USAGE_BYTES,
-  UsageTimeBucketResultInner.JSON_PROPERTY_SESSIONS,
+  UsageTimeBucketResultInner.JSON_PROPERTY_NUM_SESSIONS,
   UsageTimeBucketResultInner.JSON_PROPERTY_AMOUNT,
   UsageTimeBucketResultInner.JSON_PROPERTY_LINE_ITEM
 })
 @JsonTypeName("UsageTimeBucket_result_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class UsageTimeBucketResultInner {
   /**
    * Gets or Sets _object
@@ -174,9 +174,9 @@ public class UsageTimeBucketResultInner {
   @javax.annotation.Nonnull
   private Integer usageBytes;
 
-  public static final String JSON_PROPERTY_SESSIONS = "sessions";
-  @javax.annotation.Nonnull
-  private Integer sessions;
+  public static final String JSON_PROPERTY_NUM_SESSIONS = "num_sessions";
+  @javax.annotation.Nullable
+  private Integer numSessions;
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   @javax.annotation.Nullable
@@ -695,29 +695,29 @@ public class UsageTimeBucketResultInner {
     this.usageBytes = usageBytes;
   }
 
-  public UsageTimeBucketResultInner sessions(@javax.annotation.Nonnull Integer sessions) {
+  public UsageTimeBucketResultInner numSessions(@javax.annotation.Nullable Integer numSessions) {
     
-    this.sessions = sessions;
+    this.numSessions = numSessions;
     return this;
   }
 
   /**
    * The number of code interpreter sessions.
-   * @return sessions
+   * @return numSessions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SESSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NUM_SESSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getSessions() {
-    return sessions;
+  public Integer getNumSessions() {
+    return numSessions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SESSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSessions(@javax.annotation.Nonnull Integer sessions) {
-    this.sessions = sessions;
+  @JsonProperty(JSON_PROPERTY_NUM_SESSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumSessions(@javax.annotation.Nullable Integer numSessions) {
+    this.numSessions = numSessions;
   }
 
   public UsageTimeBucketResultInner amount(@javax.annotation.Nullable CostsResultAmount amount) {
@@ -805,7 +805,7 @@ public class UsageTimeBucketResultInner {
         Objects.equals(this.characters, usageTimeBucketResultInner.characters) &&
         Objects.equals(this.seconds, usageTimeBucketResultInner.seconds) &&
         Objects.equals(this.usageBytes, usageTimeBucketResultInner.usageBytes) &&
-        Objects.equals(this.sessions, usageTimeBucketResultInner.sessions) &&
+        Objects.equals(this.numSessions, usageTimeBucketResultInner.numSessions) &&
         Objects.equals(this.amount, usageTimeBucketResultInner.amount) &&
         equalsNullable(this.lineItem, usageTimeBucketResultInner.lineItem);
   }
@@ -816,7 +816,7 @@ public class UsageTimeBucketResultInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(_object, inputTokens, inputCachedTokens, outputTokens, inputAudioTokens, outputAudioTokens, numModelRequests, hashCodeNullable(projectId), hashCodeNullable(userId), hashCodeNullable(apiKeyId), hashCodeNullable(model), hashCodeNullable(batch), images, hashCodeNullable(source), hashCodeNullable(size), characters, seconds, usageBytes, sessions, amount, hashCodeNullable(lineItem));
+    return Objects.hash(_object, inputTokens, inputCachedTokens, outputTokens, inputAudioTokens, outputAudioTokens, numModelRequests, hashCodeNullable(projectId), hashCodeNullable(userId), hashCodeNullable(apiKeyId), hashCodeNullable(model), hashCodeNullable(batch), images, hashCodeNullable(source), hashCodeNullable(size), characters, seconds, usageBytes, numSessions, amount, hashCodeNullable(lineItem));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -848,7 +848,7 @@ public class UsageTimeBucketResultInner {
     sb.append("    characters: ").append(toIndentedString(characters)).append("\n");
     sb.append("    seconds: ").append(toIndentedString(seconds)).append("\n");
     sb.append("    usageBytes: ").append(toIndentedString(usageBytes)).append("\n");
-    sb.append("    sessions: ").append(toIndentedString(sessions)).append("\n");
+    sb.append("    numSessions: ").append(toIndentedString(numSessions)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    lineItem: ").append(toIndentedString(lineItem)).append("\n");
     sb.append("}");
@@ -1078,10 +1078,10 @@ public class UsageTimeBucketResultInner {
       }
     }
 
-    // add `sessions` to the URL query string
-    if (getSessions() != null) {
+    // add `num_sessions` to the URL query string
+    if (getNumSessions() != null) {
       try {
-        joiner.add(String.format("%ssessions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSessions()), "UTF-8").replaceAll("\\+", "%20")));
+        joiner.add(String.format("%snum_sessions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNumSessions()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

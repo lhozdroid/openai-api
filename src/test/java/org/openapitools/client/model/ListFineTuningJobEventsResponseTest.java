@@ -56,4 +56,12 @@ class ListFineTuningJobEventsResponseTest {
         // TODO: test _object
     }
 
+    /**
+     * Test the property 'hasMore'
+     */
+    @Test
+    void hasMoreTest() {
+        // TODO: test hasMore
+    }
+
 }

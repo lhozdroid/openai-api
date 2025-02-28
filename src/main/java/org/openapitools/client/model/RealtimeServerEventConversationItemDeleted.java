@@ -27,14 +27,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when an item in the conversation is deleted by the client with a  &#x60;conversation.item.delete&#x60; event. This event is used to synchronize the  server&#39;s understanding of the conversation history with the client&#39;s view. 
+ * Returned when an item in the conversation is deleted by the client with a &#x60;conversation.item.delete&#x60; event. This event is used to synchronize the server&#39;s understanding of the conversation history with the client&#39;s view. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventConversationItemDeleted.JSON_PROPERTY_EVENT_ID,
   RealtimeServerEventConversationItemDeleted.JSON_PROPERTY_TYPE,
   RealtimeServerEventConversationItemDeleted.JSON_PROPERTY_ITEM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventConversationItemDeleted {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

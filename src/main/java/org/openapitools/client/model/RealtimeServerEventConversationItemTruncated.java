@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when an earlier assistant audio message item is truncated by the  client with a &#x60;conversation.item.truncate&#x60; event. This event is used to  synchronize the server&#39;s understanding of the audio with the client&#39;s playback.  This action will truncate the audio and remove the server-side text transcript  to ensure there is no text in the context that hasn&#39;t been heard by the user. 
+ * Returned when an earlier assistant audio message item is truncated by the client with a &#x60;conversation.item.truncate&#x60; event. This event is used to synchronize the server&#39;s understanding of the audio with the client&#39;s playback.  This action will truncate the audio and remove the server-side text transcript to ensure there is no text in the context that hasn&#39;t been heard by the user. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventConversationItemTruncated.JSON_PROPERTY_EVENT_ID,
@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   RealtimeServerEventConversationItemTruncated.JSON_PROPERTY_CONTENT_INDEX,
   RealtimeServerEventConversationItemTruncated.JSON_PROPERTY_AUDIO_END_MS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventConversationItemTruncated {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

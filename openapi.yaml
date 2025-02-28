@@ -984,11 +984,7 @@ paths:
                   description: The time frame within which the batch should be processed.
                     Currently only `24h` is supported.
                 metadata:
-                  type: object
-                  additionalProperties:
-                    type: string
-                  description: Optional custom metadata for the batch.
-                  nullable: true
+                  $ref: "#/components/schemas/Metadata"
       responses:
         "200":
           description: Batch created successfully.
@@ -1346,9 +1342,9 @@ paths:
         only
 
         supported for reasoning models are noted below. For the current state
-        of 
+        of
 
-        unsupported parameters in reasoning models, 
+        unsupported parameters in reasoning models,
 
         [refer to the reasoning guide](/docs/guides/reasoning).
       requestBody:
@@ -1364,6 +1360,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CreateChatCompletionResponse"
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/CreateChatCompletionStreamResponse"
       x-oaiMeta:
         name: Create chat completion
         group: chat
@@ -1420,6 +1419,7 @@ paths:
                   const completion = await openai.chat.completions.create({
                     messages: [{ role: "developer", content: "You are a helpful assistant." }],
                     model: "VAR_chat_model_id",
+                    store: true,
                   });
 
                   console.log(completion.choices[0]);
@@ -1443,6 +1443,7 @@ paths:
                   "logprobs": null,
                   "finish_reason": "stop"
                 }],
+                "service_tier": "default",
                 "usage": {
                   "prompt_tokens": 9,
                   "completion_tokens": 12,
@@ -1533,6 +1534,7 @@ paths:
                         ],
                       },
                     ],
+                    store: true,
                   });
                   console.log(response.choices[0]);
                 }
@@ -1617,6 +1619,7 @@ paths:
                       {"role": "developer", "content": "You are a helpful assistant."},
                       {"role": "user", "content": "Hello!"}
                     ],
+                    store: true,
                     stream: true,
                   });
 
@@ -1760,6 +1763,7 @@ paths:
                     messages: messages,
                     tools: tools,
                     tool_choice: "auto",
+                    store: true,
                   });
 
                   console.log(response);
@@ -1846,6 +1850,7 @@ paths:
                   const completion = await openai.chat.completions.create({
                     messages: [{ role: "user", content: "Hello!" }],
                     model: "VAR_chat_model_id",
+                    store: true,
                     logprobs: true,
                     top_logprobs: 2,
                   });
@@ -2988,18 +2993,21 @@ paths:
               }
 
               main();
-          response: >
+          response: |
             {
               "object": "list",
               "data": [
                 {
-                  "object": "fine_tuning.job.event",
-                  "id": "ft-event-TjX0lMfOniCZX64t9PUQT5hn",
-                  "created_at": 1689813489,
-                  "level": "warn",
-                  "message": "Fine tuning process stopping due to job cancellation",
-                  "data": null,
-                  "type": "message"
+                  "object": "fine_tuning.job",
+                  "id": "ftjob-abc123",
+                  "model": "gpt-4o-mini-2024-07-18",
+                  "created_at": 1721764800,
+                  "fine_tuned_model": null,
+                  "organization_id": "org-123",
+                  "result_files": [],
+                  "status": "queued",
+                  "validation_file": null,
+                  "training_file": "file-abc123"
                 },
                 { ... },
                 { ... }
@@ -4016,11 +4024,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiKeyList"
-      security:
-        - bearer_identity_edge:
-            - key.secret
-            - api.management.read
-        - basic_identity_edge: []
       x-oaiMeta:
         name: List admin API keys
         group: administration
@@ -4080,11 +4083,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AdminApiKey"
-      security:
-        - bearer_identity_edge:
-            - key.secret
-            - api.management.write
-        - basic_identity_edge: []
       x-oaiMeta:
         name: Create admin API key
         group: administration
@@ -4135,11 +4133,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AdminApiKey"
-      security:
-        - bearer_identity_edge:
-            - key.secret
-            - api.management.read
-        - basic_identity_edge: []
       x-oaiMeta:
         name: Retrieve admin API key
         group: administration
@@ -4195,11 +4188,6 @@ paths:
                   deleted:
                     type: boolean
                     example: true
-      security:
-        - bearer_identity_edge:
-            - key.secret
-            - api.management.write
-        - basic_identity_edge: []
       x-oaiMeta:
         name: Delete admin API key
         group: administration
@@ -4372,7 +4360,18 @@ paths:
                                     "email": "user@example.com"
                                 },
                                 "ip_address": "127.0.0.1",
-                                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                                "ja3": "a497151ce4338a12c4418c44d375173e",
+                                "ja4": "q13d0313h3_55b375c5d22e_c7319ce65786",
+                                "ip_address_details": {
+                                  "country": "US",
+                                  "city": "San Francisco",
+                                  "region": "California",
+                                  "region_code": "CA",
+                                  "asn": "1234",
+                                  "latitude": "37.77490",
+                                  "longitude": "-122.41940"
+                                }
                             }
                         },
                         "api_key.updated": {
@@ -4657,18 +4656,17 @@ paths:
               curl https://api.openai.com/v1/organization/invites/invite-abc \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.invite",
-                  "id": "invite-abc",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "status": "accepted",
-                  "invited_at": 1711471533,
-                  "expires_at": 1711471533,
-                  "accepted_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.invite",
+                "id": "invite-abc",
+                "email": "user@example.com",
+                "role": "owner",
+                "status": "accepted",
+                "invited_at": 1711471533,
+                "expires_at": 1711471533,
+                "accepted_at": 1711471533
+            }
     delete:
       summary: Delete an invite. If the invite has already been accepted, it cannot be
         deleted.
@@ -4700,13 +4698,12 @@ paths:
               https://api.openai.com/v1/organization/invites/invite-abc \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.invite.deleted",
-                  "id": "invite-abc",
-                  "deleted": true
-              }
+          response: |
+            {
+                "object": "organization.invite.deleted",
+                "id": "invite-abc",
+                "deleted": true
+            }
   /organization/projects:
     get:
       summary: Returns a list of projects.
@@ -4759,24 +4756,23 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "list",
-                  "data": [
-                      {
-                          "id": "proj_abc",
-                          "object": "organization.project",
-                          "name": "Project example",
-                          "created_at": 1711471533,
-                          "archived_at": null,
-                          "status": "active"
-                      }
-                  ],
-                  "first_id": "proj-abc",
-                  "last_id": "proj-xyz",
-                  "has_more": false
-              }
+          response: |
+            {
+                "object": "list",
+                "data": [
+                    {
+                        "id": "proj_abc",
+                        "object": "organization.project",
+                        "name": "Project example",
+                        "created_at": 1711471533,
+                        "archived_at": null,
+                        "status": "active"
+                    }
+                ],
+                "first_id": "proj-abc",
+                "last_id": "proj-xyz",
+                "has_more": false
+            }
     post:
       summary: Create a new project in the organization. Projects can be created and
         archived, but cannot be deleted.
@@ -4810,16 +4806,15 @@ paths:
                 -d '{
                     "name": "Project ABC"
                 }'
-          response:
-            content: |
-              {
-                  "id": "proj_abc",
-                  "object": "organization.project",
-                  "name": "Project ABC",
-                  "created_at": 1711471533,
-                  "archived_at": null,
-                  "status": "active"
-              }
+          response: |
+            {
+                "id": "proj_abc",
+                "object": "organization.project",
+                "name": "Project ABC",
+                "created_at": 1711471533,
+                "archived_at": null,
+                "status": "active"
+            }
   /organization/projects/{project_id}:
     get:
       summary: Retrieves a project.
@@ -4852,16 +4847,15 @@ paths:
               curl https://api.openai.com/v1/organization/projects/proj_abc \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "id": "proj_abc",
-                  "object": "organization.project",
-                  "name": "Project example",
-                  "created_at": 1711471533,
-                  "archived_at": null,
-                  "status": "active"
-              }
+          response: |
+            {
+                "id": "proj_abc",
+                "object": "organization.project",
+                "name": "Project example",
+                "created_at": 1711471533,
+                "archived_at": null,
+                "status": "active"
+            }
     post:
       summary: Modifies a project in the organization.
       operationId: modify-project
@@ -4960,40 +4954,33 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "list",
-                  "data": [
-                      {
-                          "object": "organization.project.api_key",
-                          "redacted_value": "sk-abc...def",
-                          "name": "My API Key",
-                          "created_at": 1711471533,
-                          "id": "key_abc",
-                          "owner": {
-                              "type": "user",
-                              "user": {
-                                  "object": "organization.project.user",
-                                  "id": "user_abc",
-                                  "name": "First Last",
-                                  "email": "user@example.com",
-                                  "role": "owner",
-                                  "added_at": 1711471533
-                              }
-                          }
-                      }
-                  ],
-                  "first_id": "key_abc",
-                  "last_id": "key_xyz",
-                  "has_more": false
-              }
-          error_response:
-            content: |
-              {
-                  "code": 400,
-                  "message": "Project {name} is archived"
-              }
+          response: |
+            {
+                "object": "list",
+                "data": [
+                    {
+                        "object": "organization.project.api_key",
+                        "redacted_value": "sk-abc...def",
+                        "name": "My API Key",
+                        "created_at": 1711471533,
+                        "id": "key_abc",
+                        "owner": {
+                            "type": "user",
+                            "user": {
+                                "object": "organization.project.user",
+                                "id": "user_abc",
+                                "name": "First Last",
+                                "email": "user@example.com",
+                                "role": "owner",
+                                "added_at": 1711471533
+                            }
+                        }
+                    }
+                ],
+                "first_id": "key_abc",
+                "last_id": "key_xyz",
+                "has_more": false
+            }
   /organization/projects/{project_id}/api_keys/{key_id}:
     get:
       summary: Retrieves an API key in the project.
@@ -5033,26 +5020,25 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.api_key",
-                  "redacted_value": "sk-abc...def",
-                  "name": "My API Key",
-                  "created_at": 1711471533,
-                  "id": "key_abc",
-                  "owner": {
-                      "type": "user",
-                      "user": {
-                          "object": "organization.project.user",
-                          "id": "user_abc",
-                          "name": "First Last",
-                          "email": "user@example.com",
-                          "role": "owner",
-                          "added_at": 1711471533
-                      }
-                  }
-              }
+          response: |
+            {
+                "object": "organization.project.api_key",
+                "redacted_value": "sk-abc...def",
+                "name": "My API Key",
+                "created_at": 1711471533,
+                "id": "key_abc",
+                "owner": {
+                    "type": "user",
+                    "user": {
+                        "object": "organization.project.user",
+                        "id": "user_abc",
+                        "name": "First Last",
+                        "email": "user@example.com",
+                        "role": "owner",
+                        "added_at": 1711471533
+                    }
+                }
+            }
     delete:
       summary: Deletes an API key from the project.
       operationId: delete-project-api-key
@@ -5097,19 +5083,12 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.api_key.deleted",
-                  "id": "key_abc",
-                  "deleted": true
-              }
-          error_response:
-            content: >
-              {
-                  "code": 400,
-                  "message": "API keys cannot be deleted for service accounts, please delete the service account"
-              }
+          response: |
+            {
+                "object": "organization.project.api_key.deleted",
+                "id": "key_abc",
+                "deleted": true
+            }
   /organization/projects/{project_id}/archive:
     post:
       summary: Archives a project in the organization. Archived projects cannot be
@@ -5142,16 +5121,15 @@ paths:
               https://api.openai.com/v1/organization/projects/proj_abc/archive \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "id": "proj_abc",
-                  "object": "organization.project",
-                  "name": "Project DEF",
-                  "created_at": 1711471533,
-                  "archived_at": 1711471533,
-                  "status": "archived"
-              }
+          response: |
+            {
+                "id": "proj_abc",
+                "object": "organization.project",
+                "name": "Project DEF",
+                "created_at": 1711471533,
+                "archived_at": 1711471533,
+                "status": "archived"
+            }
   /organization/projects/{project_id}/rate_limits:
     get:
       summary: Returns the rate limits per model for a project.
@@ -5366,23 +5344,22 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "list",
-                  "data": [
-                      {
-                          "object": "organization.project.service_account",
-                          "id": "svc_acct_abc",
-                          "name": "Service Account",
-                          "role": "owner",
-                          "created_at": 1711471533
-                      }
-                  ],
-                  "first_id": "svc_acct_abc",
-                  "last_id": "svc_acct_xyz",
-                  "has_more": false
-              }
+          response: |
+            {
+                "object": "list",
+                "data": [
+                    {
+                        "object": "organization.project.service_account",
+                        "id": "svc_acct_abc",
+                        "name": "Service Account",
+                        "role": "owner",
+                        "created_at": 1711471533
+                    }
+                ],
+                "first_id": "svc_acct_abc",
+                "last_id": "svc_acct_xyz",
+                "has_more": false
+            }
     post:
       summary: Creates a new service account in the project. This also returns an
         unredacted API key for the service account.
@@ -5433,22 +5410,21 @@ paths:
                 -d '{
                     "name": "Production App"
                 }'
-          response:
-            content: |
-              {
-                  "object": "organization.project.service_account",
-                  "id": "svc_acct_abc",
-                  "name": "Production App",
-                  "role": "member",
-                  "created_at": 1711471533,
-                  "api_key": {
-                      "object": "organization.project.service_account.api_key",
-                      "value": "sk-abcdefghijklmnop123",
-                      "name": "Secret Key",
-                      "created_at": 1711471533,
-                      "id": "key_abc"
-                  }
-              }
+          response: |
+            {
+                "object": "organization.project.service_account",
+                "id": "svc_acct_abc",
+                "name": "Production App",
+                "role": "member",
+                "created_at": 1711471533,
+                "api_key": {
+                    "object": "organization.project.service_account.api_key",
+                    "value": "sk-abcdefghijklmnop123",
+                    "name": "Secret Key",
+                    "created_at": 1711471533,
+                    "id": "key_abc"
+                }
+            }
   /organization/projects/{project_id}/service_accounts/{service_account_id}:
     get:
       summary: Retrieves a service account in the project.
@@ -5489,15 +5465,14 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.service_account",
-                  "id": "svc_acct_abc",
-                  "name": "Service Account",
-                  "role": "owner",
-                  "created_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.project.service_account",
+                "id": "svc_acct_abc",
+                "name": "Service Account",
+                "role": "owner",
+                "created_at": 1711471533
+            }
     delete:
       summary: Deletes a service account from the project.
       operationId: delete-project-service-account
@@ -5536,13 +5511,12 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.service_account.deleted",
-                  "id": "svc_acct_abc",
-                  "deleted": true
-              }
+          response: |
+            {
+                "object": "organization.project.service_account.deleted",
+                "id": "svc_acct_abc",
+                "deleted": true
+            }
   /organization/projects/{project_id}/users:
     get:
       summary: Returns a list of users in the project.
@@ -5601,30 +5575,23 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "list",
-                  "data": [
-                      {
-                          "object": "organization.project.user",
-                          "id": "user_abc",
-                          "name": "First Last",
-                          "email": "user@example.com",
-                          "role": "owner",
-                          "added_at": 1711471533
-                      }
-                  ],
-                  "first_id": "user-abc",
-                  "last_id": "user-xyz",
-                  "has_more": false
-              }
-          error_response:
-            content: |
-              {
-                  "code": 400,
-                  "message": "Project {name} is archived"
-              }
+          response: |
+            {
+                "object": "list",
+                "data": [
+                    {
+                        "object": "organization.project.user",
+                        "id": "user_abc",
+                        "name": "First Last",
+                        "email": "user@example.com",
+                        "role": "owner",
+                        "added_at": 1711471533
+                    }
+                ],
+                "first_id": "user-abc",
+                "last_id": "user-xyz",
+                "has_more": false
+            }
     post:
       summary: Adds a user to the project. Users must already be members of the
         organization to be added to a project.
@@ -5674,21 +5641,14 @@ paths:
                     "user_id": "user_abc",
                     "role": "member"
                 }'
-          response:
-            content: |
-              {
-                  "object": "organization.project.user",
-                  "id": "user_abc",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "added_at": 1711471533
-              }
-          error_response:
-            content: |
-              {
-                  "code": 400,
-                  "message": "Project {name} is archived"
-              }
+          response: |
+            {
+                "object": "organization.project.user",
+                "id": "user_abc",
+                "email": "user@example.com",
+                "role": "owner",
+                "added_at": 1711471533
+            }
   /organization/projects/{project_id}/users/{user_id}:
     get:
       summary: Retrieves a user in the project.
@@ -5728,16 +5688,15 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.user",
-                  "id": "user_abc",
-                  "name": "First Last",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "added_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.project.user",
+                "id": "user_abc",
+                "name": "First Last",
+                "email": "user@example.com",
+                "role": "owner",
+                "added_at": 1711471533
+            }
     post:
       summary: Modifies a user's role in the project.
       operationId: modify-project-user
@@ -5792,16 +5751,15 @@ paths:
                 -d '{
                     "role": "owner"
                 }'
-          response:
-            content: |
-              {
-                  "object": "organization.project.user",
-                  "id": "user_abc",
-                  "name": "First Last",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "added_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.project.user",
+                "id": "user_abc",
+                "name": "First Last",
+                "email": "user@example.com",
+                "role": "owner",
+                "added_at": 1711471533
+            }
     delete:
       summary: Deletes a user from the project.
       operationId: delete-project-user
@@ -5846,13 +5804,12 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.project.user.deleted",
-                  "id": "user_abc",
-                  "deleted": true
-              }
+          response: |
+            {
+                "object": "organization.project.user.deleted",
+                "id": "user_abc",
+                "deleted": true
+            }
   /organization/usage/audio_speeches:
     get:
       summary: Get audio speeches usage details for the organization.
@@ -6233,7 +6190,7 @@ paths:
                         "results": [
                             {
                                 "object": "organization.usage.code_interpreter_sessions.result",
-                                "sessions": 1,
+                                "num_sessions": 1,
                                 "project_id": null
                             }
                         ]
@@ -6984,6 +6941,14 @@ paths:
           required: false
           schema:
             type: string
+        - name: emails
+          in: query
+          description: Filter by the email address of users.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         "200":
           description: Users listed successfully.
@@ -7003,24 +6968,23 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "list",
-                  "data": [
-                      {
-                          "object": "organization.user",
-                          "id": "user_abc",
-                          "name": "First Last",
-                          "email": "user@example.com",
-                          "role": "owner",
-                          "added_at": 1711471533
-                      }
-                  ],
-                  "first_id": "user-abc",
-                  "last_id": "user-xyz",
-                  "has_more": false
-              }
+          response: |
+            {
+                "object": "list",
+                "data": [
+                    {
+                        "object": "organization.user",
+                        "id": "user_abc",
+                        "name": "First Last",
+                        "email": "user@example.com",
+                        "role": "owner",
+                        "added_at": 1711471533
+                    }
+                ],
+                "first_id": "user-abc",
+                "last_id": "user-xyz",
+                "has_more": false
+            }
   /organization/users/{user_id}:
     get:
       summary: Retrieves a user by their identifier.
@@ -7052,16 +7016,15 @@ paths:
               curl https://api.openai.com/v1/organization/users/user_abc \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.user",
-                  "id": "user_abc",
-                  "name": "First Last",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "added_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.user",
+                "id": "user_abc",
+                "name": "First Last",
+                "email": "user@example.com",
+                "role": "owner",
+                "added_at": 1711471533
+            }
     post:
       summary: Modifies a user's role in the organization.
       operationId: modify-user
@@ -7102,16 +7065,15 @@ paths:
                 -d '{
                     "role": "owner"
                 }'
-          response:
-            content: |
-              {
-                  "object": "organization.user",
-                  "id": "user_abc",
-                  "name": "First Last",
-                  "email": "user@example.com",
-                  "role": "owner",
-                  "added_at": 1711471533
-              }
+          response: |
+            {
+                "object": "organization.user",
+                "id": "user_abc",
+                "name": "First Last",
+                "email": "user@example.com",
+                "role": "owner",
+                "added_at": 1711471533
+            }
     delete:
       summary: Deletes a user from the organization.
       operationId: delete-user
@@ -7142,13 +7104,12 @@ paths:
               https://api.openai.com/v1/organization/users/user_abc \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response:
-            content: |
-              {
-                  "object": "organization.user.deleted",
-                  "id": "user_abc",
-                  "deleted": true
-              }
+          response: |
+            {
+                "object": "organization.user.deleted",
+                "id": "user_abc",
+                "deleted": true
+            }
   /realtime/sessions:
     post:
       summary: >
@@ -7218,7 +7179,7 @@ paths:
               "temperature": 0.7,
               "max_response_output_tokens": 200,
               "client_secret": {
-                "value": "ek_abc123", 
+                "value": "ek_abc123",
                 "expires_at": 1234567890
               }
             }
@@ -10246,7 +10207,7 @@ paths:
       tags:
         - Uploads
       summary: >
-        Completes the [Upload](/docs/api-reference/uploads/object). 
+        Completes the [Upload](/docs/api-reference/uploads/object).
 
 
         Within the returned Upload object, there is a nested
@@ -10323,7 +10284,7 @@ paths:
       summary: >
         Adds a [Part](/docs/api-reference/uploads/part-object) to an
         [Upload](/docs/api-reference/uploads/object) object. A Part represents a
-        chunk of bytes from the file you are trying to upload. 
+        chunk of bytes from the file you are trying to upload.
 
 
         Each Part can be at most 64 MB, and you can add Parts until you hit the
@@ -11012,7 +10973,7 @@ paths:
               "object": "vector_store.file_batch",
               "created_at": 1699061776,
               "vector_store_id": "vs_abc123",
-              "status": "cancelling",
+              "status": "in_progress",
               "file_counts": {
                 "in_progress": 12,
                 "completed": 3,
@@ -11611,6 +11572,7 @@ components:
           type: string
           enum:
             - assistant
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the assistant was created.
           type: integer
@@ -11691,14 +11653,7 @@ components:
                     type: string
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         temperature:
           description: >
             What sampling temperature to use, between 0 and 2. Higher values
@@ -11726,8 +11681,9 @@ components:
 
             We generally recommend altering this or temperature but not both.
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
       required:
         - id
         - object
@@ -11813,6 +11769,37 @@ components:
       x-oaiMeta:
         name: Assistant stream events
         beta: true
+    AssistantSupportedModels:
+      type: string
+      enum:
+        - o3-mini
+        - o3-mini-2025-01-31
+        - o1
+        - o1-2024-12-17
+        - gpt-4o
+        - gpt-4o-2024-11-20
+        - gpt-4o-2024-08-06
+        - gpt-4o-2024-05-13
+        - gpt-4o-mini
+        - gpt-4o-mini-2024-07-18
+        - gpt-4-turbo
+        - gpt-4-turbo-2024-04-09
+        - gpt-4-0125-preview
+        - gpt-4-turbo-preview
+        - gpt-4-1106-preview
+        - gpt-4-vision-preview
+        - gpt-4
+        - gpt-4-0314
+        - gpt-4-0613
+        - gpt-4-32k
+        - gpt-4-32k-0314
+        - gpt-4-32k-0613
+        - gpt-3.5-turbo
+        - gpt-3.5-turbo-16k
+        - gpt-3.5-turbo-0613
+        - gpt-3.5-turbo-1106
+        - gpt-3.5-turbo-0125
+        - gpt-3.5-turbo-16k-0613
     AssistantToolsCode:
       type: object
       title: Code interpreter tool
@@ -11822,6 +11809,7 @@ components:
           description: "The type of tool being defined: `code_interpreter`"
           enum:
             - code_interpreter
+          x-stainless-const: true
       required:
         - type
     AssistantToolsFileSearch:
@@ -11833,6 +11821,7 @@ components:
           description: "The type of tool being defined: `file_search`"
           enum:
             - file_search
+          x-stainless-const: true
         file_search:
           type: object
           description: Overrides for the file search tool.
@@ -11865,6 +11854,7 @@ components:
           description: "The type of tool being defined: `file_search`"
           enum:
             - file_search
+          x-stainless-const: true
       required:
         - type
     AssistantToolsFunction:
@@ -11876,6 +11866,7 @@ components:
           description: "The type of tool being defined: `function`"
           enum:
             - function
+          x-stainless-const: true
         function:
           $ref: "#/components/schemas/FunctionObject"
       required:
@@ -11913,6 +11904,7 @@ components:
             `auto` is the default value
           enum:
             - auto
+          x-stainless-const: true
         - $ref: "#/components/schemas/ResponseFormatText"
         - $ref: "#/components/schemas/ResponseFormatJsonObject"
         - $ref: "#/components/schemas/ResponseFormatJsonSchema"
@@ -12318,10 +12310,8 @@ components:
             - session
             - api_key
         session:
-          type: object
           $ref: "#/components/schemas/AuditLogActorSession"
         api_key:
-          type: object
           $ref: "#/components/schemas/AuditLogActorApiKey"
     AuditLogActorApiKey:
       type: object
@@ -12405,6 +12395,7 @@ components:
           description: Always `auto`.
           enum:
             - auto
+          x-stainless-const: true
       required:
         - type
     Batch:
@@ -12417,6 +12408,7 @@ components:
           enum:
             - batch
           description: The object type, which is always `batch`.
+          x-stainless-const: true
         endpoint:
           type: string
           description: The OpenAI API endpoint used by the batch.
@@ -12519,14 +12511,7 @@ components:
             - failed
           description: The request counts for different statuses within the batch.
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
       required:
         - id
         - object
@@ -12581,6 +12566,7 @@ components:
             - POST
           description: The HTTP method to be used for the request. Currently only `POST`
             is supported.
+          x-stainless-const: true
         url:
           type: string
           description: The OpenAI API relative URL to be used for the request. Currently
@@ -12681,6 +12667,7 @@ components:
           enum:
             - function
           description: The type of the tool. Currently, only `function` is supported.
+          x-stainless-const: true
         function:
           type: object
           description: The function that the model called.
@@ -12715,6 +12702,7 @@ components:
           enum:
             - function
           description: The type of the tool. Currently, only `function` is supported.
+          x-stainless-const: true
         function:
           type: object
           properties:
@@ -12771,6 +12759,7 @@ components:
           enum:
             - function
           description: The type of the tool. Currently, only `function` is supported.
+          x-stainless-const: true
         function:
           type: object
           properties:
@@ -12814,6 +12803,7 @@ components:
           enum:
             - assistant
           description: The role of the messages author, in this case `assistant`.
+          x-stainless-const: true
         name:
           type: string
           description: An optional name for the participant. Provides the model
@@ -12823,7 +12813,7 @@ components:
           nullable: true
           x-oaiExpandable: true
           description: |
-            Data about a previous audio response from the model. 
+            Data about a previous audio response from the model.
             [Learn more](/docs/guides/audio).
           required:
             - id
@@ -12891,6 +12881,7 @@ components:
           enum:
             - developer
           description: The role of the messages author, in this case `developer`.
+          x-stainless-const: true
         name:
           type: string
           description: An optional name for the participant. Provides the model
@@ -12908,6 +12899,7 @@ components:
           enum:
             - function
           description: The role of the messages author, in this case `function`.
+          x-stainless-const: true
         content:
           nullable: true
           type: string
@@ -12939,6 +12931,7 @@ components:
           enum:
             - input_audio
           description: The type of the content part. Always `input_audio`.
+          x-stainless-const: true
         input_audio:
           type: object
           properties:
@@ -12970,6 +12963,7 @@ components:
           enum:
             - image_url
           description: The type of the content part.
+          x-stainless-const: true
         image_url:
           type: object
           properties:
@@ -13000,6 +12994,7 @@ components:
           enum:
             - refusal
           description: The type of the content part.
+          x-stainless-const: true
         refusal:
           type: string
           description: The refusal message generated by the model.
@@ -13017,6 +13012,7 @@ components:
           enum:
             - text
           description: The type of the content part.
+          x-stainless-const: true
         text:
           type: string
           description: The text content.
@@ -13053,6 +13049,7 @@ components:
           enum:
             - system
           description: The role of the messages author, in this case `system`.
+          x-stainless-const: true
         name:
           type: string
           description: An optional name for the participant. Provides the model
@@ -13073,6 +13070,7 @@ components:
           enum:
             - tool
           description: The role of the messages author, in this case `tool`.
+          x-stainless-const: true
         content:
           oneOf:
             - type: string
@@ -13125,6 +13123,7 @@ components:
           enum:
             - user
           description: The role of the messages author, in this case `user`.
+          x-stainless-const: true
         name:
           type: string
           description: An optional name for the participant. Provides the model
@@ -13157,6 +13156,7 @@ components:
           enum:
             - assistant
           description: The role of the author of this message.
+          x-stainless-const: true
         function_call:
           type: object
           deprecated: true
@@ -13219,6 +13219,7 @@ components:
       type: string
       description: The role of the author of a message
       enum:
+        - developer
         - system
         - user
         - assistant
@@ -13271,6 +13272,7 @@ components:
         role:
           type: string
           enum:
+            - developer
             - system
             - user
             - assistant
@@ -13329,6 +13331,7 @@ components:
           enum:
             - function
           description: The type of the tool. Currently, only `function` is supported.
+          x-stainless-const: true
         function:
           $ref: "#/components/schemas/FunctionObject"
       required:
@@ -13396,12 +13399,15 @@ components:
       properties:
         completion_tokens:
           type: integer
+          default: 0
           description: Number of tokens in the generated completion.
         prompt_tokens:
           type: integer
+          default: 0
           description: Number of tokens in the prompt.
         total_tokens:
           type: integer
+          default: 0
           description: Total number of tokens used in the request (prompt + completion).
         completion_tokens_details:
           type: object
@@ -13409,17 +13415,21 @@ components:
           properties:
             accepted_prediction_tokens:
               type: integer
+              default: 0
               description: |
                 When using Predicted Outputs, the number of tokens in the
                 prediction that appeared in the completion.
             audio_tokens:
               type: integer
+              default: 0
               description: Audio input tokens generated by the model.
             reasoning_tokens:
               type: integer
+              default: 0
               description: Tokens generated by the model for reasoning.
             rejected_prediction_tokens:
               type: integer
+              default: 0
               description: >
                 When using Predicted Outputs, the number of tokens in the
 
@@ -13437,9 +13447,11 @@ components:
           properties:
             audio_tokens:
               type: integer
+              default: 0
               description: Audio input tokens present in the prompt.
             cached_tokens:
               type: integer
+              default: 0
               description: Cached tokens present in the prompt.
       required:
         - prompt_tokens
@@ -13453,6 +13465,7 @@ components:
           type: string
           enum:
             - organization.costs.result
+          x-stainless-const: true
         amount:
           type: object
           description: The monetary value in its associated currency.
@@ -13475,7 +13488,6 @@ components:
             the grouped costs result.
       required:
         - object
-        - sessions
       x-oaiMeta:
         name: Costs object
         example: |
@@ -13501,32 +13513,7 @@ components:
           example: gpt-4o
           anyOf:
             - type: string
-            - type: string
-              enum:
-                - gpt-4o
-                - gpt-4o-2024-11-20
-                - gpt-4o-2024-08-06
-                - gpt-4o-2024-05-13
-                - gpt-4o-mini
-                - gpt-4o-mini-2024-07-18
-                - gpt-4-turbo
-                - gpt-4-turbo-2024-04-09
-                - gpt-4-0125-preview
-                - gpt-4-turbo-preview
-                - gpt-4-1106-preview
-                - gpt-4-vision-preview
-                - gpt-4
-                - gpt-4-0314
-                - gpt-4-0613
-                - gpt-4-32k
-                - gpt-4-32k-0314
-                - gpt-4-32k-0613
-                - gpt-3.5-turbo
-                - gpt-3.5-turbo-16k
-                - gpt-3.5-turbo-0613
-                - gpt-3.5-turbo-1106
-                - gpt-3.5-turbo-0125
-                - gpt-3.5-turbo-16k-0613
+            - $ref: "#/components/schemas/AssistantSupportedModels"
           x-oaiTypeLabel: string
         name:
           description: |
@@ -13548,6 +13535,8 @@ components:
           type: string
           nullable: true
           maxLength: 256000
+        reasoning_effort:
+          $ref: "#/components/schemas/ReasoningEffort"
         tools:
           description: >
             A list of tool enabled on the assistant. There can be a maximum of
@@ -13632,6 +13621,7 @@ components:
                                 description: Always `auto`.
                                 enum:
                                   - auto
+                                x-stainless-const: true
                             required:
                               - type
                           - type: object
@@ -13643,6 +13633,7 @@ components:
                                 description: Always `static`.
                                 enum:
                                   - static
+                                x-stainless-const: true
                               static:
                                 type: object
                                 additionalProperties: false
@@ -13671,15 +13662,7 @@ components:
                               - static
                         x-oaiExpandable: true
                       metadata:
-                        type: object
-                        description: >
-                          Set of 16 key-value pairs that can be attached to a
-                          vector store. This can be useful for storing
-                          additional information about the vector store in a
-                          structured format. Keys can be a maximum of 64
-                          characters long and values can be a maximum of 512
-                          characters long.
-                        x-oaiTypeLabel: map
+                        $ref: "#/components/schemas/Metadata"
               oneOf:
                 - required:
                     - vector_store_ids
@@ -13687,14 +13670,7 @@ components:
                     - vector_stores
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         temperature:
           description: >
             What sampling temperature to use, between 0 and 2. Higher values
@@ -13722,8 +13698,9 @@ components:
 
             We generally recommend altering this or temperature but not both.
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
       required:
         - model
     CreateChatCompletionFunctionResponse:
@@ -13744,7 +13721,6 @@ components:
               - finish_reason
               - index
               - message
-              - logprobs
             properties:
               finish_reason:
                 type: string
@@ -13787,6 +13763,7 @@ components:
           description: The object type, which is always `chat.completion`.
           enum:
             - chat.completion
+          x-stainless-const: true
         usage:
           $ref: "#/components/schemas/CompletionUsage"
       required:
@@ -13897,6 +13874,8 @@ components:
             - type: string
             - type: string
               enum:
+                - o3-mini
+                - o3-mini-2025-01-31
                 - o1
                 - o1-2024-12-17
                 - o1-preview
@@ -13941,41 +13920,15 @@ components:
           nullable: true
           description: >
             Whether or not to store the output of this chat completion request
-            for 
+            for
 
             use in our [model distillation](/docs/guides/distillation) or
 
             [evals](/docs/guides/evals) products.
         reasoning_effort:
-          type: string
-          enum:
-            - low
-            - medium
-            - high
-          default: medium
-          description: >
-            **o1 models only** 
-
-
-            Constrains effort on reasoning for 
-
-            [reasoning
-            models](https://platform.openai.com/docs/guides/reasoning).
-
-            Currently supported values are `low`, `medium`, and `high`. Reducing
-
-            reasoning effort can result in faster responses and fewer tokens
-            used
-
-            on reasoning in a response.
+          $ref: "#/components/schemas/ReasoningEffort"
         metadata:
-          type: object
-          nullable: true
-          description: |
-            Developer-defined tags and values used for filtering completions
-            in the [dashboard](https://platform.openai.com/chat-completions).
-          additionalProperties:
-            type: string
+          $ref: "#/components/schemas/Metadata"
         frequency_penalty:
           type: number
           default: 0
@@ -14195,8 +14148,7 @@ components:
           x-oaiExpandable: true
         seed:
           type: integer
-          minimum: -9223372036854776000
-          maximum: 9223372036854776000
+          format: int64
           nullable: true
           description: >
             This feature is in Beta.
@@ -14216,11 +14168,9 @@ components:
             parameter is relevant for customers subscribed to the scale tier
             service:
               - If set to 'auto', and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.
-              - If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.
-              - If set to 'default', the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.
+              - If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
+              - If set to 'default', the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
               - When not set, the default behavior is 'auto'.
-
-              When this parameter is set, the response body will include the `service_tier` utilized.
           type: string
           enum:
             - auto
@@ -14436,9 +14386,7 @@ components:
           type: string
           description: The model used for the chat completion.
         service_tier:
-          description: The service tier used for processing the request. This field is
-            only included if the `service_tier` parameter is specified in the
-            request.
+          description: The service tier used for processing the request.
           type: string
           enum:
             - scale
@@ -14460,6 +14408,7 @@ components:
           description: The object type, which is always `chat.completion`.
           enum:
             - chat.completion
+          x-stainless-const: true
         usage:
           $ref: "#/components/schemas/CompletionUsage"
       required:
@@ -14582,9 +14531,7 @@ components:
           type: string
           description: The model to generate the completion.
         service_tier:
-          description: The service tier used for processing the request. This field is
-            only included if the `service_tier` parameter is specified in the
-            request.
+          description: The service tier used for processing the request.
           type: string
           enum:
             - scale
@@ -14605,6 +14552,7 @@ components:
           description: The object type, which is always `chat.completion.chunk`.
           enum:
             - chat.completion.chunk
+          x-stainless-const: true
         usage:
           type: object
           nullable: true
@@ -14828,8 +14776,7 @@ components:
             penalties.](/docs/guides/text-generation)
         seed:
           type: integer
-          minimum: -9223372036854776000
-          maximum: 9223372036854776000
+          format: int64
           nullable: true
           description: >
             If specified, our system will make a best effort to sample
@@ -15003,6 +14950,7 @@ components:
           description: The object type, which is always "text_completion"
           enum:
             - text_completion
+          x-stainless-const: true
         usage:
           $ref: "#/components/schemas/CompletionUsage"
       required:
@@ -15047,7 +14995,8 @@ components:
             cannot be an empty string, and any array must be 2048 dimensions or
             less. [Example Python
             code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
-            for counting tokens.
+            for counting tokens. Some models may also impose a limit on total
+            number of tokens summed across inputs.
           example: The quick brown fox jumped over the lazy dog
           oneOf:
             - type: string
@@ -15141,6 +15090,7 @@ components:
           description: The object type, which is always "list".
           enum:
             - list
+          x-stainless-const: true
         usage:
           type: object
           description: The usage information for the request.
@@ -15249,6 +15199,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 256
@@ -15263,6 +15214,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: number
                   minimum: 0
                   exclusiveMinimum: true
@@ -15277,6 +15229,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 50
@@ -15338,6 +15291,7 @@ components:
                   - type: string
                     enum:
                       - wandb
+                    x-stainless-const: true
               wandb:
                 type: object
                 description: >
@@ -15427,6 +15381,7 @@ components:
             - type: string
               enum:
                 - dall-e-2
+              x-stainless-const: true
           x-oaiTypeLabel: string
           default: dall-e-2
           example: dall-e-2
@@ -15573,6 +15528,7 @@ components:
             - type: string
               enum:
                 - dall-e-2
+              x-stainless-const: true
           x-oaiTypeLabel: string
           default: dall-e-2
           example: dall-e-2
@@ -15683,14 +15639,7 @@ components:
             - tools
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     CreateModerationRequest:
       type: object
       properties:
@@ -15724,6 +15673,7 @@ components:
                         type: string
                         enum:
                           - image_url
+                        x-stainless-const: true
                       image_url:
                         type: object
                         description: Contains either an image URL or a data URL for a base64 encoded
@@ -15747,6 +15697,7 @@ components:
                         type: string
                         enum:
                           - text
+                        x-stainless-const: true
                       text:
                         description: A string of text to classify.
                         type: string
@@ -15820,12 +15771,14 @@ components:
                       towards any target.
                   illicit:
                     type: boolean
+                    nullable: true
                     description: Content that includes instructions or advice that facilitate the
                       planning or execution of wrongdoing, or that gives advice
                       or instruction on how to commit illicit acts. For example,
                       "how to shoplift" would fit this category.
                   illicit/violent:
                     type: boolean
+                    nullable: true
                     description: Content that includes instructions or advice that facilitate the
                       planning or execution of wrongdoing that also includes
                       violence, or that gives advice or instruction on the
@@ -15944,6 +15897,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   hate/threatening:
                     type: array
                     description: The applied input type(s) for the category 'hate/threatening'.
@@ -15951,6 +15905,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   harassment:
                     type: array
                     description: The applied input type(s) for the category 'harassment'.
@@ -15958,6 +15913,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   harassment/threatening:
                     type: array
                     description: The applied input type(s) for the category
@@ -15966,6 +15922,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   illicit:
                     type: array
                     description: The applied input type(s) for the category 'illicit'.
@@ -15973,6 +15930,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   illicit/violent:
                     type: array
                     description: The applied input type(s) for the category 'illicit/violent'.
@@ -15980,6 +15938,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   self-harm:
                     type: array
                     description: The applied input type(s) for the category 'self-harm'.
@@ -16020,6 +15979,7 @@ components:
                       type: string
                       enum:
                         - text
+                      x-stainless-const: true
                   violence:
                     type: array
                     description: The applied input type(s) for the category 'violence'.
@@ -16164,34 +16124,11 @@ components:
           example: gpt-4o
           anyOf:
             - type: string
-            - type: string
-              enum:
-                - gpt-4o
-                - gpt-4o-2024-11-20
-                - gpt-4o-2024-08-06
-                - gpt-4o-2024-05-13
-                - gpt-4o-mini
-                - gpt-4o-mini-2024-07-18
-                - gpt-4-turbo
-                - gpt-4-turbo-2024-04-09
-                - gpt-4-0125-preview
-                - gpt-4-turbo-preview
-                - gpt-4-1106-preview
-                - gpt-4-vision-preview
-                - gpt-4
-                - gpt-4-0314
-                - gpt-4-0613
-                - gpt-4-32k
-                - gpt-4-32k-0314
-                - gpt-4-32k-0613
-                - gpt-3.5-turbo
-                - gpt-3.5-turbo-16k
-                - gpt-3.5-turbo-0613
-                - gpt-3.5-turbo-1106
-                - gpt-3.5-turbo-0125
-                - gpt-3.5-turbo-16k-0613
+            - $ref: "#/components/schemas/AssistantSupportedModels"
           x-oaiTypeLabel: string
           nullable: true
+        reasoning_effort:
+          $ref: "#/components/schemas/ReasoningEffort"
         instructions:
           description: Overrides the
             [instructions](/docs/api-reference/assistants/createAssistant) of
@@ -16224,14 +16161,7 @@ components:
               - $ref: "#/components/schemas/AssistantToolsFunction"
             x-oaiExpandable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         temperature:
           type: number
           minimum: 0
@@ -16287,16 +16217,19 @@ components:
             for more info.
           minimum: 256
         truncation_strategy:
-          $ref: "#/components/schemas/TruncationObject"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/TruncationObject"
+            - nullable: true
         tool_choice:
-          $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
+            - nullable: true
         parallel_tool_calls:
           $ref: "#/components/schemas/ParallelToolCalls"
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
       required:
         - assistant_id
     CreateSpeechRequest:
@@ -16321,16 +16254,19 @@ components:
           maxLength: 4096
         voice:
           description: The voice to use when generating the audio. Supported voices are
-            `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of
-            the voices are available in the [Text to speech
-            guide](/docs/guides/text-to-speech#voice-options).
+            `alloy`, `ash`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage` and
+            `shimmer`. Previews of the voices are available in the [Text to
+            speech guide](/docs/guides/text-to-speech#voice-options).
           type: string
           enum:
             - alloy
+            - ash
+            - coral
             - echo
             - fable
             - onyx
             - nova
+            - sage
             - shimmer
         response_format:
           description: The format to audio in. Supported formats are `mp3`, `opus`, `aac`,
@@ -16365,7 +16301,6 @@ components:
           type: string
         thread:
           $ref: "#/components/schemas/CreateThreadRequest"
-          description: If no thread is provided, an empty thread will be created.
         model:
           description: The ID of the [Model](/docs/api-reference/models) to be used to
             execute this run. If a value is provided here, it will override the
@@ -16454,14 +16389,7 @@ components:
                     type: string
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         temperature:
           type: number
           minimum: 0
@@ -16517,20 +16445,26 @@ components:
             for more info.
           minimum: 256
         truncation_strategy:
-          $ref: "#/components/schemas/TruncationObject"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/TruncationObject"
+            - nullable: true
         tool_choice:
-          $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
+            - nullable: true
         parallel_tool_calls:
           $ref: "#/components/schemas/ParallelToolCalls"
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
       required:
         - assistant_id
     CreateThreadRequest:
       type: object
+      description: |
+        Options to create a new thread. If no thread is provided when running a
+        request, an empty thread will be created.
       additionalProperties: false
       properties:
         messages:
@@ -16609,6 +16543,7 @@ components:
                                 description: Always `auto`.
                                 enum:
                                   - auto
+                                x-stainless-const: true
                             required:
                               - type
                           - type: object
@@ -16620,6 +16555,7 @@ components:
                                 description: Always `static`.
                                 enum:
                                   - static
+                                x-stainless-const: true
                               static:
                                 type: object
                                 additionalProperties: false
@@ -16648,15 +16584,7 @@ components:
                               - static
                         x-oaiExpandable: true
                       metadata:
-                        type: object
-                        description: >
-                          Set of 16 key-value pairs that can be attached to a
-                          vector store. This can be useful for storing
-                          additional information about the vector store in a
-                          structured format. Keys can be a maximum of 64
-                          characters long and values can be a maximum of 512
-                          characters long.
-                        x-oaiTypeLabel: map
+                        $ref: "#/components/schemas/Metadata"
                     x-oaiExpandable: true
               oneOf:
                 - required:
@@ -16665,14 +16593,7 @@ components:
                     - vector_stores
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     CreateTranscriptionRequest:
       type: object
       additionalProperties: false
@@ -16694,12 +16615,13 @@ components:
             - type: string
               enum:
                 - whisper-1
+              x-stainless-const: true
           x-oaiTypeLabel: string
         language:
           description: >
             The language of the input audio. Supplying the input language in
             [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
-            format will improve accuracy and latency.
+            (e.g. `en`) format will improve accuracy and latency.
           type: string
         prompt:
           description: >
@@ -16764,7 +16686,7 @@ components:
           type: string
           description: The language of the input audio.
         duration:
-          type: string
+          type: number
           description: The duration of the input audio.
         text:
           type: string
@@ -16831,6 +16753,7 @@ components:
             - type: string
               enum:
                 - whisper-1
+              x-stainless-const: true
           x-oaiTypeLabel: string
         prompt:
           description: >
@@ -16867,7 +16790,7 @@ components:
           type: string
           description: The language of the output translation (always `english`).
         duration:
-          type: string
+          type: number
           description: The duration of the input audio.
         text:
           type: string
@@ -16974,14 +16897,7 @@ components:
             - $ref: "#/components/schemas/StaticChunkingStrategyRequestParam"
           x-oaiExpandable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     DefaultProjectErrorResponse:
       type: object
       properties:
@@ -17003,6 +16919,7 @@ components:
           type: string
           enum:
             - assistant.deleted
+          x-stainless-const: true
       required:
         - id
         - object
@@ -17016,6 +16933,7 @@ components:
           type: string
           enum:
             - file
+          x-stainless-const: true
         deleted:
           type: boolean
       required:
@@ -17033,6 +16951,7 @@ components:
           type: string
           enum:
             - thread.message.deleted
+          x-stainless-const: true
       required:
         - id
         - object
@@ -17061,6 +16980,7 @@ components:
           type: string
           enum:
             - thread.deleted
+          x-stainless-const: true
       required:
         - id
         - object
@@ -17076,6 +16996,7 @@ components:
           type: string
           enum:
             - vector_store.file.deleted
+          x-stainless-const: true
       required:
         - id
         - object
@@ -17091,6 +17012,7 @@ components:
           type: string
           enum:
             - vector_store.deleted
+          x-stainless-const: true
       required:
         - id
         - object
@@ -17102,10 +17024,12 @@ components:
           type: string
           enum:
             - done
+          x-stainless-const: true
         data:
           type: string
           enum:
             - "[DONE]"
+          x-stainless-const: true
       required:
         - event
         - data
@@ -17133,6 +17057,7 @@ components:
           description: The object type, which is always "embedding".
           enum:
             - embedding
+          x-stainless-const: true
       required:
         - index
         - object
@@ -17177,6 +17102,7 @@ components:
           type: string
           enum:
             - error
+          x-stainless-const: true
         data:
           $ref: "#/components/schemas/Error"
       required:
@@ -17343,6 +17269,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: number
                   minimum: 0
                   maximum: 2
@@ -17357,6 +17284,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 256
@@ -17369,6 +17297,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: number
                   minimum: 0
                   exclusiveMinimum: true
@@ -17381,6 +17310,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 50
@@ -17396,10 +17326,8 @@ components:
             - supervised
             - dpo
         supervised:
-          type: object
           $ref: "#/components/schemas/FineTuneSupervisedMethod"
         dpo:
-          type: object
           $ref: "#/components/schemas/FineTuneDPOMethod"
     FineTunePreferenceRequestInput:
       type: object
@@ -17482,6 +17410,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 256
@@ -17494,6 +17423,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: number
                   minimum: 0
                   exclusiveMinimum: true
@@ -17506,6 +17436,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 50
@@ -17522,6 +17453,7 @@ components:
           description: The type of the integration being enabled for the fine-tuning job
           enum:
             - wandb
+          x-stainless-const: true
         wandb:
           type: object
           description: >
@@ -17629,6 +17561,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 256
@@ -17643,6 +17576,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: number
                   minimum: 0
                   exclusiveMinimum: true
@@ -17657,6 +17591,7 @@ components:
                 - type: string
                   enum:
                     - auto
+                  x-stainless-const: true
                 - type: integer
                   minimum: 1
                   maximum: 50
@@ -17669,6 +17604,7 @@ components:
           description: The object type, which is always "fine_tuning.job".
           enum:
             - fine_tuning.job
+          x-stainless-const: true
         organization_id:
           type: string
           description: The organization that owns the fine-tuning job.
@@ -17827,6 +17763,7 @@ components:
           description: The object type, which is always "fine_tuning.job.checkpoint".
           enum:
             - fine_tuning.job.checkpoint
+          x-stainless-const: true
       required:
         - created_at
         - fine_tuning_job_id
@@ -17864,6 +17801,7 @@ components:
           description: The object type, which is always "fine_tuning.job.event".
           enum:
             - fine_tuning.job.event
+          x-stainless-const: true
         id:
           type: string
           description: The object identifier.
@@ -17940,7 +17878,7 @@ components:
         See the [guide](/docs/guides/function-calling) for examples, and the
         [JSON Schema
         reference](https://json-schema.org/understanding-json-schema/) for
-        documentation about the format. 
+        documentation about the format.
 
 
         Omitting `parameters` defines a function with an empty parameter list.
@@ -17989,6 +17927,7 @@ components:
           enum:
             - organization.invite
           description: The object type, which is always `organization.invite`
+          x-stainless-const: true
         id:
           type: string
           description: The identifier, which can be referenced in API endpoints
@@ -18068,6 +18007,7 @@ components:
           enum:
             - organization.invite.deleted
           description: The object type, which is always `organization.invite.deleted`
+          x-stainless-const: true
         id:
           type: string
         deleted:
@@ -18084,6 +18024,7 @@ components:
           enum:
             - list
           description: The object type, which is always `list`
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -18226,6 +18167,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -18263,6 +18205,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
       required:
         - object
         - data
@@ -18303,6 +18246,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         first_id:
           type: string
           nullable: true
@@ -18326,9 +18270,13 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
+        has_more:
+          type: boolean
       required:
         - object
         - data
+        - has_more
     ListMessagesResponse:
       properties:
         object:
@@ -18360,6 +18308,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -18380,6 +18329,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
       required:
         - object
         - data
@@ -18516,6 +18466,7 @@ components:
           type: string
           enum:
             - image_file
+          x-stainless-const: true
         image_file:
           type: object
           properties:
@@ -18549,6 +18500,7 @@ components:
           enum:
             - image_url
           description: The type of the content part.
+          x-stainless-const: true
         image_url:
           type: object
           properties:
@@ -18582,6 +18534,7 @@ components:
           type: string
           enum:
             - refusal
+          x-stainless-const: true
         refusal:
           type: string
           nullable: false
@@ -18600,6 +18553,7 @@ components:
           type: string
           enum:
             - file_citation
+          x-stainless-const: true
         text:
           description: The text in the message content that needs to be replaced.
           type: string
@@ -18634,6 +18588,7 @@ components:
           type: string
           enum:
             - file_path
+          x-stainless-const: true
         text:
           description: The text in the message content that needs to be replaced.
           type: string
@@ -18667,6 +18622,7 @@ components:
           type: string
           enum:
             - text
+          x-stainless-const: true
         text:
           type: object
           properties:
@@ -18700,6 +18656,7 @@ components:
           type: string
           enum:
             - image_file
+          x-stainless-const: true
         image_file:
           type: object
           properties:
@@ -18734,6 +18691,7 @@ components:
           type: string
           enum:
             - image_url
+          x-stainless-const: true
         image_url:
           type: object
           properties:
@@ -18766,6 +18724,7 @@ components:
           type: string
           enum:
             - refusal
+          x-stainless-const: true
         refusal:
           type: string
       required:
@@ -18786,6 +18745,7 @@ components:
           type: string
           enum:
             - file_citation
+          x-stainless-const: true
         text:
           description: The text in the message content that needs to be replaced.
           type: string
@@ -18821,6 +18781,7 @@ components:
           type: string
           enum:
             - file_path
+          x-stainless-const: true
         text:
           description: The text in the message content that needs to be replaced.
           type: string
@@ -18852,6 +18813,7 @@ components:
           type: string
           enum:
             - text
+          x-stainless-const: true
         text:
           type: object
           properties:
@@ -18885,6 +18847,7 @@ components:
           type: string
           enum:
             - thread.message.delta
+          x-stainless-const: true
         delta:
           description: The delta containing the fields that have changed on the Message.
           type: object
@@ -18939,6 +18902,7 @@ components:
           type: string
           enum:
             - thread.message
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the message was created.
           type: integer
@@ -19028,14 +18992,7 @@ components:
             added to.
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
       required:
         - id
         - object
@@ -19085,6 +19042,7 @@ components:
           type: string
           enum:
             - text
+          x-stainless-const: true
         text:
           type: string
           description: Text content to be sent to the model
@@ -19099,6 +19057,7 @@ components:
               type: string
               enum:
                 - thread.message.created
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/MessageObject"
           required:
@@ -19114,6 +19073,7 @@ components:
               type: string
               enum:
                 - thread.message.in_progress
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/MessageObject"
           required:
@@ -19129,6 +19089,7 @@ components:
               type: string
               enum:
                 - thread.message.delta
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/MessageDeltaObject"
           required:
@@ -19146,6 +19107,7 @@ components:
               type: string
               enum:
                 - thread.message.completed
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/MessageObject"
           required:
@@ -19161,6 +19123,7 @@ components:
               type: string
               enum:
                 - thread.message.incomplete
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/MessageObject"
           required:
@@ -19170,6 +19133,25 @@ components:
             before it is completed.
           x-oaiMeta:
             dataDescription: "`data` is a [message](/docs/api-reference/messages/object)"
+    Metadata:
+      type: object
+      description: >
+        Set of 16 key-value pairs that can be attached to an object. This can be
+
+        useful for storing additional information about the object in a
+        structured
+
+        format, and querying for objects via API or the dashboard.
+
+
+        Keys are strings with a maximum length of 64 characters. Values are
+        strings
+
+        with a maximum length of 512 characters.
+      additionalProperties:
+        type: string
+      x-oaiTypeLabel: map
+      nullable: true
     Model:
       title: Model
       description: Describes an OpenAI model offering that can be used with the API.
@@ -19185,6 +19167,7 @@ components:
           description: The object type, which is always "model".
           enum:
             - model
+          x-stainless-const: true
         owned_by:
           type: string
           description: The organization that owns the model.
@@ -19214,6 +19197,9 @@ components:
             descriptions of them.
           anyOf:
             - type: string
+            - $ref: "#/components/schemas/AssistantSupportedModels"
+        reasoning_effort:
+          $ref: "#/components/schemas/ReasoningEffort"
         name:
           description: |
             The name of the assistant. The maximum length is 256 characters.
@@ -19284,14 +19270,7 @@ components:
                     type: string
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         temperature:
           description: >
             What sampling temperature to use, between 0 and 2. Higher values
@@ -19319,34 +19298,21 @@ components:
 
             We generally recommend altering this or temperature but not both.
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
     ModifyMessageRequest:
       type: object
       additionalProperties: false
       properties:
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     ModifyRunRequest:
       type: object
       additionalProperties: false
       properties:
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     ModifyThreadRequest:
       type: object
       additionalProperties: false
@@ -19386,14 +19352,7 @@ components:
                     type: string
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     OpenAIFile:
       title: OpenAIFile
       description: The `File` object represents a document that has been uploaded to OpenAI.
@@ -19415,6 +19374,7 @@ components:
           description: The object type, which is always `file`.
           enum:
             - file
+          x-stainless-const: true
         purpose:
           type: string
           description: The intended purpose of the file. Supported values are
@@ -19474,6 +19434,7 @@ components:
           description: Always `other`.
           enum:
             - other
+          x-stainless-const: true
       required:
         - type
     ParallelToolCalls:
@@ -19501,6 +19462,7 @@ components:
           description: |
             The type of the predicted content you want to provide. This type is
             currently always `content`.
+          x-stainless-const: true
         content:
           x-oaiExpandable: true
           description: >
@@ -19536,6 +19498,7 @@ components:
           enum:
             - organization.project
           description: The object type, which is always `organization.project`
+          x-stainless-const: true
         name:
           type: string
           description: The name of the project. This appears in reporting.
@@ -19579,6 +19542,7 @@ components:
           enum:
             - organization.project.api_key
           description: The object type, which is always `organization.project.api_key`
+          x-stainless-const: true
         redacted_value:
           type: string
           description: The redacted value of the API key
@@ -19639,6 +19603,7 @@ components:
           type: string
           enum:
             - organization.project.api_key.deleted
+          x-stainless-const: true
         id:
           type: string
         deleted:
@@ -19654,6 +19619,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -19685,6 +19651,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -19710,6 +19677,7 @@ components:
           enum:
             - project.rate_limit
           description: The object type, which is always `project.rate_limit`
+          x-stainless-const: true
         id:
           type: string
           description: The identifier, which can be referenced in API endpoints.
@@ -19760,6 +19728,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -19809,6 +19778,7 @@ components:
             - organization.project.service_account
           description: The object type, which is always
             `organization.project.service_account`
+          x-stainless-const: true
         id:
           type: string
           description: The identifier, which can be referenced in API endpoints
@@ -19850,6 +19820,7 @@ components:
             - organization.project.service_account.api_key
           description: The object type, which is always
             `organization.project.service_account.api_key`
+          x-stainless-const: true
         value:
           type: string
         name:
@@ -19879,6 +19850,7 @@ components:
           type: string
           enum:
             - organization.project.service_account
+          x-stainless-const: true
         id:
           type: string
         name:
@@ -19888,6 +19860,7 @@ components:
           enum:
             - member
           description: Service accounts can only have one role of type `member`
+          x-stainless-const: true
         created_at:
           type: integer
         api_key:
@@ -19906,6 +19879,7 @@ components:
           type: string
           enum:
             - organization.project.service_account.deleted
+          x-stainless-const: true
         id:
           type: string
         deleted:
@@ -19921,6 +19895,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -19954,6 +19929,7 @@ components:
           enum:
             - organization.project.user
           description: The object type, which is always `organization.project.user`
+          x-stainless-const: true
         id:
           type: string
           description: The identifier, which can be referenced in API endpoints
@@ -20012,6 +19988,7 @@ components:
           type: string
           enum:
             - organization.project.user.deleted
+          x-stainless-const: true
         id:
           type: string
         deleted:
@@ -20056,19 +20033,19 @@ components:
       type: object
       description: >
         Add a new Item to the Conversation's context, including messages,
-        function 
+        function
 
         calls, and function call responses. This event can be used both to
-        populate a 
+        populate a
 
         "history" of the conversation and to add new items mid-stream, but has
-        the 
+        the
 
         current limitation that it cannot populate assistant audio messages.
 
 
         If successful, the server will respond with a
-        `conversation.item.created` 
+        `conversation.item.created`
 
         event, otherwise an `error` event will be sent.
       properties:
@@ -20080,20 +20057,24 @@ components:
           enum:
             - conversation.item.create
           description: The event type, must be `conversation.item.create`.
+          x-stainless-const: true
         previous_item_id:
           type: string
           description: >
             The ID of the preceding item after which the new item will be
-            inserted. 
+            inserted.
 
             If not set, the new item will be appended to the end of the
-            conversation. 
+            conversation.
 
-            If set, it allows an item to be inserted mid-conversation. If the
-            ID 
+            If set to `root`, the new item will be added to the beginning of the
+            conversation.
 
-            cannot be found, an error will be returned and the item will not be
-            added.
+            If set to an existing ID, it allows an item to be inserted
+            mid-conversation. If the
+
+            ID cannot be found, an error will be returned and the item will not
+            be added.
         item:
           $ref: "#/components/schemas/RealtimeConversationItem"
       required:
@@ -20122,13 +20103,13 @@ components:
     RealtimeClientEventConversationItemDelete:
       type: object
       description: >
-        Send this event when you want to remove any item from the conversation 
+        Send this event when you want to remove any item from the conversation
 
         history. The server will respond with a `conversation.item.deleted`
-        event, 
+        event,
 
         unless the item does not exist in the conversation history, in which
-        case the 
+        case the
 
         server will respond with an error.
       properties:
@@ -20140,6 +20121,7 @@ components:
           enum:
             - conversation.item.delete
           description: The event type, must be `conversation.item.delete`.
+          x-stainless-const: true
         item_id:
           type: string
           description: The ID of the item to delete.
@@ -20159,30 +20141,30 @@ components:
       type: object
       description: >
         Send this event to truncate a previous assistant message’s audio. The
-        server 
+        server
 
         will produce audio faster than realtime, so this event is useful when
-        the user 
+        the user
 
         interrupts to truncate audio that has already been sent to the client
-        but not 
+        but not
 
         yet played. This will synchronize the server's understanding of the
-        audio with 
+        audio with
 
         the client's playback.
 
 
         Truncating audio will delete the server-side text transcript to ensure
-        there 
+        there
 
         is not text in the context that hasn't been heard by the user.
 
 
         If successful, the server will respond with a
-        `conversation.item.truncated` 
+        `conversation.item.truncated`
 
-        event. 
+        event.
       properties:
         event_id:
           type: string
@@ -20192,11 +20174,12 @@ components:
           enum:
             - conversation.item.truncate
           description: The event type, must be `conversation.item.truncate`.
+          x-stainless-const: true
         item_id:
           type: string
           description: >
             The ID of the assistant message item to truncate. Only assistant
-            message 
+            message
 
             items can be truncated.
         content_index:
@@ -20206,10 +20189,10 @@ components:
           type: integer
           description: >
             Inclusive duration up to which audio is truncated, in milliseconds.
-            If 
+            If
 
             the audio_end_ms is greater than the actual audio duration, the
-            server 
+            server
 
             will respond with an error.
       required:
@@ -20232,13 +20215,13 @@ components:
       type: object
       description: >
         Send this event to append audio bytes to the input audio buffer. The
-        audio 
+        audio
 
         buffer is temporary storage you can write to and later commit. In Server
-        VAD 
+        VAD
 
         mode, the audio buffer is used to detect speech and the server will
-        decide 
+        decide
 
         when to commit. When Server VAD is disabled, you must commit the audio
         buffer
@@ -20247,13 +20230,13 @@ components:
 
 
         The client may choose how much audio to place in each event up to a
-        maximum 
+        maximum
 
         of 15 MiB, for example streaming smaller chunks from the client may
-        allow the 
+        allow the
 
         VAD to be more responsive. Unlike made other client events, the server
-        will 
+        will
 
         not send a confirmation response to this event.
       properties:
@@ -20265,11 +20248,12 @@ components:
           enum:
             - input_audio_buffer.append
           description: The event type, must be `input_audio_buffer.append`.
+          x-stainless-const: true
         audio:
           type: string
           description: >
             Base64-encoded audio bytes. This must be in the format specified by
-            the 
+            the
 
             `input_audio_format` field in the session configuration.
       required:
@@ -20287,7 +20271,7 @@ components:
     RealtimeClientEventInputAudioBufferClear:
       type: object
       description: |
-        Send this event to clear the audio bytes in the buffer. The server will 
+        Send this event to clear the audio bytes in the buffer. The server will
         respond with an `input_audio_buffer.cleared` event.
       properties:
         event_id:
@@ -20298,6 +20282,7 @@ components:
           enum:
             - input_audio_buffer.clear
           description: The event type, must be `input_audio_buffer.clear`.
+          x-stainless-const: true
       required:
         - type
       x-oaiMeta:
@@ -20312,27 +20297,27 @@ components:
       type: object
       description: >
         Send this event to commit the user input audio buffer, which will create
-        a 
+        a
 
         new user message item in the conversation. This event will produce an
-        error 
+        error
 
         if the input audio buffer is empty. When in Server VAD mode, the client
-        does 
+        does
 
-        not need to send this event, the server will commit the audio buffer 
+        not need to send this event, the server will commit the audio buffer
 
         automatically.
 
 
         Committing the input audio buffer will trigger input audio
-        transcription 
+        transcription
 
         (if enabled in session configuration), but it will not create a
-        response 
+        response
 
         from the model. The server will respond with an
-        `input_audio_buffer.committed` 
+        `input_audio_buffer.committed`
 
         event.
       properties:
@@ -20344,6 +20329,7 @@ components:
           enum:
             - input_audio_buffer.commit
           description: The event type, must be `input_audio_buffer.commit`.
+          x-stainless-const: true
       required:
         - type
       x-oaiMeta:
@@ -20358,10 +20344,10 @@ components:
       type: object
       description: >
         Send this event to cancel an in-progress response. The server will
-        respond 
+        respond
 
         with a `response.cancelled` event or an error if there is no response
-        to 
+        to
 
         cancel.
       properties:
@@ -20373,10 +20359,11 @@ components:
           enum:
             - response.cancel
           description: The event type, must be `response.cancel`.
+          x-stainless-const: true
         response_id:
           type: string
           description: |
-            A specific response ID to cancel - if not provided, will cancel an 
+            A specific response ID to cancel - if not provided, will cancel an
             in-progress response in the default conversation.
       required:
         - type
@@ -20392,35 +20379,35 @@ components:
       type: object
       description: >
         This event instructs the server to create a Response, which means
-        triggering 
+        triggering
 
         model inference. When in Server VAD mode, the server will create
-        Responses 
+        Responses
 
         automatically.
 
 
         A Response will include at least one Item, and may have two, in which
-        case 
+        case
 
-        the second will be a function call. These Items will be appended to the 
+        the second will be a function call. These Items will be appended to the
 
         conversation history.
 
 
         The server will respond with a `response.created` event, events for
-        Items 
+        Items
 
         and content created, and finally a `response.done` event to indicate
-        the 
+        the
 
         Response is complete.
 
 
-        The `response.create` event includes inference configuration like 
+        The `response.create` event includes inference configuration like
 
         `instructions`, and `temperature`. These fields will override the
-        Session's 
+        Session's
 
         configuration for this Response only.
       properties:
@@ -20432,6 +20419,7 @@ components:
           enum:
             - response.create
           description: The event type, must be `response.create`.
+          x-stainless-const: true
         response:
           $ref: "#/components/schemas/RealtimeResponseCreateParams"
       required:
@@ -20472,19 +20460,19 @@ components:
       type: object
       description: >
         Send this event to update the session’s default configuration. The
-        client may 
+        client may
 
         send this event at any time to update the session configuration, and
-        any 
+        any
 
         field may be updated at any time, except for "voice". The server will
-        respond 
+        respond
 
         with a `session.updated` event that shows the full effective
-        configuration. 
+        configuration.
 
         Only fields that are present are updated, thus the correct way to clear
-        a 
+        a
 
         field like "instructions" is to pass an empty string.
       properties:
@@ -20496,6 +20484,7 @@ components:
           enum:
             - session.update
           description: The event type, must be `session.update`.
+          x-stainless-const: true
         session:
           $ref: "#/components/schemas/RealtimeSessionCreateRequest"
       required:
@@ -20552,10 +20541,10 @@ components:
           type: string
           description: >
             The unique ID of the item, this can be generated by the client to
-            help 
+            help
 
             manage server-side context, but is not required because the server
-            will 
+            will
 
             generate one if not provided.
         type:
@@ -20574,6 +20563,7 @@ components:
           description: >
             Identifier for the API object being returned - always
             `realtime.item`.
+          x-stainless-const: true
         status:
           type: string
           enum:
@@ -20581,9 +20571,9 @@ components:
             - incomplete
           description: >
             The status of the item (`completed`, `incomplete`). These have no
-            effect 
+            effect
 
-            on the conversation, but are accepted for consistency with the 
+            on the conversation, but are accepted for consistency with the
 
             `conversation.item.created` event.
         role:
@@ -20594,19 +20584,19 @@ components:
             - system
           description: >
             The role of the message sender (`user`, `assistant`, `system`),
-            only 
+            only
 
             applicable for `message` items.
         content:
           type: array
           x-oaiExpandable: true
           description: >
-            The content of the message, applicable for `message` items. 
+            The content of the message, applicable for `message` items.
 
             - Message items of role `system` support only `input_text` content
 
             - Message items of role `user` support `input_text` and
-            `input_audio` 
+            `input_audio`
               content
             - Message items of role `assistant` support `text` content.
           items:
@@ -20651,13 +20641,150 @@ components:
         call_id:
           type: string
           description: >
-            The ID of the function call (for `function_call` and 
+            The ID of the function call (for `function_call` and
 
             `function_call_output` items). If passed on a
-            `function_call_output` 
+            `function_call_output`
 
             item, the server will check that a `function_call` item with the
-            same 
+            same
+
+            ID exists in the conversation history.
+        name:
+          type: string
+          description: |
+            The name of the function being called (for `function_call` items).
+        arguments:
+          type: string
+          description: |
+            The arguments of the function call (for `function_call` items).
+        output:
+          type: string
+          description: |
+            The output of the function call (for `function_call_output` items).
+    RealtimeConversationItemWithReference:
+      type: object
+      x-oaiExpandable: true
+      description: The item to add to the conversation.
+      properties:
+        id:
+          type: string
+          description: >
+            For an item of type (`message` | `function_call` |
+            `function_call_output`)
+
+            this field allows the client to assign the unique ID of the item. It
+            is
+
+            not required because the server will generate one if not provided.
+
+
+            For an item of type `item_reference`, this field is required and is
+            a
+
+            reference to any item that has previously existed in the
+            conversation.
+        type:
+          type: string
+          enum:
+            - message
+            - function_call
+            - function_call_output
+          description: >
+            The type of the item (`message`, `function_call`,
+            `function_call_output`, `item_reference`).
+        object:
+          type: string
+          enum:
+            - realtime.item
+          description: >
+            Identifier for the API object being returned - always
+            `realtime.item`.
+          x-stainless-const: true
+        status:
+          type: string
+          enum:
+            - completed
+            - incomplete
+          description: >
+            The status of the item (`completed`, `incomplete`). These have no
+            effect
+
+            on the conversation, but are accepted for consistency with the
+
+            `conversation.item.created` event.
+        role:
+          type: string
+          enum:
+            - user
+            - assistant
+            - system
+          description: >
+            The role of the message sender (`user`, `assistant`, `system`),
+            only
+
+            applicable for `message` items.
+        content:
+          type: array
+          x-oaiExpandable: true
+          description: >
+            The content of the message, applicable for `message` items.
+
+            - Message items of role `system` support only `input_text` content
+
+            - Message items of role `user` support `input_text` and
+            `input_audio`
+              content
+            - Message items of role `assistant` support `text` content.
+          items:
+            type: object
+            x-oaiExpandable: true
+            properties:
+              type:
+                type: string
+                enum:
+                  - input_audio
+                  - input_text
+                  - item_reference
+                  - text
+                description: >
+                  The content type (`input_text`, `input_audio`,
+                  `item_reference`, `text`).
+              text:
+                type: string
+                description: >
+                  The text content, used for `input_text` and `text` content
+                  types.
+              id:
+                type: string
+                description: >
+                  ID of a previous conversation item to reference (for
+                  `item_reference`
+
+                  content types in `response.create` events). These can
+                  reference both
+
+                  client and server created items.
+              audio:
+                type: string
+                description: >
+                  Base64-encoded audio bytes, used for `input_audio` content
+                  type.
+              transcript:
+                type: string
+                description: >
+                  The transcript of the audio, used for `input_audio` content
+                  type.
+        call_id:
+          type: string
+          description: >
+            The ID of the function call (for `function_call` and
+
+            `function_call_output` items). If passed on a
+            `function_call_output`
+
+            item, the server will check that a `function_call` item with the
+            same
 
             ID exists in the conversation history.
         name:
@@ -20684,6 +20811,7 @@ components:
           enum:
             - realtime.response
           description: The object type, must be `realtime.response`.
+          x-stainless-const: true
         status:
           type: string
           enum:
@@ -20693,7 +20821,7 @@ components:
             - incomplete
           description: >
             The final status of the response (`completed`, `cancelled`,
-            `failed`, or 
+            `failed`, or
 
             `incomplete`).
         status_details:
@@ -20709,10 +20837,10 @@ components:
                 - incomplete
               description: >
                 The type of error that caused the response to fail,
-                corresponding 
+                corresponding
 
                 with the `status` field (`completed`, `cancelled`,
-                `incomplete`, 
+                `incomplete`,
 
                 `failed`).
             reason:
@@ -20724,22 +20852,22 @@ components:
                 - content_filter
               description: >
                 The reason the Response did not complete. For a `cancelled`
-                Response, 
+                Response,
 
                 one of `turn_detected` (the server VAD detected a new start of
-                speech) 
+                speech)
 
-                or `client_cancelled` (the client sent a cancel event). For an 
+                or `client_cancelled` (the client sent a cancel event). For an
 
                 `incomplete` Response, one of `max_output_tokens` or
-                `content_filter` 
+                `content_filter`
 
                 (the server-side safety filter activated and cut off the
                 response).
             error:
               type: object
               description: |
-                A description of the error that caused the response to fail, 
+                A description of the error that caused the response to fail,
                 populated when the `status` is `failed`.
               properties:
                 type:
@@ -20754,23 +20882,18 @@ components:
           items:
             $ref: "#/components/schemas/RealtimeConversationItem"
         metadata:
-          description: >
-            Developer-provided string key-value pairs associated with this
-            response.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         usage:
           type: object
           description: >
             Usage statistics for the Response, this will correspond to billing.
-            A 
+            A
 
             Realtime API session will maintain a conversation context and append
-            new 
+            new
 
             Items to the Conversation, thus output from previous turns (text
-            and 
+            and
 
             audio tokens) will become the input for later turns.
           properties:
@@ -20778,21 +20901,21 @@ components:
               type: integer
               description: >
                 The total number of tokens in the Response including input and
-                output 
+                output
 
                 text and audio tokens.
             input_tokens:
               type: integer
               description: >
                 The number of input tokens used in the Response, including text
-                and 
+                and
 
                 audio tokens.
             output_tokens:
               type: integer
               description: >
                 The number of output tokens sent in the Response, including text
-                and 
+                and
 
                 audio tokens.
             input_token_details:
@@ -20818,6 +20941,85 @@ components:
                 audio_tokens:
                   type: integer
                   description: The number of audio tokens used in the Response.
+        conversation_id:
+          description: >
+            Which conversation the response is added to, determined by the
+            `conversation`
+
+            field in the `response.create` event. If `auto`, the response will
+            be added to
+
+            the default conversation and the value of `conversation_id` will be
+            an id like
+
+            `conv_1234`. If `none`, the response will not be added to any
+            conversation and
+
+            the value of `conversation_id` will be `null`. If responses are
+            being triggered
+
+            by server VAD, the response will be added to the default
+            conversation, thus
+
+            the `conversation_id` will be an id like `conv_1234`.
+          type: string
+        voice:
+          type: string
+          enum:
+            - alloy
+            - ash
+            - ballad
+            - coral
+            - echo
+            - sage
+            - shimmer
+            - verse
+          description: >
+            The voice the model used to respond.
+
+            Current voice options are `alloy`, `ash`, `ballad`, `coral`, `echo`
+            `sage`,
+
+            `shimmer` and `verse`.
+        modalities:
+          type: array
+          description: >
+            The set of modalities the model used to respond. If there are
+            multiple modalities,
+
+            the model will pick one, for example if `modalities` is `["text",
+            "audio"]`, the model
+
+            could be responding in either text or audio.
+          items:
+            type: string
+            enum:
+              - text
+              - audio
+        output_audio_format:
+          type: string
+          enum:
+            - pcm16
+            - g711_ulaw
+            - g711_alaw
+          description: >
+            The format of output audio. Options are `pcm16`, `g711_ulaw`, or
+            `g711_alaw`.
+        temperature:
+          type: number
+          description: >
+            Sampling temperature for the model, limited to [0.6, 1.2]. Defaults
+            to 0.8.
+        max_output_tokens:
+          oneOf:
+            - type: integer
+            - type: string
+              enum:
+                - inf
+              x-stainless-const: true
+          description: |
+            Maximum number of output tokens for a single assistant response,
+            inclusive of tool calls, that was used in this response.
     RealtimeResponseCreateParams:
       type: object
       description: Create a new Realtime response with these parameters
@@ -20836,33 +21038,33 @@ components:
           type: string
           description: >
             The default system instructions (i.e. system message) prepended to
-            model 
+            model
 
-            calls. This field allows the client to guide the model on desired 
+            calls. This field allows the client to guide the model on desired
 
             responses. The model can be instructed on response content and
-            format, 
+            format,
 
             (e.g. "be extremely succinct", "act friendly", "here are examples of
-            good 
+            good
 
             responses") and on audio behavior (e.g. "talk quickly", "inject
-            emotion 
+            emotion
 
             into your voice", "laugh frequently"). The instructions are not
-            guaranteed 
+            guaranteed
 
             to be followed by the model, but they provide guidance to the model
-            on the 
+            on the
 
             desired behavior.
 
 
             Note that the server sets default instructions which will be used if
-            this 
+            this
 
             field is not set and are visible in the `session.created` event at
-            the 
+            the
 
             start of the session.
         voice:
@@ -20878,12 +21080,12 @@ components:
             - verse
           description: >
             The voice the model uses to respond. Voice cannot be changed during
-            the 
+            the
 
             session once the model has responded with audio at least once.
-            Current 
+            Current
 
-            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`, 
+            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`,
 
             `shimmer` and `verse`.
         output_audio_format:
@@ -20906,6 +21108,7 @@ components:
                 enum:
                   - function
                 description: The type of the tool, i.e. `function`.
+                x-stainless-const: true
               name:
                 type: string
                 description: The name of the function.
@@ -20913,10 +21116,10 @@ components:
                 type: string
                 description: >
                   The description of the function, including guidance on when
-                  and how 
+                  and how
 
                   to call it, and guidance about what to tell the user when
-                  calling 
+                  calling
 
                   (if anything).
               parameters:
@@ -20926,7 +21129,7 @@ components:
           type: string
           description: >
             How the model chooses tools. Options are `auto`, `none`, `required`,
-            or 
+            or
 
             specify a function, like `{"type": "function", "function": {"name":
             "my_function"}}`.
@@ -20941,6 +21144,7 @@ components:
             - type: string
               enum:
                 - inf
+              x-stainless-const: true
           description: |
             Maximum number of output tokens for a single assistant response,
             inclusive of tool calls. Provide an integer between 1 and 4096 to
@@ -20957,7 +21161,7 @@ components:
             means that the contents of the response will be added to the default
 
             conversation. Set this to `none` to create an out-of-band response
-            which 
+            which
 
             will not add items to default conversation.
           oneOf:
@@ -20968,32 +21172,21 @@ components:
                 - auto
                 - none
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be
-
-            useful for storing additional information about the object in a
-            structured
-
-            format. Keys can be a maximum of 64 characters long and values can
-            be a
-
-            maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         input:
           type: array
           description: >
-            Input items to include in the prompt for the model. Creates a new
-            context
+            Input items to include in the prompt for the model. Using this field
 
-            for this response, without including the default conversation. Can
-            include
+            creates a new context for this Response instead of using the default
 
-            references to items from the default conversation.
+            conversation. An empty array `[]` will clear the context for this
+            Response.
+
+            Note that this can include references to items from the default
+            conversation.
           items:
-            $ref: "#/components/schemas/RealtimeConversationItem"
+            $ref: "#/components/schemas/RealtimeConversationItemWithReference"
     RealtimeServerEventConversationCreated:
       type: object
       description: >
@@ -21008,6 +21201,7 @@ components:
           enum:
             - conversation.created
           description: The event type, must be `conversation.created`.
+          x-stainless-const: true
         conversation:
           type: object
           description: The conversation resource.
@@ -21038,16 +21232,16 @@ components:
       type: object
       description: >
         Returned when a conversation item is created. There are several
-        scenarios that 
+        scenarios that
 
         produce this event:
-          - The server is generating a Response, which if successful will produce 
-            either one or two Items, which will be of type `message` 
+          - The server is generating a Response, which if successful will produce
+            either one or two Items, which will be of type `message`
             (role `assistant`) or type `function_call`.
-          - The input audio buffer has been committed, either by the client or the 
-            server (in `server_vad` mode). The server will take the content of the 
+          - The input audio buffer has been committed, either by the client or the
+            server (in `server_vad` mode). The server will take the content of the
             input audio buffer and add it to a new user message Item.
-          - The client has sent a `conversation.item.create` event to add a new Item 
+          - The client has sent a `conversation.item.create` event to add a new Item
             to the Conversation.
       properties:
         event_id:
@@ -21058,11 +21252,12 @@ components:
           enum:
             - conversation.item.created
           description: The event type, must be `conversation.item.created`.
+          x-stainless-const: true
         previous_item_id:
           type: string
           description: >
             The ID of the preceding item in the Conversation context, allows
-            the 
+            the
 
             client to understand the order of the conversation.
         item:
@@ -21099,9 +21294,9 @@ components:
       type: object
       description: >
         Returned when an item in the conversation is deleted by the client with
-        a 
+        a
 
-        `conversation.item.delete` event. This event is used to synchronize the 
+        `conversation.item.delete` event. This event is used to synchronize the
 
         server's understanding of the conversation history with the client's
         view.
@@ -21114,6 +21309,7 @@ components:
           enum:
             - conversation.item.deleted
           description: The event type, must be `conversation.item.deleted`.
+          x-stainless-const: true
         item_id:
           type: string
           description: The ID of the item that was deleted.
@@ -21134,27 +21330,27 @@ components:
       type: object
       description: >
         This event is the output of audio transcription for user audio written
-        to the 
+        to the
 
-        user audio buffer. Transcription begins when the input audio buffer is 
+        user audio buffer. Transcription begins when the input audio buffer is
 
         committed by the client or server (in `server_vad` mode). Transcription
-        runs 
+        runs
 
         asynchronously with Response creation, so this event may come before or
-        after 
+        after
 
         the Response events.
 
 
         Realtime API models accept audio natively, and thus input transcription
-        is a 
+        is a
 
         separate process run on a separate ASR (Automatic Speech Recognition)
-        model, 
+        model,
 
         currently always `whisper-1`. Thus the transcript may diverge somewhat
-        from 
+        from
 
         the model's interpretation, and should be treated as a rough guide.
       properties:
@@ -21168,6 +21364,7 @@ components:
           description: |
             The event type, must be
             `conversation.item.input_audio_transcription.completed`.
+          x-stainless-const: true
         item_id:
           type: string
           description: The ID of the user message item containing the audio.
@@ -21198,9 +21395,9 @@ components:
       type: object
       description: >
         Returned when input audio transcription is configured, and a
-        transcription 
+        transcription
 
-        request for a user message failed. These events are separate from other 
+        request for a user message failed. These events are separate from other
 
         `error` events so that the client can identify the related Item.
       properties:
@@ -21214,6 +21411,7 @@ components:
           description: |
             The event type, must be
             `conversation.item.input_audio_transcription.failed`.
+          x-stainless-const: true
         item_id:
           type: string
           description: The ID of the user message item.
@@ -21262,16 +21460,16 @@ components:
       type: object
       description: >
         Returned when an earlier assistant audio message item is truncated by
-        the 
+        the
 
-        client with a `conversation.item.truncate` event. This event is used to 
+        client with a `conversation.item.truncate` event. This event is used to
 
         synchronize the server's understanding of the audio with the client's
         playback.
 
 
         This action will truncate the audio and remove the server-side text
-        transcript 
+        transcript
 
         to ensure there is no text in the context that hasn't been heard by the
         user.
@@ -21284,6 +21482,7 @@ components:
           enum:
             - conversation.item.truncated
           description: The event type, must be `conversation.item.truncated`.
+          x-stainless-const: true
         item_id:
           type: string
           description: The ID of the assistant message item that was truncated.
@@ -21315,9 +21514,9 @@ components:
       type: object
       description: >
         Returned when an error occurs, which could be a client problem or a
-        server 
+        server
 
-        problem. Most errors are recoverable and the session will stay open, we 
+        problem. Most errors are recoverable and the session will stay open, we
 
         recommend to implementors to monitor and log error messages by default.
       properties:
@@ -21329,6 +21528,7 @@ components:
           enum:
             - error
           description: The event type, must be `error`.
+          x-stainless-const: true
         error:
           type: object
           description: Details of the error.
@@ -21380,7 +21580,7 @@ components:
     RealtimeServerEventInputAudioBufferCleared:
       type: object
       description: |
-        Returned when the input audio buffer is cleared by the client with a 
+        Returned when the input audio buffer is cleared by the client with a
         `input_audio_buffer.clear` event.
       properties:
         event_id:
@@ -21391,6 +21591,7 @@ components:
           enum:
             - input_audio_buffer.cleared
           description: The event type, must be `input_audio_buffer.cleared`.
+          x-stainless-const: true
       required:
         - event_id
         - type
@@ -21406,13 +21607,13 @@ components:
       type: object
       description: >
         Returned when an input audio buffer is committed, either by the client
-        or 
+        or
 
         automatically in server VAD mode. The `item_id` property is the ID of
         the user
 
         message item that will be created, thus a `conversation.item.created`
-        event 
+        event
 
         will also be sent to the client.
       properties:
@@ -21424,6 +21625,7 @@ components:
           enum:
             - input_audio_buffer.committed
           description: The event type, must be `input_audio_buffer.committed`.
+          x-stainless-const: true
         previous_item_id:
           type: string
           description: >
@@ -21451,28 +21653,28 @@ components:
       type: object
       description: >
         Sent by the server when in `server_vad` mode to indicate that speech has
-        been 
+        been
 
         detected in the audio buffer. This can happen any time audio is added to
-        the 
+        the
 
         buffer (unless speech is already detected). The client may want to use
-        this 
+        this
 
         event to interrupt audio playback or provide visual feedback to the
-        user. 
+        user.
 
 
         The client should expect to receive a
-        `input_audio_buffer.speech_stopped` event 
+        `input_audio_buffer.speech_stopped` event
 
         when speech stops. The `item_id` property is the ID of the user message
-        item 
+        item
 
-        that will be created when speech stops and will also be included in the 
+        that will be created when speech stops and will also be included in the
 
         `input_audio_buffer.speech_stopped` event (unless the client manually
-        commits 
+        commits
 
         the audio buffer during VAD activation).
       properties:
@@ -21484,15 +21686,16 @@ components:
           enum:
             - input_audio_buffer.speech_started
           description: The event type, must be `input_audio_buffer.speech_started`.
+          x-stainless-const: true
         audio_start_ms:
           type: integer
           description: >
             Milliseconds from the start of all audio written to the buffer
-            during the 
+            during the
 
-            session when speech was first detected. This will correspond to the 
+            session when speech was first detected. This will correspond to the
 
-            beginning of audio sent to the model, and thus includes the 
+            beginning of audio sent to the model, and thus includes the
 
             `prefix_padding_ms` configured in the Session.
         item_id:
@@ -21519,10 +21722,10 @@ components:
       type: object
       description: >
         Returned in `server_vad` mode when the server detects the end of speech
-        in 
+        in
 
         the audio buffer. The server will also send an
-        `conversation.item.created` 
+        `conversation.item.created`
 
         event with the user message item that is created from the audio buffer.
       properties:
@@ -21534,14 +21737,15 @@ components:
           enum:
             - input_audio_buffer.speech_stopped
           description: The event type, must be `input_audio_buffer.speech_stopped`.
+          x-stainless-const: true
         audio_end_ms:
           type: integer
           description: >
             Milliseconds since the session started when speech stopped. This
-            will 
+            will
 
             correspond to the end of audio sent to the model, and thus includes
-            the 
+            the
 
             `min_silence_duration_ms` configured in the Session.
         item_id:
@@ -21566,13 +21770,13 @@ components:
       type: object
       description: >
         Emitted at the beginning of a Response to indicate the updated rate
-        limits. 
+        limits.
 
         When a Response is created some tokens will be "reserved" for the
-        output 
+        output
 
         tokens, the rate limits shown here reflect that reservation, which is
-        then 
+        then
 
         adjusted accordingly once the Response is completed.
       properties:
@@ -21584,6 +21788,7 @@ components:
           enum:
             - rate_limits.updated
           description: The event type, must be `rate_limits.updated`.
+          x-stainless-const: true
         rate_limits:
           type: array
           description: List of rate limit information.
@@ -21644,6 +21849,7 @@ components:
           enum:
             - response.audio.delta
           description: The event type, must be `response.audio.delta`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21696,6 +21902,7 @@ components:
           enum:
             - response.audio.done
           description: The event type, must be `response.audio.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21741,6 +21948,7 @@ components:
           enum:
             - response.audio_transcript.delta
           description: The event type, must be `response.audio_transcript.delta`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21792,6 +22000,7 @@ components:
           enum:
             - response.audio_transcript.done
           description: The event type, must be `response.audio_transcript.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21844,6 +22053,7 @@ components:
           enum:
             - response.content_part.added
           description: The event type, must be `response.content_part.added`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21915,6 +22125,7 @@ components:
           enum:
             - response.content_part.done
           description: The event type, must be `response.content_part.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -21986,6 +22197,7 @@ components:
           enum:
             - response.created
           description: The event type, must be `response.created`.
+          x-stainless-const: true
         response:
           $ref: "#/components/schemas/RealtimeResponse"
       required:
@@ -22012,10 +22224,10 @@ components:
       type: object
       description: >
         Returned when a Response is done streaming. Always emitted, no matter
-        the 
+        the
 
         final state. The Response object included in the `response.done` event
-        will 
+        will
 
         include all output Items in the Response but will omit the raw audio
         data.
@@ -22028,6 +22240,7 @@ components:
           enum:
             - response.done
           description: The event type, must be `response.done`.
+          x-stainless-const: true
         response:
           $ref: "#/components/schemas/RealtimeResponse"
       required:
@@ -22095,6 +22308,7 @@ components:
             - response.function_call_arguments.delta
           description: |
             The event type, must be `response.function_call_arguments.delta`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -22148,6 +22362,7 @@ components:
             - response.function_call_arguments.done
           description: |
             The event type, must be `response.function_call_arguments.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -22196,6 +22411,7 @@ components:
           enum:
             - response.output_item.added
           description: The event type, must be `response.output_item.added`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the Response to which the item belongs.
@@ -22232,7 +22448,7 @@ components:
       type: object
       description: >
         Returned when an Item is done streaming. Also emitted when a Response
-        is 
+        is
 
         interrupted, incomplete, or cancelled.
       properties:
@@ -22244,6 +22460,7 @@ components:
           enum:
             - response.output_item.done
           description: The event type, must be `response.output_item.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the Response to which the item belongs.
@@ -22293,6 +22510,7 @@ components:
           enum:
             - response.text.delta
           description: The event type, must be `response.text.delta`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -22345,6 +22563,7 @@ components:
           enum:
             - response.text.done
           description: The event type, must be `response.text.done`.
+          x-stainless-const: true
         response_id:
           type: string
           description: The ID of the response.
@@ -22384,10 +22603,10 @@ components:
     RealtimeServerEventSessionCreated:
       type: object
       description: >
-        Returned when a Session is created. Emitted automatically when a new 
+        Returned when a Session is created. Emitted automatically when a new
 
         connection is established as the first server event. This event will
-        contain 
+        contain
 
         the default Session configuration.
       properties:
@@ -22399,6 +22618,7 @@ components:
           enum:
             - session.created
           description: The event type, must be `session.created`.
+          x-stainless-const: true
         session:
           $ref: "#/components/schemas/RealtimeSession"
       required:
@@ -22438,7 +22658,7 @@ components:
       type: object
       description: >
         Returned when a session is updated with a `session.update` event,
-        unless 
+        unless
 
         there is an error.
       properties:
@@ -22450,6 +22670,7 @@ components:
           enum:
             - session.updated
           description: The event type, must be `session.updated`.
+          x-stainless-const: true
         session:
           $ref: "#/components/schemas/RealtimeSession"
       required:
@@ -22515,33 +22736,33 @@ components:
           type: string
           description: >
             The default system instructions (i.e. system message) prepended to
-            model 
+            model
 
-            calls. This field allows the client to guide the model on desired 
+            calls. This field allows the client to guide the model on desired
 
             responses. The model can be instructed on response content and
-            format, 
+            format,
 
             (e.g. "be extremely succinct", "act friendly", "here are examples of
-            good 
+            good
 
             responses") and on audio behavior (e.g. "talk quickly", "inject
-            emotion 
+            emotion
 
             into your voice", "laugh frequently"). The instructions are not
-            guaranteed 
+            guaranteed
 
             to be followed by the model, but they provide guidance to the model
-            on the 
+            on the
 
             desired behavior.
 
 
             Note that the server sets default instructions which will be used if
-            this 
+            this
 
             field is not set and are visible in the `session.created` event at
-            the 
+            the
 
             start of the session.
         voice:
@@ -22557,12 +22778,12 @@ components:
             - verse
           description: >
             The voice the model uses to respond. Voice cannot be changed during
-            the 
+            the
 
             session once the model has responded with audio at least once.
-            Current 
+            Current
 
-            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`, 
+            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`,
 
             `shimmer` and `verse`.
         input_audio_format:
@@ -22574,6 +22795,10 @@ components:
           description: >
             The format of input audio. Options are `pcm16`, `g711_ulaw`, or
             `g711_alaw`.
+
+            For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate,
+
+            single channel (mono), and little-endian byte order.
         output_audio_format:
           type: string
           enum:
@@ -22583,20 +22808,22 @@ components:
           description: >
             The format of output audio. Options are `pcm16`, `g711_ulaw`, or
             `g711_alaw`.
+
+            For `pcm16`, output audio is sampled at a rate of 24kHz.
         input_audio_transcription:
           type: object
           description: >
             Configuration for input audio transcription, defaults to off and can
-            be 
+            be
 
             set to `null` to turn off once on. Input audio transcription is not
-            native 
+            native
 
             to the model, since the model consumes audio directly. Transcription
-            runs 
+            runs
 
             asynchronously through Whisper and should be treated as rough
-            guidance 
+            guidance
 
             rather than the representation understood by the model.
           properties:
@@ -22604,7 +22831,7 @@ components:
               type: string
               description: >
                 The model to use for transcription, `whisper-1` is the only
-                currently 
+                currently
 
                 supported model.
         turn_detection:
@@ -22612,10 +22839,10 @@ components:
           nullable: true
           description: >
             Configuration for turn detection. Can be set to `null` to turn off.
-            Server 
+            Server
 
             VAD means that the model will detect the start and end of speech
-            based on 
+            based on
 
             audio volume and respond at the end of user speech.
           properties:
@@ -22625,29 +22852,30 @@ components:
                 - server_vad
               description: >
                 Type of turn detection, only `server_vad` is currently supported.
+              x-stainless-const: true
             threshold:
               type: number
               description: >
                 Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5.
-                A 
+                A
 
                 higher threshold will require louder audio to activate the
-                model, and 
+                model, and
 
                 thus might perform better in noisy environments.
             prefix_padding_ms:
               type: integer
               description: |
-                Amount of audio to include before the VAD detected speech (in 
+                Amount of audio to include before the VAD detected speech (in
                 milliseconds). Defaults to 300ms.
             silence_duration_ms:
               type: integer
               description: >
                 Duration of silence to detect speech stop (in milliseconds).
-                Defaults 
+                Defaults
 
                 to 500ms. With shorter values the model will respond more
-                quickly, 
+                quickly,
 
                 but may jump in on short pauses from the user.
         tools:
@@ -22661,6 +22889,7 @@ components:
                 enum:
                   - function
                 description: The type of the tool, i.e. `function`.
+                x-stainless-const: true
               name:
                 type: string
                 description: The name of the function.
@@ -22668,10 +22897,10 @@ components:
                 type: string
                 description: >
                   The description of the function, including guidance on when
-                  and how 
+                  and how
 
                   to call it, and guidance about what to tell the user when
-                  calling 
+                  calling
 
                   (if anything).
               parameters:
@@ -22681,7 +22910,7 @@ components:
           type: string
           description: >
             How the model chooses tools. Options are `auto`, `none`, `required`,
-            or 
+            or
 
             specify a function.
         temperature:
@@ -22695,6 +22924,7 @@ components:
             - type: string
               enum:
                 - inf
+              x-stainless-const: true
           description: |
             Maximum number of output tokens for a single assistant response,
             inclusive of tool calls. Provide an integer between 1 and 4096 to
@@ -22703,8 +22933,6 @@ components:
     RealtimeSessionCreateRequest:
       type: object
       description: Realtime session object configuration.
-      required:
-        - model
       properties:
         modalities:
           description: |
@@ -22729,33 +22957,33 @@ components:
           type: string
           description: >
             The default system instructions (i.e. system message) prepended to
-            model 
+            model
 
-            calls. This field allows the client to guide the model on desired 
+            calls. This field allows the client to guide the model on desired
 
             responses. The model can be instructed on response content and
-            format, 
+            format,
 
             (e.g. "be extremely succinct", "act friendly", "here are examples of
-            good 
+            good
 
             responses") and on audio behavior (e.g. "talk quickly", "inject
-            emotion 
+            emotion
 
             into your voice", "laugh frequently"). The instructions are not
-            guaranteed 
+            guaranteed
 
             to be followed by the model, but they provide guidance to the model
-            on the 
+            on the
 
             desired behavior.
 
 
             Note that the server sets default instructions which will be used if
-            this 
+            this
 
             field is not set and are visible in the `session.created` event at
-            the 
+            the
 
             start of the session.
         voice:
@@ -22771,12 +22999,12 @@ components:
             - verse
           description: >
             The voice the model uses to respond. Voice cannot be changed during
-            the 
+            the
 
             session once the model has responded with audio at least once.
-            Current 
+            Current
 
-            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`, 
+            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`,
 
             `shimmer` and `verse`.
         input_audio_format:
@@ -22788,6 +23016,10 @@ components:
           description: >
             The format of input audio. Options are `pcm16`, `g711_ulaw`, or
             `g711_alaw`.
+
+            For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate,
+
+            single channel (mono), and little-endian byte order.
         output_audio_format:
           type: string
           enum:
@@ -22797,38 +23029,55 @@ components:
           description: >
             The format of output audio. Options are `pcm16`, `g711_ulaw`, or
             `g711_alaw`.
+
+            For `pcm16`, output audio is sampled at a rate of 24kHz.
         input_audio_transcription:
           type: object
           description: >
             Configuration for input audio transcription, defaults to off and can
-            be 
-
-            set to `null` to turn off once on. Input audio transcription is not
-            native 
-
-            to the model, since the model consumes audio directly. Transcription
-            runs 
-
-            asynchronously through Whisper and should be treated as rough
-            guidance 
-
-            rather than the representation understood by the model.
+            be  set to `null` to turn off once on. Input audio transcription is
+            not native to the model, since the model consumes audio directly.
+            Transcription runs  asynchronously through [OpenAI Whisper
+            transcription](https://platform.openai.com/docs/api-reference/audio/createTranscription)
+            and should be treated as rough guidance rather than the
+            representation understood by the model. The client can optionally
+            set the language and prompt for transcription, these fields will be
+            passed to the Whisper API.
           properties:
             model:
               type: string
               description: >
                 The model to use for transcription, `whisper-1` is the only
-                currently 
+                currently
 
                 supported model.
+            language:
+              type: string
+              description: >
+                The language of the input audio. Supplying the input language in
+
+                [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+                (e.g. `en`) format
+
+                will improve accuracy and latency.
+            prompt:
+              type: string
+              description: >
+                An optional text to guide the model's style or continue a
+                previous audio
+
+                segment. The [prompt](/docs/guides/speech-to-text#prompting)
+                should match
+
+                the audio language.
         turn_detection:
           type: object
           description: >
             Configuration for turn detection. Can be set to `null` to turn off.
-            Server 
+            Server
 
             VAD means that the model will detect the start and end of speech
-            based on 
+            based on
 
             audio volume and respond at the end of user speech.
           properties:
@@ -22840,25 +23089,25 @@ components:
               type: number
               description: >
                 Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5.
-                A 
+                A
 
                 higher threshold will require louder audio to activate the
-                model, and 
+                model, and
 
                 thus might perform better in noisy environments.
             prefix_padding_ms:
               type: integer
               description: |
-                Amount of audio to include before the VAD detected speech (in 
+                Amount of audio to include before the VAD detected speech (in
                 milliseconds). Defaults to 300ms.
             silence_duration_ms:
               type: integer
               description: >
                 Duration of silence to detect speech stop (in milliseconds).
-                Defaults 
+                Defaults
 
                 to 500ms. With shorter values the model will respond more
-                quickly, 
+                quickly,
 
                 but may jump in on short pauses from the user.
             create_response:
@@ -22878,6 +23127,7 @@ components:
                 enum:
                   - function
                 description: The type of the tool, i.e. `function`.
+                x-stainless-const: true
               name:
                 type: string
                 description: The name of the function.
@@ -22885,10 +23135,10 @@ components:
                 type: string
                 description: >
                   The description of the function, including guidance on when
-                  and how 
+                  and how
 
                   to call it, and guidance about what to tell the user when
-                  calling 
+                  calling
 
                   (if anything).
               parameters:
@@ -22898,7 +23148,7 @@ components:
           type: string
           description: >
             How the model chooses tools. Options are `auto`, `none`, `required`,
-            or 
+            or
 
             specify a function.
         temperature:
@@ -22912,6 +23162,7 @@ components:
             - type: string
               enum:
                 - inf
+              x-stainless-const: true
           description: |
             Maximum number of output tokens for a single assistant response,
             inclusive of tool calls. Provide an integer between 1 and 4096 to
@@ -22946,6 +23197,9 @@ components:
                 expire
 
                 after one minute.
+          required:
+            - value
+            - expires_at
         modalities:
           description: |
             The set of modalities the model can respond with. To disable audio,
@@ -22959,33 +23213,33 @@ components:
           type: string
           description: >
             The default system instructions (i.e. system message) prepended to
-            model 
+            model
 
-            calls. This field allows the client to guide the model on desired 
+            calls. This field allows the client to guide the model on desired
 
             responses. The model can be instructed on response content and
-            format, 
+            format,
 
             (e.g. "be extremely succinct", "act friendly", "here are examples of
-            good 
+            good
 
             responses") and on audio behavior (e.g. "talk quickly", "inject
-            emotion 
+            emotion
 
             into your voice", "laugh frequently"). The instructions are not
-            guaranteed 
+            guaranteed
 
             to be followed by the model, but they provide guidance to the model
-            on the 
+            on the
 
             desired behavior.
 
 
             Note that the server sets default instructions which will be used if
-            this 
+            this
 
             field is not set and are visible in the `session.created` event at
-            the 
+            the
 
             start of the session.
         voice:
@@ -23001,12 +23255,12 @@ components:
             - verse
           description: >
             The voice the model uses to respond. Voice cannot be changed during
-            the 
+            the
 
             session once the model has responded with audio at least once.
-            Current 
+            Current
 
-            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`, 
+            voice options are `alloy`, `ash`, `ballad`, `coral`, `echo` `sage`,
 
             `shimmer` and `verse`.
         input_audio_format:
@@ -23023,16 +23277,16 @@ components:
           type: object
           description: >
             Configuration for input audio transcription, defaults to off and can
-            be 
+            be
 
             set to `null` to turn off once on. Input audio transcription is not
-            native 
+            native
 
             to the model, since the model consumes audio directly. Transcription
-            runs 
+            runs
 
             asynchronously through Whisper and should be treated as rough
-            guidance 
+            guidance
 
             rather than the representation understood by the model.
           properties:
@@ -23040,17 +23294,17 @@ components:
               type: string
               description: >
                 The model to use for transcription, `whisper-1` is the only
-                currently 
+                currently
 
                 supported model.
         turn_detection:
           type: object
           description: >
             Configuration for turn detection. Can be set to `null` to turn off.
-            Server 
+            Server
 
             VAD means that the model will detect the start and end of speech
-            based on 
+            based on
 
             audio volume and respond at the end of user speech.
           properties:
@@ -23062,25 +23316,25 @@ components:
               type: number
               description: >
                 Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5.
-                A 
+                A
 
                 higher threshold will require louder audio to activate the
-                model, and 
+                model, and
 
                 thus might perform better in noisy environments.
             prefix_padding_ms:
               type: integer
               description: |
-                Amount of audio to include before the VAD detected speech (in 
+                Amount of audio to include before the VAD detected speech (in
                 milliseconds). Defaults to 300ms.
             silence_duration_ms:
               type: integer
               description: >
                 Duration of silence to detect speech stop (in milliseconds).
-                Defaults 
+                Defaults
 
                 to 500ms. With shorter values the model will respond more
-                quickly, 
+                quickly,
 
                 but may jump in on short pauses from the user.
         tools:
@@ -23094,6 +23348,7 @@ components:
                 enum:
                   - function
                 description: The type of the tool, i.e. `function`.
+                x-stainless-const: true
               name:
                 type: string
                 description: The name of the function.
@@ -23101,10 +23356,10 @@ components:
                 type: string
                 description: >
                   The description of the function, including guidance on when
-                  and how 
+                  and how
 
                   to call it, and guidance about what to tell the user when
-                  calling 
+                  calling
 
                   (if anything).
               parameters:
@@ -23114,7 +23369,7 @@ components:
           type: string
           description: >
             How the model chooses tools. Options are `auto`, `none`, `required`,
-            or 
+            or
 
             specify a function.
         temperature:
@@ -23128,11 +23383,14 @@ components:
             - type: string
               enum:
                 - inf
+              x-stainless-const: true
           description: |
             Maximum number of output tokens for a single assistant response,
             inclusive of tool calls. Provide an integer between 1 and 4096 to
             limit output tokens, or `inf` for the maximum available tokens for a
             given model. Defaults to `inf`.
+      required:
+        - client_secret
       x-oaiMeta:
         name: The session object
         group: realtime
@@ -23155,10 +23413,26 @@ components:
             "temperature": 0.7,
             "max_response_output_tokens": 200,
             "client_secret": {
-              "value": "ek_abc123", 
+              "value": "ek_abc123",
               "expires_at": 1234567890
             }
           }
+    ReasoningEffort:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      default: medium
+      nullable: true
+      description: |
+        **o1 and o3-mini models only**
+
+        Constrains effort on reasoning for
+        [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+        Currently supported values are `low`, `medium`, and `high`. Reducing
+        reasoning effort can result in faster responses and fewer tokens used
+        on reasoning in a response.
     ResponseFormatJsonObject:
       type: object
       properties:
@@ -23167,6 +23441,7 @@ components:
           description: "The type of response format being defined: `json_object`"
           enum:
             - json_object
+          x-stainless-const: true
       required:
         - type
     ResponseFormatJsonSchema:
@@ -23177,6 +23452,7 @@ components:
           description: "The type of response format being defined: `json_schema`"
           enum:
             - json_schema
+          x-stainless-const: true
         json_schema:
           type: object
           properties:
@@ -23200,7 +23476,6 @@ components:
                 Schema is supported when `strict` is `true`. To learn more, read
                 the [Structured Outputs guide](/docs/guides/structured-outputs).
           required:
-            - type
             - name
       required:
         - type
@@ -23217,6 +23492,7 @@ components:
           description: "The type of response format being defined: `text`"
           enum:
             - text
+          x-stainless-const: true
       required:
         - type
     RunCompletionUsage:
@@ -23251,6 +23527,7 @@ components:
           type: string
           enum:
             - thread.run
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the run was created.
           type: integer
@@ -23288,6 +23565,7 @@ components:
               type: string
               enum:
                 - submit_tool_outputs
+              x-stainless-const: true
             submit_tool_outputs:
               type: object
               description: Details on the tool outputs needed for this run to continue.
@@ -23375,14 +23653,7 @@ components:
               - $ref: "#/components/schemas/AssistantToolsFunction"
             x-oaiExpandable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         usage:
           $ref: "#/components/schemas/RunCompletionUsage"
         temperature:
@@ -23410,16 +23681,19 @@ components:
             over the course of the run.
           minimum: 256
         truncation_strategy:
-          $ref: "#/components/schemas/TruncationObject"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/TruncationObject"
+            - nullable: true
         tool_choice:
-          $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
+            - nullable: true
         parallel_tool_calls:
           $ref: "#/components/schemas/ParallelToolCalls"
         response_format:
-          $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
+            - nullable: true
       required:
         - id
         - object
@@ -23520,6 +23794,7 @@ components:
           type: string
           enum:
             - thread.run.step.delta
+          x-stainless-const: true
         delta:
           description: The delta containing the fields that have changed on the run step.
           type: object
@@ -23566,6 +23841,7 @@ components:
           type: string
           enum:
             - message_creation
+          x-stainless-const: true
         message_creation:
           type: object
           properties:
@@ -23591,6 +23867,7 @@ components:
             `code_interpreter` for this type of tool call.
           enum:
             - code_interpreter
+          x-stainless-const: true
         code_interpreter:
           type: object
           description: The Code Interpreter tool call definition.
@@ -23627,6 +23904,7 @@ components:
           type: string
           enum:
             - image
+          x-stainless-const: true
         image:
           type: object
           properties:
@@ -23649,6 +23927,7 @@ components:
           type: string
           enum:
             - logs
+          x-stainless-const: true
         logs:
           type: string
           description: The text output from the Code Interpreter tool call.
@@ -23671,6 +23950,7 @@ components:
             this type of tool call.
           enum:
             - file_search
+          x-stainless-const: true
         file_search:
           type: object
           description: For now, this is always going to be an empty object.
@@ -23695,6 +23975,7 @@ components:
             this type of tool call.
           enum:
             - function
+          x-stainless-const: true
         function:
           type: object
           description: The definition of the function that was called.
@@ -23724,6 +24005,7 @@ components:
           type: string
           enum:
             - tool_calls
+          x-stainless-const: true
         tool_calls:
           type: array
           description: >
@@ -23748,6 +24030,7 @@ components:
           type: string
           enum:
             - message_creation
+          x-stainless-const: true
         message_creation:
           type: object
           properties:
@@ -23773,6 +24056,7 @@ components:
             `code_interpreter` for this type of tool call.
           enum:
             - code_interpreter
+          x-stainless-const: true
         code_interpreter:
           type: object
           description: The Code Interpreter tool call definition.
@@ -23808,6 +24092,7 @@ components:
           type: string
           enum:
             - image
+          x-stainless-const: true
         image:
           type: object
           properties:
@@ -23829,6 +24114,7 @@ components:
           type: string
           enum:
             - logs
+          x-stainless-const: true
         logs:
           type: string
           description: The text output from the Code Interpreter tool call.
@@ -23848,6 +24134,7 @@ components:
             this type of tool call.
           enum:
             - file_search
+          x-stainless-const: true
         file_search:
           type: object
           description: For now, this is always going to be an empty object.
@@ -23875,6 +24162,7 @@ components:
           description: The ranker used for the file search.
           enum:
             - default_2024_08_21
+          x-stainless-const: true
         score_threshold:
           type: number
           description: The score threshold for the file search. All values must be a
@@ -23914,6 +24202,7 @@ components:
                 description: The type of the content.
                 enum:
                   - text
+                x-stainless-const: true
               text:
                 type: string
                 description: The text content of the file.
@@ -23934,6 +24223,7 @@ components:
             this type of tool call.
           enum:
             - function
+          x-stainless-const: true
         function:
           type: object
           description: The definition of the function that was called.
@@ -23968,6 +24258,7 @@ components:
           type: string
           enum:
             - tool_calls
+          x-stainless-const: true
         tool_calls:
           type: array
           description: >
@@ -23998,6 +24289,7 @@ components:
           type: string
           enum:
             - thread.run.step
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the run step was created.
           type: integer
@@ -24072,14 +24364,7 @@ components:
           type: integer
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
         usage:
           $ref: "#/components/schemas/RunStepCompletionUsage"
       required:
@@ -24137,6 +24422,7 @@ components:
               type: string
               enum:
                 - thread.run.step.created
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24152,6 +24438,7 @@ components:
               type: string
               enum:
                 - thread.run.step.in_progress
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24167,6 +24454,7 @@ components:
               type: string
               enum:
                 - thread.run.step.delta
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepDeltaObject"
           required:
@@ -24184,6 +24472,7 @@ components:
               type: string
               enum:
                 - thread.run.step.completed
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24199,6 +24488,7 @@ components:
               type: string
               enum:
                 - thread.run.step.failed
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24214,6 +24504,7 @@ components:
               type: string
               enum:
                 - thread.run.step.cancelled
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24229,6 +24520,7 @@ components:
               type: string
               enum:
                 - thread.run.step.expired
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunStepObject"
           required:
@@ -24246,6 +24538,7 @@ components:
               type: string
               enum:
                 - thread.run.created
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24260,6 +24553,7 @@ components:
               type: string
               enum:
                 - thread.run.queued
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24275,6 +24569,7 @@ components:
               type: string
               enum:
                 - thread.run.in_progress
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24290,6 +24585,7 @@ components:
               type: string
               enum:
                 - thread.run.requires_action
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24305,6 +24601,7 @@ components:
               type: string
               enum:
                 - thread.run.completed
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24319,6 +24616,7 @@ components:
               type: string
               enum:
                 - thread.run.incomplete
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24334,6 +24632,7 @@ components:
               type: string
               enum:
                 - thread.run.failed
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24348,6 +24647,7 @@ components:
               type: string
               enum:
                 - thread.run.cancelling
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24363,6 +24663,7 @@ components:
               type: string
               enum:
                 - thread.run.cancelled
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24377,6 +24678,7 @@ components:
               type: string
               enum:
                 - thread.run.expired
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/RunObject"
           required:
@@ -24400,6 +24702,7 @@ components:
             always `function`.
           enum:
             - function
+          x-stainless-const: true
         function:
           type: object
           description: The function definition.
@@ -24449,6 +24752,7 @@ components:
           description: Always `static`.
           enum:
             - static
+          x-stainless-const: true
         static:
           $ref: "#/components/schemas/StaticChunkingStrategy"
       required:
@@ -24464,6 +24768,7 @@ components:
           description: Always `static`.
           enum:
             - static
+          x-stainless-const: true
         static:
           $ref: "#/components/schemas/StaticChunkingStrategy"
       required:
@@ -24509,6 +24814,7 @@ components:
           type: string
           enum:
             - thread
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the thread was created.
           type: integer
@@ -24547,14 +24853,7 @@ components:
                     type: string
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
       required:
         - id
         - object
@@ -24582,6 +24881,7 @@ components:
               type: string
               enum:
                 - thread.created
+              x-stainless-const: true
             data:
               $ref: "#/components/schemas/ThreadObject"
           required:
@@ -24698,17 +24998,11 @@ components:
           type: string
           nullable: true
         expires_after:
-          $ref: "#/components/schemas/VectorStoreExpirationAfter"
-          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/VectorStoreExpirationAfter"
+            - nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
     Upload:
       type: object
       title: Upload
@@ -24749,10 +25043,12 @@ components:
           description: The object type, which is always "upload".
           enum:
             - upload
+          x-stainless-const: true
         file:
-          $ref: "#/components/schemas/OpenAIFile"
-          nullable: true
-          description: The ready File object after the Upload is completed.
+          allOf:
+            - $ref: "#/components/schemas/OpenAIFile"
+            - nullable: true
+              description: The ready File object after the Upload is completed.
       required:
         - bytes
         - created_at
@@ -24804,6 +25100,7 @@ components:
           description: The object type, which is always `upload.part`.
           enum:
             - upload.part
+          x-stainless-const: true
       required:
         - created_at
         - id
@@ -24826,6 +25123,7 @@ components:
           type: string
           enum:
             - organization.usage.audio_speeches.result
+          x-stainless-const: true
         characters:
           type: integer
           description: The number of characters processed.
@@ -24877,6 +25175,7 @@ components:
           type: string
           enum:
             - organization.usage.audio_transcriptions.result
+          x-stainless-const: true
         seconds:
           type: integer
           description: The number of seconds processed.
@@ -24928,7 +25227,8 @@ components:
           type: string
           enum:
             - organization.usage.code_interpreter_sessions.result
-        sessions:
+          x-stainless-const: true
+        num_sessions:
           type: integer
           description: The number of code interpreter sessions.
         project_id:
@@ -24944,7 +25244,7 @@ components:
         example: |
           {
               "object": "organization.usage.code_interpreter_sessions.result",
-              "sessions": 1,
+              "num_sessions": 1,
               "project_id": "proj_abc"
           }
     UsageCompletionsResult:
@@ -24955,6 +25255,7 @@ components:
           type: string
           enum:
             - organization.usage.completions.result
+          x-stainless-const: true
         input_tokens:
           type: integer
           description: The aggregated number of text input tokens used, including cached
@@ -25034,6 +25335,7 @@ components:
           type: string
           enum:
             - organization.usage.embeddings.result
+          x-stainless-const: true
         input_tokens:
           type: integer
           description: The aggregated number of input tokens used.
@@ -25084,6 +25386,7 @@ components:
           type: string
           enum:
             - organization.usage.images.result
+          x-stainless-const: true
         images:
           type: integer
           description: The number of images processed.
@@ -25147,6 +25450,7 @@ components:
           type: string
           enum:
             - organization.usage.moderations.result
+          x-stainless-const: true
         input_tokens:
           type: integer
           description: The aggregated number of input tokens used.
@@ -25196,6 +25500,7 @@ components:
           type: string
           enum:
             - page
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -25216,6 +25521,7 @@ components:
           type: string
           enum:
             - bucket
+          x-stainless-const: true
         start_time:
           type: integer
         end_time:
@@ -25246,6 +25552,7 @@ components:
           type: string
           enum:
             - organization.usage.vector_stores.result
+          x-stainless-const: true
         usage_bytes:
           type: integer
           description: The vector stores usage in bytes.
@@ -25274,6 +25581,7 @@ components:
           enum:
             - organization.user
           description: The object type, which is always `organization.user`
+          x-stainless-const: true
         id:
           type: string
           description: The identifier, which can be referenced in API endpoints
@@ -25317,6 +25625,7 @@ components:
           type: string
           enum:
             - organization.user.deleted
+          x-stainless-const: true
         id:
           type: string
         deleted:
@@ -25332,6 +25641,7 @@ components:
           type: string
           enum:
             - list
+          x-stainless-const: true
         data:
           type: array
           items:
@@ -25370,6 +25680,7 @@ components:
           type: string
           enum:
             - last_active_at
+          x-stainless-const: true
         days:
           description: The number of days after the anchor time that the vector store will
             expire.
@@ -25392,6 +25703,7 @@ components:
           type: string
           enum:
             - vector_store.files_batch
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the vector store files
             batch was created.
@@ -25472,6 +25784,7 @@ components:
           type: string
           enum:
             - vector_store.file
+          x-stainless-const: true
         usage_bytes:
           description: The total vector store usage in bytes. Note that this may be
             different from the original file size.
@@ -25563,6 +25876,7 @@ components:
           type: string
           enum:
             - vector_store
+          x-stainless-const: true
         created_at:
           description: The Unix timestamp (in seconds) for when the vector store was
             created.
@@ -25619,14 +25933,7 @@ components:
           type: integer
           nullable: true
         metadata:
-          description: >
-            Set of 16 key-value pairs that can be attached to an object. This
-            can be useful for storing additional information about the object in
-            a structured format. Keys can be a maximum of 64 characters long and
-            values can be a maximum of 512 characters long.
-          type: object
-          x-oaiTypeLabel: map
-          nullable: true
+          $ref: "#/components/schemas/Metadata"
       required:
         - id
         - object
@@ -26452,7 +26759,7 @@ x-oaiMeta:
       title: Realtime
       beta: true
       description: |
-        Communicate with a GPT-4o class model in real time using WebRTC or 
+        Communicate with a GPT-4o class model in real time using WebRTC or
         WebSockets. Supports text and audio inputs and ouputs, along with audio
         transcriptions.
         [Learn more about the Realtime API](/docs/guides/realtime).

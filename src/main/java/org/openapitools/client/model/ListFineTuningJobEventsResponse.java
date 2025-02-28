@@ -35,9 +35,10 @@ import java.util.StringJoiner;
  */
 @JsonPropertyOrder({
   ListFineTuningJobEventsResponse.JSON_PROPERTY_DATA,
-  ListFineTuningJobEventsResponse.JSON_PROPERTY_OBJECT
+  ListFineTuningJobEventsResponse.JSON_PROPERTY_OBJECT,
+  ListFineTuningJobEventsResponse.JSON_PROPERTY_HAS_MORE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ListFineTuningJobEventsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   @javax.annotation.Nonnull
@@ -79,6 +80,10 @@ public class ListFineTuningJobEventsResponse {
   public static final String JSON_PROPERTY_OBJECT = "object";
   @javax.annotation.Nonnull
   private ObjectEnum _object;
+
+  public static final String JSON_PROPERTY_HAS_MORE = "has_more";
+  @javax.annotation.Nonnull
+  private Boolean hasMore;
 
   public ListFineTuningJobEventsResponse() {
   }
@@ -141,6 +146,31 @@ public class ListFineTuningJobEventsResponse {
     this._object = _object;
   }
 
+  public ListFineTuningJobEventsResponse hasMore(@javax.annotation.Nonnull Boolean hasMore) {
+    
+    this.hasMore = hasMore;
+    return this;
+  }
+
+  /**
+   * Get hasMore
+   * @return hasMore
+   */
+  @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_HAS_MORE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getHasMore() {
+    return hasMore;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HAS_MORE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setHasMore(@javax.annotation.Nonnull Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -151,12 +181,13 @@ public class ListFineTuningJobEventsResponse {
     }
     ListFineTuningJobEventsResponse listFineTuningJobEventsResponse = (ListFineTuningJobEventsResponse) o;
     return Objects.equals(this.data, listFineTuningJobEventsResponse.data) &&
-        Objects.equals(this._object, listFineTuningJobEventsResponse._object);
+        Objects.equals(this._object, listFineTuningJobEventsResponse._object) &&
+        Objects.equals(this.hasMore, listFineTuningJobEventsResponse.hasMore);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, _object);
+    return Objects.hash(data, _object, hasMore);
   }
 
   @Override
@@ -165,6 +196,7 @@ public class ListFineTuningJobEventsResponse {
     sb.append("class ListFineTuningJobEventsResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    _object: ").append(toIndentedString(_object)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -226,6 +258,16 @@ public class ListFineTuningJobEventsResponse {
     if (getObject() != null) {
       try {
         joiner.add(String.format("%sobject%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getObject()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `has_more` to the URL query string
+    if (getHasMore() != null) {
+      try {
+        joiner.add(String.format("%shas_more%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getHasMore()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

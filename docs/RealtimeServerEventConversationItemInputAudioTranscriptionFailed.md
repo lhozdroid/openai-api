@@ -2,7 +2,7 @@
 
 # RealtimeServerEventConversationItemInputAudioTranscriptionFailed
 
-Returned when input audio transcription is configured, and a transcription  request for a user message failed. These events are separate from other  `error` events so that the client can identify the related Item. 
+Returned when input audio transcription is configured, and a transcription request for a user message failed. These events are separate from other `error` events so that the client can identify the related Item. 
 
 ## Properties
 

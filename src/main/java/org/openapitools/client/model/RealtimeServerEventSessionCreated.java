@@ -28,14 +28,14 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Returned when a Session is created. Emitted automatically when a new  connection is established as the first server event. This event will contain  the default Session configuration. 
+ * Returned when a Session is created. Emitted automatically when a new connection is established as the first server event. This event will contain the default Session configuration. 
  */
 @JsonPropertyOrder({
   RealtimeServerEventSessionCreated.JSON_PROPERTY_EVENT_ID,
   RealtimeServerEventSessionCreated.JSON_PROPERTY_TYPE,
   RealtimeServerEventSessionCreated.JSON_PROPERTY_SESSION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventSessionCreated {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull

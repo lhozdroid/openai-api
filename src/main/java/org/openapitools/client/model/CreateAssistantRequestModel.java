@@ -16,6 +16,7 @@ package org.openapitools.client.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.openapitools.client.model.AssistantSupportedModels;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.io.UnsupportedEncodingException;
@@ -28,7 +29,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
 })
 @JsonTypeName("CreateAssistantRequest_model")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateAssistantRequestModel {
   public CreateAssistantRequestModel() {
   }

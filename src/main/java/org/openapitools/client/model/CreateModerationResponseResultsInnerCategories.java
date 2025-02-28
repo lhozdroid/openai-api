@@ -45,7 +45,7 @@ import java.util.StringJoiner;
   CreateModerationResponseResultsInnerCategories.JSON_PROPERTY_VIOLENCE_GRAPHIC
 })
 @JsonTypeName("CreateModerationResponse_results_inner_categories")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateModerationResponseResultsInnerCategories {
   public static final String JSON_PROPERTY_HATE = "hate";
   @javax.annotation.Nonnull
@@ -64,11 +64,11 @@ public class CreateModerationResponseResultsInnerCategories {
   private Boolean harassmentThreatening;
 
   public static final String JSON_PROPERTY_ILLICIT = "illicit";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean illicit;
 
   public static final String JSON_PROPERTY_ILLICIT_VIOLENT = "illicit/violent";
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean illicitViolent;
 
   public static final String JSON_PROPERTY_SELF_HARM = "self-harm";
@@ -202,7 +202,7 @@ public class CreateModerationResponseResultsInnerCategories {
     this.harassmentThreatening = harassmentThreatening;
   }
 
-  public CreateModerationResponseResultsInnerCategories illicit(@javax.annotation.Nonnull Boolean illicit) {
+  public CreateModerationResponseResultsInnerCategories illicit(@javax.annotation.Nullable Boolean illicit) {
     
     this.illicit = illicit;
     return this;
@@ -212,7 +212,7 @@ public class CreateModerationResponseResultsInnerCategories {
    * Content that includes instructions or advice that facilitate the planning or execution of wrongdoing, or that gives advice or instruction on how to commit illicit acts. For example, \&quot;how to shoplift\&quot; would fit this category.
    * @return illicit
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ILLICIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -223,11 +223,11 @@ public class CreateModerationResponseResultsInnerCategories {
 
   @JsonProperty(JSON_PROPERTY_ILLICIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIllicit(@javax.annotation.Nonnull Boolean illicit) {
+  public void setIllicit(@javax.annotation.Nullable Boolean illicit) {
     this.illicit = illicit;
   }
 
-  public CreateModerationResponseResultsInnerCategories illicitViolent(@javax.annotation.Nonnull Boolean illicitViolent) {
+  public CreateModerationResponseResultsInnerCategories illicitViolent(@javax.annotation.Nullable Boolean illicitViolent) {
     
     this.illicitViolent = illicitViolent;
     return this;
@@ -237,7 +237,7 @@ public class CreateModerationResponseResultsInnerCategories {
    * Content that includes instructions or advice that facilitate the planning or execution of wrongdoing that also includes violence, or that gives advice or instruction on the procurement of any weapon.
    * @return illicitViolent
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ILLICIT_VIOLENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -248,7 +248,7 @@ public class CreateModerationResponseResultsInnerCategories {
 
   @JsonProperty(JSON_PROPERTY_ILLICIT_VIOLENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIllicitViolent(@javax.annotation.Nonnull Boolean illicitViolent) {
+  public void setIllicitViolent(@javax.annotation.Nullable Boolean illicitViolent) {
     this.illicitViolent = illicitViolent;
   }
 

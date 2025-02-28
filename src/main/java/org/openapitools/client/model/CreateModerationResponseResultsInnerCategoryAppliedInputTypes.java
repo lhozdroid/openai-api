@@ -48,7 +48,7 @@ import java.util.StringJoiner;
   CreateModerationResponseResultsInnerCategoryAppliedInputTypes.JSON_PROPERTY_VIOLENCE_GRAPHIC
 })
 @JsonTypeName("CreateModerationResponse_results_inner_category_applied_input_types")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
   /**
    * Gets or Sets hate

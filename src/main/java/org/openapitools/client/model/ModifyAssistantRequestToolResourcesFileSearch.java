@@ -36,7 +36,7 @@ import java.util.StringJoiner;
   ModifyAssistantRequestToolResourcesFileSearch.JSON_PROPERTY_VECTOR_STORE_IDS
 })
 @JsonTypeName("ModifyAssistantRequest_tool_resources_file_search")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ModifyAssistantRequestToolResourcesFileSearch {
   public static final String JSON_PROPERTY_VECTOR_STORE_IDS = "vector_store_ids";
   @javax.annotation.Nullable

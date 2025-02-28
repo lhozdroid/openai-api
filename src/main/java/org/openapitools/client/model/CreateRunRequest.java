@@ -23,13 +23,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.openapitools.client.model.AssistantObjectResponseFormat;
 import org.openapitools.client.model.AssistantObjectToolsInner;
-import org.openapitools.client.model.AssistantsApiResponseFormatOption;
-import org.openapitools.client.model.AssistantsApiToolChoiceOption;
 import org.openapitools.client.model.CreateMessageRequest;
 import org.openapitools.client.model.CreateRunRequestModel;
-import org.openapitools.client.model.TruncationObject;
+import org.openapitools.client.model.CreateRunRequestToolChoice;
+import org.openapitools.client.model.CreateRunRequestTruncationStrategy;
+import org.openapitools.client.model.ReasoningEffort;
 import org.openapitools.jackson.nullable.JsonNullable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -46,6 +49,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   CreateRunRequest.JSON_PROPERTY_ASSISTANT_ID,
   CreateRunRequest.JSON_PROPERTY_MODEL,
+  CreateRunRequest.JSON_PROPERTY_REASONING_EFFORT,
   CreateRunRequest.JSON_PROPERTY_INSTRUCTIONS,
   CreateRunRequest.JSON_PROPERTY_ADDITIONAL_INSTRUCTIONS,
   CreateRunRequest.JSON_PROPERTY_ADDITIONAL_MESSAGES,
@@ -61,7 +65,7 @@ import java.util.StringJoiner;
   CreateRunRequest.JSON_PROPERTY_PARALLEL_TOOL_CALLS,
   CreateRunRequest.JSON_PROPERTY_RESPONSE_FORMAT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class CreateRunRequest {
   public static final String JSON_PROPERTY_ASSISTANT_ID = "assistant_id";
   @javax.annotation.Nonnull
@@ -70,6 +74,10 @@ public class CreateRunRequest {
   public static final String JSON_PROPERTY_MODEL = "model";
   @javax.annotation.Nullable
   private JsonNullable<CreateRunRequestModel> model = JsonNullable.<CreateRunRequestModel>undefined();
+
+  public static final String JSON_PROPERTY_REASONING_EFFORT = "reasoning_effort";
+  @javax.annotation.Nullable
+  private JsonNullable<ReasoningEffort> reasoningEffort = JsonNullable.<ReasoningEffort>of(ReasoningEffort.MEDIUM);
 
   public static final String JSON_PROPERTY_INSTRUCTIONS = "instructions";
   @javax.annotation.Nullable
@@ -89,7 +97,7 @@ public class CreateRunRequest {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
   @javax.annotation.Nullable
@@ -113,11 +121,11 @@ public class CreateRunRequest {
 
   public static final String JSON_PROPERTY_TRUNCATION_STRATEGY = "truncation_strategy";
   @javax.annotation.Nullable
-  private TruncationObject truncationStrategy;
+  private CreateRunRequestTruncationStrategy truncationStrategy;
 
   public static final String JSON_PROPERTY_TOOL_CHOICE = "tool_choice";
   @javax.annotation.Nullable
-  private AssistantsApiToolChoiceOption toolChoice;
+  private CreateRunRequestToolChoice toolChoice;
 
   public static final String JSON_PROPERTY_PARALLEL_TOOL_CALLS = "parallel_tool_calls";
   @javax.annotation.Nullable
@@ -125,7 +133,7 @@ public class CreateRunRequest {
 
   public static final String JSON_PROPERTY_RESPONSE_FORMAT = "response_format";
   @javax.annotation.Nullable
-  private AssistantsApiResponseFormatOption responseFormat;
+  private AssistantObjectResponseFormat responseFormat;
 
   public CreateRunRequest() {
   }
@@ -186,6 +194,39 @@ public class CreateRunRequest {
 
   public void setModel(@javax.annotation.Nullable CreateRunRequestModel model) {
     this.model = JsonNullable.<CreateRunRequestModel>of(model);
+  }
+
+  public CreateRunRequest reasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
+    
+    return this;
+  }
+
+  /**
+   * Get reasoningEffort
+   * @return reasoningEffort
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+
+  public ReasoningEffort getReasoningEffort() {
+        return reasoningEffort.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public JsonNullable<ReasoningEffort> getReasoningEffort_JsonNullable() {
+    return reasoningEffort;
+  }
+  
+  @JsonProperty(JSON_PROPERTY_REASONING_EFFORT)
+  public void setReasoningEffort_JsonNullable(JsonNullable<ReasoningEffort> reasoningEffort) {
+    this.reasoningEffort = reasoningEffort;
+  }
+
+  public void setReasoningEffort(@javax.annotation.Nullable ReasoningEffort reasoningEffort) {
+    this.reasoningEffort = JsonNullable.<ReasoningEffort>of(reasoningEffort);
   }
 
   public CreateRunRequest instructions(@javax.annotation.Nullable String instructions) {
@@ -344,37 +385,49 @@ public class CreateRunRequest {
     this.tools = JsonNullable.<List<AssistantObjectToolsInner>>of(tools);
   }
 
-  public CreateRunRequest metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public CreateRunRequest metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public CreateRunRequest putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
   public CreateRunRequest temperature(@javax.annotation.Nullable BigDecimal temperature) {
@@ -548,7 +601,7 @@ public class CreateRunRequest {
     this.maxCompletionTokens = JsonNullable.<Integer>of(maxCompletionTokens);
   }
 
-  public CreateRunRequest truncationStrategy(@javax.annotation.Nullable TruncationObject truncationStrategy) {
+  public CreateRunRequest truncationStrategy(@javax.annotation.Nullable CreateRunRequestTruncationStrategy truncationStrategy) {
     
     this.truncationStrategy = truncationStrategy;
     return this;
@@ -562,18 +615,18 @@ public class CreateRunRequest {
   @JsonProperty(JSON_PROPERTY_TRUNCATION_STRATEGY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public TruncationObject getTruncationStrategy() {
+  public CreateRunRequestTruncationStrategy getTruncationStrategy() {
     return truncationStrategy;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TRUNCATION_STRATEGY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTruncationStrategy(@javax.annotation.Nullable TruncationObject truncationStrategy) {
+  public void setTruncationStrategy(@javax.annotation.Nullable CreateRunRequestTruncationStrategy truncationStrategy) {
     this.truncationStrategy = truncationStrategy;
   }
 
-  public CreateRunRequest toolChoice(@javax.annotation.Nullable AssistantsApiToolChoiceOption toolChoice) {
+  public CreateRunRequest toolChoice(@javax.annotation.Nullable CreateRunRequestToolChoice toolChoice) {
     
     this.toolChoice = toolChoice;
     return this;
@@ -587,14 +640,14 @@ public class CreateRunRequest {
   @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AssistantsApiToolChoiceOption getToolChoice() {
+  public CreateRunRequestToolChoice getToolChoice() {
     return toolChoice;
   }
 
 
   @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setToolChoice(@javax.annotation.Nullable AssistantsApiToolChoiceOption toolChoice) {
+  public void setToolChoice(@javax.annotation.Nullable CreateRunRequestToolChoice toolChoice) {
     this.toolChoice = toolChoice;
   }
 
@@ -623,7 +676,7 @@ public class CreateRunRequest {
     this.parallelToolCalls = parallelToolCalls;
   }
 
-  public CreateRunRequest responseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public CreateRunRequest responseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     
     this.responseFormat = responseFormat;
     return this;
@@ -637,14 +690,14 @@ public class CreateRunRequest {
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public AssistantsApiResponseFormatOption getResponseFormat() {
+  public AssistantObjectResponseFormat getResponseFormat() {
     return responseFormat;
   }
 
 
   @JsonProperty(JSON_PROPERTY_RESPONSE_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setResponseFormat(@javax.annotation.Nullable AssistantsApiResponseFormatOption responseFormat) {
+  public void setResponseFormat(@javax.annotation.Nullable AssistantObjectResponseFormat responseFormat) {
     this.responseFormat = responseFormat;
   }
 
@@ -659,6 +712,7 @@ public class CreateRunRequest {
     CreateRunRequest createRunRequest = (CreateRunRequest) o;
     return Objects.equals(this.assistantId, createRunRequest.assistantId) &&
         equalsNullable(this.model, createRunRequest.model) &&
+        equalsNullable(this.reasoningEffort, createRunRequest.reasoningEffort) &&
         equalsNullable(this.instructions, createRunRequest.instructions) &&
         equalsNullable(this.additionalInstructions, createRunRequest.additionalInstructions) &&
         equalsNullable(this.additionalMessages, createRunRequest.additionalMessages) &&
@@ -681,7 +735,7 @@ public class CreateRunRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(assistantId, hashCodeNullable(model), hashCodeNullable(instructions), hashCodeNullable(additionalInstructions), hashCodeNullable(additionalMessages), hashCodeNullable(tools), hashCodeNullable(metadata), hashCodeNullable(temperature), hashCodeNullable(topP), hashCodeNullable(stream), hashCodeNullable(maxPromptTokens), hashCodeNullable(maxCompletionTokens), truncationStrategy, toolChoice, parallelToolCalls, responseFormat);
+    return Objects.hash(assistantId, hashCodeNullable(model), hashCodeNullable(reasoningEffort), hashCodeNullable(instructions), hashCodeNullable(additionalInstructions), hashCodeNullable(additionalMessages), hashCodeNullable(tools), hashCodeNullable(metadata), hashCodeNullable(temperature), hashCodeNullable(topP), hashCodeNullable(stream), hashCodeNullable(maxPromptTokens), hashCodeNullable(maxCompletionTokens), truncationStrategy, toolChoice, parallelToolCalls, responseFormat);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -697,6 +751,7 @@ public class CreateRunRequest {
     sb.append("class CreateRunRequest {\n");
     sb.append("    assistantId: ").append(toIndentedString(assistantId)).append("\n");
     sb.append("    model: ").append(toIndentedString(model)).append("\n");
+    sb.append("    reasoningEffort: ").append(toIndentedString(reasoningEffort)).append("\n");
     sb.append("    instructions: ").append(toIndentedString(instructions)).append("\n");
     sb.append("    additionalInstructions: ").append(toIndentedString(additionalInstructions)).append("\n");
     sb.append("    additionalMessages: ").append(toIndentedString(additionalMessages)).append("\n");
@@ -773,6 +828,16 @@ public class CreateRunRequest {
       joiner.add(getModel().toUrlQueryString(prefix + "model" + suffix));
     }
 
+    // add `reasoning_effort` to the URL query string
+    if (getReasoningEffort() != null) {
+      try {
+        joiner.add(String.format("%sreasoning_effort%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getReasoningEffort()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
     // add `instructions` to the URL query string
     if (getInstructions() != null) {
       try {
@@ -815,11 +880,15 @@ public class CreateRunRequest {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

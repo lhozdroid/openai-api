@@ -35,10 +35,10 @@ import java.util.StringJoiner;
  */
 @JsonPropertyOrder({
   UsageCodeInterpreterSessionsResult.JSON_PROPERTY_OBJECT,
-  UsageCodeInterpreterSessionsResult.JSON_PROPERTY_SESSIONS,
+  UsageCodeInterpreterSessionsResult.JSON_PROPERTY_NUM_SESSIONS,
   UsageCodeInterpreterSessionsResult.JSON_PROPERTY_PROJECT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class UsageCodeInterpreterSessionsResult {
   /**
    * Gets or Sets _object
@@ -77,9 +77,9 @@ public class UsageCodeInterpreterSessionsResult {
   @javax.annotation.Nonnull
   private ObjectEnum _object;
 
-  public static final String JSON_PROPERTY_SESSIONS = "sessions";
-  @javax.annotation.Nonnull
-  private Integer sessions;
+  public static final String JSON_PROPERTY_NUM_SESSIONS = "num_sessions";
+  @javax.annotation.Nullable
+  private Integer numSessions;
 
   public static final String JSON_PROPERTY_PROJECT_ID = "project_id";
   @javax.annotation.Nullable
@@ -113,29 +113,29 @@ public class UsageCodeInterpreterSessionsResult {
     this._object = _object;
   }
 
-  public UsageCodeInterpreterSessionsResult sessions(@javax.annotation.Nonnull Integer sessions) {
+  public UsageCodeInterpreterSessionsResult numSessions(@javax.annotation.Nullable Integer numSessions) {
     
-    this.sessions = sessions;
+    this.numSessions = numSessions;
     return this;
   }
 
   /**
    * The number of code interpreter sessions.
-   * @return sessions
+   * @return numSessions
    */
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SESSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NUM_SESSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Integer getSessions() {
-    return sessions;
+  public Integer getNumSessions() {
+    return numSessions;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SESSIONS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSessions(@javax.annotation.Nonnull Integer sessions) {
-    this.sessions = sessions;
+  @JsonProperty(JSON_PROPERTY_NUM_SESSIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNumSessions(@javax.annotation.Nullable Integer numSessions) {
+    this.numSessions = numSessions;
   }
 
   public UsageCodeInterpreterSessionsResult projectId(@javax.annotation.Nullable String projectId) {
@@ -181,7 +181,7 @@ public class UsageCodeInterpreterSessionsResult {
     }
     UsageCodeInterpreterSessionsResult usageCodeInterpreterSessionsResult = (UsageCodeInterpreterSessionsResult) o;
     return Objects.equals(this._object, usageCodeInterpreterSessionsResult._object) &&
-        Objects.equals(this.sessions, usageCodeInterpreterSessionsResult.sessions) &&
+        Objects.equals(this.numSessions, usageCodeInterpreterSessionsResult.numSessions) &&
         equalsNullable(this.projectId, usageCodeInterpreterSessionsResult.projectId);
   }
 
@@ -191,7 +191,7 @@ public class UsageCodeInterpreterSessionsResult {
 
   @Override
   public int hashCode() {
-    return Objects.hash(_object, sessions, hashCodeNullable(projectId));
+    return Objects.hash(_object, numSessions, hashCodeNullable(projectId));
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -206,7 +206,7 @@ public class UsageCodeInterpreterSessionsResult {
     StringBuilder sb = new StringBuilder();
     sb.append("class UsageCodeInterpreterSessionsResult {\n");
     sb.append("    _object: ").append(toIndentedString(_object)).append("\n");
-    sb.append("    sessions: ").append(toIndentedString(sessions)).append("\n");
+    sb.append("    numSessions: ").append(toIndentedString(numSessions)).append("\n");
     sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -265,10 +265,10 @@ public class UsageCodeInterpreterSessionsResult {
       }
     }
 
-    // add `sessions` to the URL query string
-    if (getSessions() != null) {
+    // add `num_sessions` to the URL query string
+    if (getNumSessions() != null) {
       try {
-        joiner.add(String.format("%ssessions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSessions()), "UTF-8").replaceAll("\\+", "%20")));
+        joiner.add(String.format("%snum_sessions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNumSessions()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

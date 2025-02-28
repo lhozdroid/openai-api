@@ -27,7 +27,7 @@ import java.net.URLEncoder;
 import java.util.StringJoiner;
 
 /**
- * Sent by the server when in &#x60;server_vad&#x60; mode to indicate that speech has been  detected in the audio buffer. This can happen any time audio is added to the  buffer (unless speech is already detected). The client may want to use this  event to interrupt audio playback or provide visual feedback to the user.   The client should expect to receive a &#x60;input_audio_buffer.speech_stopped&#x60; event  when speech stops. The &#x60;item_id&#x60; property is the ID of the user message item  that will be created when speech stops and will also be included in the  &#x60;input_audio_buffer.speech_stopped&#x60; event (unless the client manually commits  the audio buffer during VAD activation). 
+ * Sent by the server when in &#x60;server_vad&#x60; mode to indicate that speech has been detected in the audio buffer. This can happen any time audio is added to the buffer (unless speech is already detected). The client may want to use this event to interrupt audio playback or provide visual feedback to the user.  The client should expect to receive a &#x60;input_audio_buffer.speech_stopped&#x60; event when speech stops. The &#x60;item_id&#x60; property is the ID of the user message item that will be created when speech stops and will also be included in the &#x60;input_audio_buffer.speech_stopped&#x60; event (unless the client manually commits the audio buffer during VAD activation). 
  */
 @JsonPropertyOrder({
   RealtimeServerEventInputAudioBufferSpeechStarted.JSON_PROPERTY_EVENT_ID,
@@ -35,7 +35,7 @@ import java.util.StringJoiner;
   RealtimeServerEventInputAudioBufferSpeechStarted.JSON_PROPERTY_AUDIO_START_MS,
   RealtimeServerEventInputAudioBufferSpeechStarted.JSON_PROPERTY_ITEM_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeServerEventInputAudioBufferSpeechStarted {
   public static final String JSON_PROPERTY_EVENT_ID = "event_id";
   @javax.annotation.Nonnull
@@ -146,7 +146,7 @@ public class RealtimeServerEventInputAudioBufferSpeechStarted {
   }
 
   /**
-   * Milliseconds from the start of all audio written to the buffer during the  session when speech was first detected. This will correspond to the  beginning of audio sent to the model, and thus includes the  &#x60;prefix_padding_ms&#x60; configured in the Session. 
+   * Milliseconds from the start of all audio written to the buffer during the session when speech was first detected. This will correspond to the beginning of audio sent to the model, and thus includes the &#x60;prefix_padding_ms&#x60; configured in the Session. 
    * @return audioStartMs
    */
   @javax.annotation.Nonnull

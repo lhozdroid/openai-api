@@ -34,7 +34,7 @@ import java.util.StringJoiner;
   ChatCompletionRequestMessageContentPartAudio.JSON_PROPERTY_TYPE,
   ChatCompletionRequestMessageContentPartAudio.JSON_PROPERTY_INPUT_AUDIO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class ChatCompletionRequestMessageContentPartAudio {
   /**
    * The type of the content part. Always &#x60;input_audio&#x60;.

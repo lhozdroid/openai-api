@@ -2,7 +2,7 @@
 
 # RealtimeClientEventInputAudioBufferClear
 
-Send this event to clear the audio bytes in the buffer. The server will  respond with an `input_audio_buffer.cleared` event. 
+Send this event to clear the audio bytes in the buffer. The server will respond with an `input_audio_buffer.cleared` event. 
 
 ## Properties
 

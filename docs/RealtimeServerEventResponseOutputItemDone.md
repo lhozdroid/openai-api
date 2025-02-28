@@ -2,7 +2,7 @@
 
 # RealtimeServerEventResponseOutputItemDone
 
-Returned when an Item is done streaming. Also emitted when a Response is  interrupted, incomplete, or cancelled. 
+Returned when an Item is done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled. 
 
 ## Properties
 

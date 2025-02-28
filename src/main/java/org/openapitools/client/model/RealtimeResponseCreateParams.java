@@ -23,8 +23,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import org.openapitools.client.model.RealtimeConversationItem;
+import java.util.Map;
+import org.openapitools.client.model.RealtimeConversationItemWithReference;
 import org.openapitools.client.model.RealtimeResponseCreateParamsConversation;
 import org.openapitools.client.model.RealtimeResponseCreateParamsMaxResponseOutputTokens;
 import org.openapitools.client.model.RealtimeResponseCreateParamsToolsInner;
@@ -54,7 +56,7 @@ import java.util.StringJoiner;
   RealtimeResponseCreateParams.JSON_PROPERTY_METADATA,
   RealtimeResponseCreateParams.JSON_PROPERTY_INPUT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-14T12:15:51.997600814-05:00[US/Eastern]", comments = "Generator version: 7.10.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-28T09:51:07.087747877-05:00[US/Eastern]", comments = "Generator version: 7.11.0")
 public class RealtimeResponseCreateParams {
   /**
    * Gets or Sets modalities
@@ -100,7 +102,7 @@ public class RealtimeResponseCreateParams {
   private String instructions;
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    */
   public enum VoiceEnum {
     ALLOY(String.valueOf("alloy")),
@@ -213,11 +215,11 @@ public class RealtimeResponseCreateParams {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable
-  private JsonNullable<Object> metadata = JsonNullable.<Object>undefined();
+  private JsonNullable<Map<String, String>> metadata = JsonNullable.<Map<String, String>>undefined();
 
   public static final String JSON_PROPERTY_INPUT = "input";
   @javax.annotation.Nullable
-  private List<RealtimeConversationItem> input = new ArrayList<>();
+  private List<RealtimeConversationItemWithReference> input = new ArrayList<>();
 
   public RealtimeResponseCreateParams() {
   }
@@ -262,7 +264,7 @@ public class RealtimeResponseCreateParams {
   }
 
   /**
-   * The default system instructions (i.e. system message) prepended to model  calls. This field allows the client to guide the model on desired  responses. The model can be instructed on response content and format,  (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good  responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion  into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed  to be followed by the model, but they provide guidance to the model on the  desired behavior.  Note that the server sets default instructions which will be used if this  field is not set and are visible in the &#x60;session.created&#x60; event at the  start of the session. 
+   * The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \&quot;be extremely succinct\&quot;, \&quot;act friendly\&quot;, \&quot;here are examples of good responses\&quot;) and on audio behavior (e.g. \&quot;talk quickly\&quot;, \&quot;inject emotion into your voice\&quot;, \&quot;laugh frequently\&quot;). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the &#x60;session.created&#x60; event at the start of the session. 
    * @return instructions
    */
   @javax.annotation.Nullable
@@ -287,7 +289,7 @@ public class RealtimeResponseCreateParams {
   }
 
   /**
-   * The voice the model uses to respond. Voice cannot be changed during the  session once the model has responded with audio at least once. Current  voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;,  &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
+   * The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are &#x60;alloy&#x60;, &#x60;ash&#x60;, &#x60;ballad&#x60;, &#x60;coral&#x60;, &#x60;echo&#x60; &#x60;sage&#x60;, &#x60;shimmer&#x60; and &#x60;verse&#x60;. 
    * @return voice
    */
   @javax.annotation.Nullable
@@ -370,7 +372,7 @@ public class RealtimeResponseCreateParams {
   }
 
   /**
-   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or  specify a function, like &#x60;{\&quot;type\&quot;: \&quot;function\&quot;, \&quot;function\&quot;: {\&quot;name\&quot;: \&quot;my_function\&quot;}}&#x60;. 
+   * How the model chooses tools. Options are &#x60;auto&#x60;, &#x60;none&#x60;, &#x60;required&#x60;, or specify a function, like &#x60;{\&quot;type\&quot;: \&quot;function\&quot;, \&quot;function\&quot;: {\&quot;name\&quot;: \&quot;my_function\&quot;}}&#x60;. 
    * @return toolChoice
    */
   @javax.annotation.Nullable
@@ -463,46 +465,58 @@ public class RealtimeResponseCreateParams {
     this.conversation = conversation;
   }
 
-  public RealtimeResponseCreateParams metadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public RealtimeResponseCreateParams metadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
     
     return this;
   }
 
+  public RealtimeResponseCreateParams putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null || !this.metadata.isPresent()) {
+      this.metadata = JsonNullable.<Map<String, String>>of(new HashMap<>());
+    }
+    try {
+      this.metadata.get().put(key, metadataItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
+    return this;
+  }
+
   /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long. 
+   * Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters. 
    * @return metadata
    */
   @javax.annotation.Nullable
   @JsonIgnore
 
-  public Object getMetadata() {
+  public Map<String, String> getMetadata() {
         return metadata.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getMetadata_JsonNullable() {
+  public JsonNullable<Map<String, String>> getMetadata_JsonNullable() {
     return metadata;
   }
   
   @JsonProperty(JSON_PROPERTY_METADATA)
-  public void setMetadata_JsonNullable(JsonNullable<Object> metadata) {
+  public void setMetadata_JsonNullable(JsonNullable<Map<String, String>> metadata) {
     this.metadata = metadata;
   }
 
-  public void setMetadata(@javax.annotation.Nullable Object metadata) {
-    this.metadata = JsonNullable.<Object>of(metadata);
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
+    this.metadata = JsonNullable.<Map<String, String>>of(metadata);
   }
 
-  public RealtimeResponseCreateParams input(@javax.annotation.Nullable List<RealtimeConversationItem> input) {
+  public RealtimeResponseCreateParams input(@javax.annotation.Nullable List<RealtimeConversationItemWithReference> input) {
     
     this.input = input;
     return this;
   }
 
-  public RealtimeResponseCreateParams addInputItem(RealtimeConversationItem inputItem) {
+  public RealtimeResponseCreateParams addInputItem(RealtimeConversationItemWithReference inputItem) {
     if (this.input == null) {
       this.input = new ArrayList<>();
     }
@@ -511,21 +525,21 @@ public class RealtimeResponseCreateParams {
   }
 
   /**
-   * Input items to include in the prompt for the model. Creates a new context for this response, without including the default conversation. Can include references to items from the default conversation. 
+   * Input items to include in the prompt for the model. Using this field creates a new context for this Response instead of using the default conversation. An empty array &#x60;[]&#x60; will clear the context for this Response. Note that this can include references to items from the default conversation. 
    * @return input
    */
   @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_INPUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<RealtimeConversationItem> getInput() {
+  public List<RealtimeConversationItemWithReference> getInput() {
     return input;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INPUT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInput(@javax.annotation.Nullable List<RealtimeConversationItem> input) {
+  public void setInput(@javax.annotation.Nullable List<RealtimeConversationItemWithReference> input) {
     this.input = input;
   }
 
@@ -715,11 +729,15 @@ public class RealtimeResponseCreateParams {
 
     // add `metadata` to the URL query string
     if (getMetadata() != null) {
-      try {
-        joiner.add(String.format("%smetadata%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadata()), "UTF-8").replaceAll("\\+", "%20")));
-      } catch (UnsupportedEncodingException e) {
-        // Should never happen, UTF-8 is always supported
-        throw new RuntimeException(e);
+      for (String _key : getMetadata().keySet()) {
+        try {
+          joiner.add(String.format("%smetadata%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+              getMetadata().get(_key), URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8").replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 
