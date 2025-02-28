@@ -7,6 +7,12 @@ OUTPUT_DIR="./"
 PACKAGE_NAME="com.openai.openapi"
 GENERATOR_CLI_JAR="openapi-generator-cli.jar"
 
+# Maven metadata
+GROUP_ID="com.openai"
+ARTIFACT_ID="openai-client"
+ARTIFACT_VERSION="1.0.0"
+PROJECT_NAME="OpenAI Java Client"
+
 # Function to check and download OpenAPI Generator CLI if not present
 download_generator_cli() {
     if [ -f "$GENERATOR_CLI_JAR" ]; then
@@ -42,7 +48,7 @@ generate_java_client() {
         -i "$OPENAPI_YAML_FILE" \
         -g java \
         -o "$OUTPUT_DIR" \
-        --package-name "$PACKAGE_NAME" \
+        --additional-properties=apiPackage="$PACKAGE_NAME",modelPackage="$PACKAGE_NAME.model",groupId="$GROUP_ID",artifactId="$ARTIFACT_ID",artifactVersion="$ARTIFACT_VERSION",projectName="$PROJECT_NAME" \
         --enable-post-process-file \
         --skip-validate-spec \
         --library apache-httpclient

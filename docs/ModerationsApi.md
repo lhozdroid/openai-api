@@ -18,12 +18,12 @@ Classifies if text and/or image inputs are potentially harmful. Learn more in th
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ModerationsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.ModerationsApi;
 
 public class Example {
     public static void main(String[] args) {

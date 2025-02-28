@@ -21,12 +21,12 @@ Adds a [Part](/docs/api-reference/uploads/part-object) to an [Upload](/docs/api-
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.UploadsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.UploadsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -92,12 +92,12 @@ Cancels the Upload. No Parts may be added after an Upload is cancelled.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.UploadsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.UploadsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -161,12 +161,12 @@ Completes the [Upload](/docs/api-reference/uploads/object).  Within the returned
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.UploadsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.UploadsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -232,12 +232,12 @@ Creates an intermediate [Upload](/docs/api-reference/uploads/object) object that
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.UploadsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.UploadsApi;
 
 public class Example {
     public static void main(String[] args) {

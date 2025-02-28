@@ -30,12 +30,12 @@ Cancel a vector store file batch. This attempts to cancel the processing of file
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -101,12 +101,12 @@ Create a vector store.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -170,12 +170,12 @@ Create a vector store file by attaching a [File](/docs/api-reference/files) to a
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -241,12 +241,12 @@ Create a vector store file batch.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -312,12 +312,12 @@ Delete a vector store.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -381,12 +381,12 @@ Delete a vector store file. This will remove the file from the vector store but 
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -452,12 +452,12 @@ Retrieves a vector store.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -521,12 +521,12 @@ Retrieves a vector store file.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -592,12 +592,12 @@ Retrieves a vector store file batch.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -663,12 +663,12 @@ Returns a list of vector store files in a batch.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -744,12 +744,12 @@ Returns a list of vector store files.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -823,12 +823,12 @@ Returns a list of vector stores.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -898,12 +898,12 @@ Modifies a vector store.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.VectorStoresApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.VectorStoresApi;
 
 public class Example {
     public static void main(String[] args) {

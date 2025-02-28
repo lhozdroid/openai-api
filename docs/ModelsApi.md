@@ -20,12 +20,12 @@ Delete a fine-tuned model. You must have the Owner role in your organization to 
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ModelsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.ModelsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -89,12 +89,12 @@ Lists the currently available models, and provides basic information about each 
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ModelsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.ModelsApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -154,12 +154,12 @@ Retrieves a model instance, providing basic information about the model such as 
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.ModelsApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.ModelsApi;
 
 public class Example {
     public static void main(String[] args) {

@@ -20,12 +20,12 @@ Generates audio from the input text.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.AudioApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.AudioApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -89,12 +89,12 @@ Transcribes audio into the input language.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.AudioApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.AudioApi;
 
 public class Example {
     public static void main(String[] args) {
@@ -170,12 +170,12 @@ Translates audio into English.
 
 ```java
 // Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.AudioApi;
+import com.openai.ApiClient;
+import com.openai.ApiException;
+import com.openai.Configuration;
+import com.openai.auth.*;
+import com.openai.models.*;
+import com.openai.openapi.AudioApi;
 
 public class Example {
     public static void main(String[] args) {

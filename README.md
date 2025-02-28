@@ -1,10 +1,10 @@
-# openapi-java-client
+# OpenAI Client
 
 OpenAI API
 
 - API version: 2.3.0
 
-- Build date: 2025-02-28T09:51:07.087747877-05:00[US/Eastern]
+- Build date: 2025-02-28T10:23:25.420936454-05:00[US/Eastern]
 
 - Generator version: 7.11.0
 
@@ -43,9 +43,9 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>org.openapitools</groupId>
-  <artifactId>openapi-java-client</artifactId>
-  <version>2.3.0</version>
+  <groupId>com.openai</groupId>
+  <artifactId>openai-client</artifactId>
+  <version>1.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.openapitools:openapi-java-client:2.3.0"
+compile "com.openai:openai-client:1.0.0"
 ```
 
 ### Others
@@ -68,7 +68,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/openapi-java-client-2.3.0.jar`
+- `target/openai-client-1.0.0.jar`
 - `target/lib/*.jar`
 
 ## Getting Started
@@ -77,10 +77,10 @@ Please follow the [installation](#installation) instruction and execute the foll
 
 ```java
 
-import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.AssistantsApi;
+import com.openai.*;
+import com.openai.auth.*;
+import com.openai.openapi.model.*;
+import com.openai.openapi.AssistantsApi;
 
 public class AssistantsApiExample {
 
